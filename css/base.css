@@ -1,0 +1,357 @@
+/*
+Color palette:
+#f8f5f0 - warm background that gives the flower shop a soft, natural look.
+#ffffff - clean background for content areas.
+#2f332b - dark neutral color for readable text.
+#727766 - muted green that connects the design with flowers and nature.
+#d8cfc3 - light neutral color for borders and separators.
+*/
+
+/* Universal selector matches every element and makes sizing predictable. */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f8f5f0;
+    color: #2f332b;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    background-color: #f8f5f0;
+    color: #2f332b;
+}
+
+/* Grouping selector gives all headings the same serif font family. */
+h1,
+h2,
+h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 3.5rem;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    font-size: 2.25rem;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+strong {
+    font-weight: 700;
+}
+
+small {
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+}
+
+a {
+    color: #2f332b;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #727766;
+    text-decoration: underline;
+}
+
+a:focus {
+    outline: 2px solid #727766;
+    outline-offset: 4px;
+}
+
+header {
+    padding: 1.5rem 4rem;
+    border-bottom: 1px solid #d8cfc3;
+    background-color: #ffffff;
+}
+
+/* Child selector matches only a paragraph that is a direct child of header. */
+header > p {
+    margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+/*
+Descendant selector matches the ul inside nav.
+Flexbox is used because navigation links form one horizontal row.
+*/
+nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* :first-child matches the first list item inside the navigation. */
+nav li:first-child {
+    margin-left: 0;
+}
+
+nav a {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/*
+Centering technique 1: margin auto centers the main content horizontally.
+A maximum width prevents text from becoming too wide on desktop screens.
+*/
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 0;
+}
+
+/*
+Adjacent vertical margins between block elements can collapse.
+Using controlled section spacing keeps the distance between sections predictable.
+*/
+section {
+    margin: 0 0 4rem;
+    padding: 1rem 0;
+}
+
+/* Adjacent sibling selector matches an hr immediately after a section. */
+section + hr {
+    margin-top: 0;
+}
+
+hr {
+    width: 100%;
+    margin: 3rem 0;
+    border: 0;
+    border-top: 1px solid #d8cfc3;
+}
+
+figure {
+    margin: 1.5rem 0;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+figure > img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+main ul,
+main ol {
+    padding-left: 1.5rem;
+}
+
+main li {
+    margin-bottom: 0.6rem;
+}
+
+table {
+    width: 100%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+caption {
+    margin-bottom: 1rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 1rem;
+    border: 1px solid #d8cfc3;
+    text-align: left;
+}
+
+th {
+    font-weight: 700;
+    background-color: #f8f5f0;
+}
+
+form {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+fieldset {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #d8cfc3;
+    background-color: #ffffff;
+}
+
+legend {
+    padding: 0 0.5rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+label {
+    font-weight: 600;
+}
+
+/* Attribute selectors match form inputs according to their type attribute. */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.75rem;
+    border: 1px solid #d8cfc3;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #2f332b;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid #727766;
+    outline-offset: 2px;
+}
+
+button {
+    padding: 0.8rem 1.5rem;
+    border: 1px solid #2f332b;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    background-color: #2f332b;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #727766;
+}
+
+aside {
+    margin: 3rem 0;
+    padding: 2rem;
+    border: 1px solid #d8cfc3;
+    background-color: #ffffff;
+}
+
+footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid #d8cfc3;
+    background-color: #2f332b;
+    color: white;
+    text-align: center;
+}
+
+footer p {
+    margin-bottom: 0.75rem;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: #d8cfc3;
+}
+
+/*
+Pseudo-element adds a decorative symbol before the shop name
+without requiring an extra HTML element.
+*/
+footer > p:first-child::before {
+    content: "✦ ";
+}
+
+.opening-hours {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.contact-note {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid #727766;
+    background-color: #ffffff;
+}
+
+.product-price {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.order-link {
+    display: inline-block;
+    padding: 0.7rem 1.25rem;
+    border: 1px solid #2f332b;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.order-link:hover {
+    background-color: #2f332b;
+    color: white;
+    text-decoration: none;
+}
