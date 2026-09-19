@@ -1,0 +1,322 @@
+﻿/* Gauhar Mukhametbay - styles for order.html and colophon.html */
+
+/*
+The order-form id is unique because there is only one main
+order form on the Order & Contact page.
+*/
+#order-form {
+    position: relative;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+/*
+The colophon-info id is unique because there is only one main
+project information section on the Colophon page.
+*/
+#colophon-info {
+    padding-top: 2rem;
+}
+
+.page-intro {
+    max-width: 750px;
+    margin: 0 auto 3rem;
+    text-align: center;
+}
+
+/*
+Flexbox is used because the contact cards form one row
+and need to grow, shrink and wrap when necessary.
+*/
+.contact-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2rem;
+    padding-left: 0;
+    list-style: none;
+}
+
+.contact-card {
+    flex: 1 1 300px;
+    padding: 2rem;
+    border: 1px solid #d8cfc3;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.contact-card h3 {
+    margin-bottom: 1rem;
+}
+
+/*
+Grid is better than flexbox for the order fields because
+the form needs aligned rows and columns in two dimensions.
+*/
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/*
+This item spans both columns because the message field
+needs more horizontal space than the smaller form controls.
+*/
+.form-wide {
+    grid-column: 1 / -1;
+}
+
+.form-field {
+    margin-bottom: 1rem;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-actions button {
+    min-width: 150px;
+}
+
+/*
+Centering technique: flexbox is appropriate here because
+the two form buttons need to be centered as one group.
+*/
+.form-actions {
+    justify-content: center;
+}
+
+/*
+position: relative makes this fieldset the containing block
+for the absolutely positioned label.
+*/
+.order-details {
+    position: relative;
+}
+
+/*
+position: absolute places the label inside the order details
+without moving the other form elements.
+*/
+.form-label {
+    position: absolute;
+    top: -0.8rem;
+    right: 1.5rem;
+    padding: 0.3rem 0.7rem;
+    background-color: rgb(114, 119, 102);
+    color: white;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/*
+Static positioning keeps this paragraph in the normal document flow.
+*/
+.order-note {
+    position: static;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border-left: 3px solid #727766;
+    background-color: #ffffff;
+}
+
+/*
+position: fixed keeps the contact shortcut visible while
+the visitor scrolls through the order form.
+*/
+.contact-shortcut {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 10;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #2f332b;
+    background-color: #2f332b;
+    color: white;
+    font-weight: 600;
+}
+
+.contact-shortcut:hover {
+    background-color: #727766;
+    color: white;
+    text-decoration: none;
+}
+
+/*
+Attribute selector matches required form controls.
+*/
+input[required],
+select[required],
+textarea[required] {
+    border-left: 3px solid #727766;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.choice-group {
+    margin: 1rem 0;
+}
+
+.choice-group label {
+    margin-right: 1.5rem;
+    font-weight: 400;
+}
+
+/*
+Adjacent sibling selector matches a paragraph immediately
+following an h2.
+*/
+.order-section h2 + p {
+    max-width: 700px;
+    line-height: 1.8;
+}
+
+/*
+Pseudo-element adds a decorative mark without adding
+an unnecessary HTML element.
+*/
+.order-section h2::after {
+    content: " ✦";
+    color: #727766;
+    font-size: 0.7em;
+}
+
+/*
+Grid is used for the Colophon project information because
+the information is divided into several equal content blocks.
+*/
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    padding: 2rem;
+    border: 1px solid #d8cfc3;
+    background-color: #ffffff;
+}
+
+/*
+The first project card spans two columns because it contains
+the main introduction to the project.
+*/
+.project-card:first-child {
+    grid-column: 1 / -1;
+}
+
+/*
+Centering technique: grid place-items centers the authors
+inside their section.
+*/
+.author-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+    place-items: center;
+    gap: 2rem;
+}
+
+.author-card {
+    width: 100%;
+    padding: 2rem;
+    border: 1px solid #d8cfc3;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+/*
+The image floats to the left so the project text can wrap around it.
+*/
+.project-photo {
+    float: left;
+    width: 280px;
+    margin: 0 2rem 1rem 0;
+}
+
+/*
+Without clear, the next section could continue beside the
+floated image instead of beginning below it.
+*/
+.clear-float {
+    clear: both;
+}
+
+/*
+Grouping selector gives the two main page sections
+consistent spacing.
+*/
+.order-section,
+.colophon-section {
+    margin-bottom: 4rem;
+}
+
+/*
+Child selector matches only list items that are direct
+children of the responsibilities list.
+*/
+.responsibilities > li {
+    margin-bottom: 0.7rem;
+}
+
+/*
+:nth-child selects the second project card according
+to its position among the other cards.
+*/
+.project-card:nth-child(2) {
+    border-top: 3px solid #727766;
+}
+
+/*
+Specificity: 0-1-0.
+This rule gives all project-card headings the muted green color.
+*/
+.project-heading {
+    color: #727766;
+}
+
+/*
+Specificity: 0-2-0.
+This rule wins because it contains two class selectors.
+The conflict is resolved without using !important.
+*/
+.project-card .project-heading {
+    color: #2f332b;
+}
+
+.project-meta {
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    color: rgba(47, 51, 43, 0.75);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.7rem 1.2rem;
+    border: 1px solid #2f332b;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    background-color: #2f332b;
+    color: white;
+    text-decoration: none;
+}

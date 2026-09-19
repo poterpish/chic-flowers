@@ -1,0 +1,448 @@
+﻿<!DOCTYPE html>
+
+<!-- Author: Alua Kurmanbay ,Gauhar Mukhametbay -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Order flowers from Chic Flowers in Astana and choose your preferred bouquet, date and collection method.">
+
+    <meta name="author" content=" Alua Kurmanbay, Gauhar Mukhametbay">
+
+    <title>Chic Flowers | Order &amp; Contact</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/gauhar.css">
+    
+</head>
+
+
+<body>
+
+    <!--
+        The same header and navigation are used on every page
+        to keep the website structure consistent.
+    -->
+    <header>
+
+        <p>
+            <strong>CHIC FLOWERS</strong>
+        </p>
+
+        <nav aria-label="Main navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="order.html">Order &amp; Contact</a></li>
+                <li><a href="colophon.html">Colophon</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- ORDER INTRODUCTION -->
+
+        <section>
+
+            <h1>Order Flowers</h1>
+
+            <p>
+                Choose your flowers and tell us about the occasion.
+                Complete the form below with your contact details,
+                preferred arrangement and collection date.
+            </p>
+
+            <p>
+                Our florist can use your preferences to help prepare
+                an arrangement for a birthday, anniversary, celebration
+                or another special moment.
+            </p>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- ORDER PROCESS -->
+
+        <section>
+
+            <h2>How to Order</h2>
+
+            <ol>
+                <li>Choose your preferred bouquet or flower category.</li>
+                <li>Complete the order form with your contact details.</li>
+                <li>Select the date and your preferred way to receive the order.</li>
+                <li>Confirm the details of your order with the florist.</li>
+            </ol>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- ORDER FORM -->
+
+        <section>
+
+            <h2>Order Form</h2>
+
+            <p>
+                Fill in the form below to provide the details
+                needed for your flower order.
+            </p>
+
+
+            <!--
+                This form does not send or process data yet because
+                server-side form handling will be added later in the course.
+            -->
+            <form action="#" method="post">
+
+
+                <!-- CUSTOMER INFORMATION -->
+
+                <fieldset>
+
+                    <legend>Contact Information</legend>
+
+
+                    <p>
+                        <label for="full-name">Full Name</label><br>
+
+                        <input
+                            type="text"
+                            id="full-name"
+                            name="full-name"
+                            placeholder="Enter your full name"
+                            required
+                        >
+                    </p>
+
+
+                    <p>
+                        <label for="email">Email Address</label><br>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="name@example.com"
+                            required
+                        >
+                    </p>
+
+
+                    <p>
+                        <label for="phone">Phone Number</label><br>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="+7 700 000 0000"
+                            required
+                        >
+                    </p>
+
+                </fieldset>
+
+
+                <!-- BOUQUET INFORMATION -->
+
+                <fieldset>
+
+                    <legend>Bouquet Details</legend>
+
+
+                    <p>
+                        <label for="bouquet-type">Bouquet Type</label><br>
+
+                        <select
+                            id="bouquet-type"
+                            name="bouquet-type"
+                            required
+                        >
+                            <option value="">Choose a category</option>
+                            <option value="premium">Premium Bouquet</option>
+                            <option value="mono">Mono Bouquet</option>
+                            <option value="flower-box">Flower Box</option>
+                        </select>
+                    </p>
+
+
+                    <p>
+                        <label for="quantity">Quantity</label><br>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            min="1"
+                            max="20"
+                            value="1"
+                            required
+                        >
+                    </p>
+
+
+                    <p>
+                        <label for="order-date">Preferred Date</label><br>
+
+                        <input
+                            type="date"
+                            id="order-date"
+                            name="order-date"
+                            required
+                        >
+                    </p>
+
+
+                    <p>
+                        <label for="message">
+                            Tell Us About Your Order
+                        </label><br>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="6"
+                            cols="40"
+                            placeholder="Tell us about the occasion, preferred flowers, colors or other wishes."
+                        ></textarea>
+                    </p>
+
+                </fieldset>
+
+
+                <!-- COLLECTION METHOD -->
+
+                <fieldset>
+
+                    <legend>How Would You Like to Receive Your Order?</legend>
+
+                    <p>
+                        <input
+                            type="radio"
+                            id="pickup"
+                            name="receiving-method"
+                            value="pickup"
+                            required
+                        >
+
+                        <label for="pickup">
+                            Pick up from the shop
+                        </label>
+                    </p>
+
+
+                    <p>
+                        <input
+                            type="radio"
+                            id="delivery"
+                            name="receiving-method"
+                            value="delivery"
+                        >
+
+                        <label for="delivery">
+                            Delivery
+                        </label>
+                    </p>
+
+                </fieldset>
+
+
+                <!-- ADDITIONAL OPTIONS -->
+
+                <fieldset>
+
+                    <legend>Additional Options</legend>
+
+                    <p>
+                        <input
+                            type="checkbox"
+                            id="card"
+                            name="card"
+                            value="yes"
+                        >
+
+                        <label for="card">
+                            Add a greeting card to the order
+                        </label>
+                    </p>
+
+
+                    <p>
+                        <input
+                            type="checkbox"
+                            id="contact-permission"
+                            name="contact-permission"
+                            value="yes"
+                            required
+                        >
+
+                        <label for="contact-permission">
+                            I agree to be contacted about this order
+                        </label>
+                    </p>
+
+                </fieldset>
+                
+
+                <p>
+                    <button type="submit">Submit Order</button>
+
+                    <button type="reset">Reset Form</button>
+                </p>
+
+            </form>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- SHOP LOCATIONS -->
+
+        <section id="contact">
+
+            <h2>Visit Us</h2>
+
+            <p>
+                Chic Flowers has two locations in Astana.
+                Both locations are open around the clock.
+            </p>
+
+
+            <h3>Imanova Location</h3>
+
+            <p>
+                <strong>Address:</strong><br>
+                Imanova 10a
+            </p>
+
+
+            <h3>Bukhar Zhyrau Location</h3>
+
+            <p>
+                <strong>Address:</strong><br>
+                Bukhar Zhyrau 28
+            </p>
+
+
+            <p>
+                <strong>Opening Hours:</strong><br>
+                Open 24 hours a day, 7 days a week.
+            </p>
+
+
+            <p>
+                <strong>Phone:</strong><br>
+
+                <a href="tel:+77058885622">
+                    +7 705 888 5622
+                </a>
+            </p>
+
+
+            <p>
+                <a
+                    href="https://www.instagram.com/chicflowers.kz/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Visit Chic Flowers on Instagram
+                </a>
+            </p>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- PRACTICAL INFORMATION -->
+
+        <aside>
+
+            <h2>Before You Order</h2>
+
+            <p>
+                Flower availability may change depending on the season.
+                Contact Chic Flowers to confirm the final composition,
+                availability and order details.
+            </p>
+
+        </aside>
+
+    </main>
+
+
+    <!-- SITE FOOTER -->
+
+    <footer>
+
+        <p>
+            <strong>CHIC FLOWERS</strong>
+        </p>
+
+        <p>
+            Imanova 10a<br>
+            Bukhar Zhyrau 28
+        </p>
+
+        <p>
+            Open 24 hours a day, 7 days a week.
+        </p>
+
+        <p>
+            <a href="tel:+77058885622">
+                +7 705 888 5622
+            </a>
+        </p>
+
+        <p>
+            <a
+                href="https://www.instagram.com/chicflowers.kz/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Instagram
+            </a>
+        </p>
+
+
+        <nav aria-label="Footer navigation">
+
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html">Catalog</a></li>
+                <li><a href="order.html">Order &amp; Contact</a></li>
+                <li><a href="colophon.html">Colophon</a></li>
+            </ul>
+
+        </nav>
+
+
+        <p>
+            <small>
+                &copy; 2026 Chic Flowers. All rights reserved.
+            </small>
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
