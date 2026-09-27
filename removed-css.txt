@@ -12,3 +12,17 @@ Removed/replaced from Assignment 2:
 - Old fixed/absolute/float demonstrations from Assignment 2 -> removed because Assignment 3 requires Bootstrap to handle layout.
 
 Remaining custom CSS only keeps the Chic Flowers colours, font choices, image cropping and a small brand accent.
+
+Gauhar Mukhametbay — Order page CSS cleanup
+
+Removed/replaced from Assignment 2:
+- Custom form grid -> Bootstrap row, g-3, col-12 and col-md-6.
+- Custom contact flexbox -> Bootstrap row, g-4 and responsive columns.
+- Custom form spacing -> Bootstrap mb-3, py-* and gap-* utilities.
+- Custom form controls -> Bootstrap form-control, form-select and form-check.
+- Custom button styling -> Bootstrap btn, btn-dark and btn-outline-secondary.
+- Custom contact card layout -> Bootstrap card, card-body and h-100.
+- Custom responsive layout -> Bootstrap responsive grid classes and breakpoints.
+- Custom fixed/absolute positioning used for Assignment 2 demonstrations -> removed.
+
+Remaining custom CSS only keeps small visual details for the Order & Contact page.
