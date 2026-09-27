@@ -1,534 +1,183 @@
 ﻿<!DOCTYPE html>
-
 <!-- Author: Alua Kurmanbay, Gauhar Mukhametbay -->
-
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-          content="Write a short description of the real flower shop here.">
-
-    <meta name="Alua Kurmanbay, Gauhar Mukhametbay" content="Chic Flowers">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/alua.css">
+    <meta name="description" content="Chic Flowers in Astana: bouquets, flower boxes and floral arrangements.">
+    <meta name="author" content="Alua Kurmanbay, Gauhar Mukhametbay">
     <title>Chic Flowers | Home</title>
+
+    <!-- Bootstrap 5.3.3 is used for layout, utilities, navigation and components. -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/alua.css">
 </head>
-
 <body>
-
-    <!--
-        The same header is used across all pages so visitors can
-        easily recognize the shop and navigate through the website.
-    -->
-    <header>
-
-        <p>
-            <strong>Chic Flowers</strong>
-        </p>
-
-        <nav aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="catalog.html">Catalog</a></li>
-                <li><a href="order.html">Order &amp; Contact</a></li>
-                <li><a href="colophon.html">Colophon</a></li>
-            </ul>
-        </nav>
-
-    </header>
-
-
-    <main>
-
-        <section id="home">
-
-            <h1>Chic Flowers</h1>
-
-            <p>
-                Flowers that make every moment feel special.
-            </p>
-
-            <p>
-                Thoughtfully arranged bouquets and floral compositions,
-                created with fresh flowers for the people and moments that matter
-            </p>
-
-            <!--
-                This image is placed in the opening section because it will
-                become the main visual focus when CSS is added later.
-            -->
-            <figure>
-
-                <img
-                    src="img/IMG_7379.PNG"
-                    alt="A floral arrangement created by Chic Flowers"
-                    width="600"
-                >
-
-                <figcaption>
-                    A signature floral arrangement created by our florist.
-                </figcaption>
-
-            </figure>
-
-            <p>
-                <a href="catalog.html">Explore the collection</a>
-            </p>
-
-            <p>
-                <a href="#categories">View popular categories</a>
-            </p>
-
-        </section>
-
-
-        <hr>
-
-
-        <!-- POPULAR CATEGORIES -->
-
-        <section id="categories">
-
-            <h2>Popular Categories</h2>
-
-            <p>
-                Discover flowers for every occasion, from elegant mono bouquets
-                to signature arrangements and carefully designed flower boxes.
-                Each composition is created to make your gift feel personal and memorable.
-            </p>
-
-
-            <article>
-
-            <h3>Premium Bouquets</h3>
-
-            <p>
-                Our premium bouquets combine carefully selected flowers with elegant
-                design and thoughtful details. Each arrangement is created for
-                meaningful celebrations, memorable gifts and special occasions.
-            </p>
-
-            <figure>
-                <img
-                    src="/img/IMG_7380.PNG"
-                    alt="Premium bouquet arranged with hydrangeas"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Hydrangea Cloud</strong><br>
-                    35 000 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-
-            <figure>
-                <img
-                    src="/img/IMG_7381.PNG"
-                    alt="Delicate floral arrangement presented in a velvet box"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Velvet Whisper</strong><br>
-                    40 000 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-
-            <figure>
-                <img
-                    src="/img/IMG_7382.PNG"
-                    alt="Exclusive premium floral composition"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>The Signature</strong><br>
-                    55 000 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-        </article>
-
-
-            <article>
-
-            <h3>Mono Bouquets</h3>
-
-            <p>
-                Our mono bouquets celebrate the beauty of a single type of flower.
-                Simple, elegant and timeless, each bouquet is carefully arranged
-                to create a thoughtful gift for any occasion.
-            </p>
-
-
-            <figure>
-                <img
-                    src="img/IMG_7385.PNG"
-                    alt="Mono bouquet of fresh roses"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Rose Elegance</strong><br>
-                    69 500 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-
-            <figure>
-                <img
-                    src="img/IMG_7386.PNG"
-                    alt="Mono bouquet of fresh momoko"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Momoko Dream</strong><br>
-                    63 500 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-
-            <figure>
-                <img
-                    src="img/IMG_7387.PNG"
-                    alt="Mono bouquet of fresh peony-roses"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Peony-roses Cloud</strong><br>
-                    105 000 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-        </article>
-
-
-            <article>
-
-            <h3>Flower Boxes</h3>
-
-            <p>
-                Our flower boxes combine fresh flowers with elegant presentation
-                in a carefully designed arrangement. Beautiful and convenient,
-                they make a thoughtful choice for birthdays, celebrations
-                and memorable surprises.
-            </p>
-
-
-            <figure>
-                <img
-                    src="img/IMG_7388.PNG"
-                    alt="Elegant flower box arrangement with fresh flowers"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Velvet Mix</strong><br>
-                    25 500 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-
-            <figure>
-                <img
-                    src="img/IMG_7389.PNG"
-                    alt="Delicate flower box arrangement in soft pink tones"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Blush Box</strong><br>
-                    25 000 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-
-            <figure>
-                <img
-                    src="img/IMG_7390.PNG"
-                    alt="Luxury flower box arrangement with mixed fresh flowers"
-                    width="400"
-                >
-
-                <figcaption>
-                    <strong>Royal Bloom</strong><br>
-                    48 500 ₸
-                </figcaption>
-
-                <p>
-                    <a href="order.html">Order Now</a>
-                </p>
-            </figure>
-
-        </article>
-
-
-            <p>
-                <a href="catalog.html">View the full catalog</a>
-            </p>
-
-        </section>
-
-
-        <hr>
-
-
-        <!-- SHOP FEATURES -->
-
-        <section>
-
-            <h2>Why Customers Choose Us</h2>
-
-            <p>
-                Every bouquet is created with care, attention to detail
-                and a focus on making each order feel personal and special.
-            </p>
-
-            <ul>
-
-                <li>
-                    <strong>Fresh Flowers.</strong>
-                    We carefully select fresh flowers to create beautiful
-                    arrangements that look vibrant and elegant.
-                </li>
-
-                <li>
-                    <strong>Personal Approach.</strong>
-                    Each arrangement can be created with the occasion,
-                    preferred flowers and customer's wishes in mind.
-                </li>
-
-                <li>
-                    <strong>Thoughtful Details.</strong>
-                    From the choice of flowers to the final presentation,
-                    attention is given to every detail.
-
-                    <ul>
-                        <li>Carefully selected flowers and color combinations.</li>
-                        <li>Elegant wrapping and presentation for every arrangement.</li>
-                    </ul>
-                </li>
-
-            </ul>
-
-        </section>
-
-
-        <hr>
-
-
-        <!-- ABOUT THE SHOP -->
-
-        <section id="about">
-
-            <h2>The Art of Flowers</h2>
-
-            <p>
-                We believe flowers are a beautiful way to express emotions.
-                Every arrangement is thoughtfully created with attention
-                to color, balance and detail.
-            </p>
-
-            <p>
-                <strong>Fresh flowers and thoughtful design</strong>
-                make every bouquet <em>part of a moment worth remembering.</em>
-            </p>
-
-        </section>
-
-
-        <hr>
-
-
-        <!-- ORDER PROCESS -->
-
-        <section>
-
-            <h2>How to Order</h2>
-
-            <p>
-                Ordering flowers is simple. Choose your favorite arrangement
-                and tell us when and how you would like to receive it.
-            </p>
-
-            <ol>
-                <li>Choose a bouquet or floral arrangement.</li>
-                <li>Fill in the order form with your details.</li>
-                <li>Select your preferred date and delivery option.</li>
-                <li>Confirm your order with our florist.</li>
-            </ol>
-
-            <p>
-                <a href="order.html">Place an Order</a>
-            </p>
-
-        </section>
-
-
-        <hr>
-
-
-        <!-- CONTACT INFORMATION -->
-
-        <section id="contact">
-
-            <h2>Visit Us</h2>
-
-            <p>
-                <strong>Address:</strong>
-                Imanova 10a <br>
-                Bukhar Zhyrau 28
-            </p>
-
-            <p>
-                <strong>Opening hours:</strong>
-                Around the clock 24/7
-            </p>
-
-            <p>
-                <strong>Phone:</strong>
-                <a href="tel:+77058885622">
-                    +7 705 888 5622
-                </a>
-            </p>
-
-            <p>
-                <a
-                    href="https://www.instagram.com/chicflowers.kz/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Visit the shop's instagram page
-                </a>
-            </p>
-
-            <p>
-                <a href="order.html">
-                    Order and Contact Information
-                </a>
-            </p>
-
-        </section>
-
-
-                <!--
-            A div is used here because this is a small practical note
-            that does not require a separate semantic section.
-        -->
-        <div class="contact-note">
-            <p>
-                Chic Flowers is open 24/7, so you can order
-                or pick up flowers at any time of the day.
-            </p>
+<header>
+    <nav class="navbar navbar-expand-md bg-white border-bottom shadow-sm" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="index.html">CHIC FLOWERS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                    aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-md-center gap-md-2">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="order.html">Order &amp; Contact</a></li>
+                    <li class="nav-item ms-md-2">
+                        <button class="btn btn-outline-dark btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Sign in</button>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
+</header>
 
+<main>
+    <!-- container is used here because the hero should have readable margins on desktop. -->
+    <section class="container py-5">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-lg-5 text-center text-lg-start">
+                <p class="text-uppercase small text-secondary mb-2">Astana flower shop</p>
+                <h1 class="display-3 fw-semibold">Chic Flowers</h1>
+                <p class="lead">Flowers that make every moment feel special.</p>
+                <p class="text-secondary">Thoughtfully arranged bouquets and floral compositions created with fresh flowers for the people and moments that matter.</p>
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-2">
+                    <a class="btn btn-dark btn-lg" href="catalog.html">Explore collection</a>
+                    <a class="btn btn-outline-secondary" href="order.html">Order flowers</a>
+                </div>
+            </div>
+            <div class="col-12 col-lg-7">
+                <img class="img-fluid rounded shadow hero-photo w-100" src="img/IMG_7379.PNG" alt="Flower arrangements displayed at Chic Flowers">
+            </div>
+        </div>
+    </section>
 
-        <p>
-            Visit us at one of our locations in Astana and choose
-            <span>flowers for every special moment</span>.
-            <!--
-                A span is used because this phrase may need separate
-                visual styling later without creating a new semantic block.
-            -->
-        </p>
+    <section class="container py-5" id="categories">
+        <div class="text-center mb-4">
+            <h2 class="display-6 section-title">Popular Categories</h2>
+            <p class="lead text-secondary">Choose a style for a special moment.</p>
+        </div>
+        <!-- Responsive block 1: 1 column on phone, 2 on tablet, 3 on desktop. -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card">
+                    <img src="img/IMG_7380.PNG" class="card-img-top" alt="Hydrangea bouquet">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 card-title">Premium Bouquets</h3>
+                        <p class="card-text text-secondary">Elegant compositions for celebrations and memorable gifts.</p>
+                        <a class="btn btn-dark mt-auto" href="catalog.html#premium">View premium</a>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card">
+                    <img src="img/IMG_7385.PNG" class="card-img-top" alt="Large rose bouquet">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 card-title">Mono Bouquets</h3>
+                        <p class="card-text text-secondary">One flower variety arranged in a simple and timeless style.</p>
+                        <a class="btn btn-outline-dark mt-auto" href="catalog.html#mono">View mono</a>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card">
+                    <img src="img/IMG_7388.PNG" class="card-img-top" alt="Flower arrangement in a box">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h4 card-title">Flower Boxes</h3>
+                        <p class="card-text text-secondary">Fresh flowers presented in elegant boxes for easy gifting.</p>
+                        <a class="btn btn-dark mt-auto" href="catalog.html#boxes">View boxes</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <!-- container-fluid is used because this information band should stretch across the full viewport. -->
+    <section class="container-fluid bg-white border-top border-bottom py-5">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-12 col-md-5 text-center text-md-start">
+                    <h2 class="h1">Why customers choose us</h2>
+                    <p class="lead mb-0">Fresh flowers, personal attention and thoughtful presentation.</p>
+                </div>
+                <div class="col-12 col-md-7">
+                    <!-- Nested row demonstrates a Bootstrap row inside a column. -->
+                    <div class="row g-3 text-center">
+                        <div class="col-12 col-sm-4"><div class="p-3 border rounded h-100"><strong>Fresh</strong><br><small class="text-secondary">Carefully selected flowers</small></div></div>
+                        <div class="col-12 col-sm-4"><div class="p-3 border rounded h-100"><strong>Personal</strong><br><small class="text-secondary">Made for your occasion</small></div></div>
+                        <div class="col-12 col-sm-4"><div class="p-3 border rounded h-100"><strong>24/7</strong><br><small class="text-secondary">Open around the clock</small></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="container py-5">
+        <div class="row g-4 align-items-center">
+            <div class="col-12 col-md-7">
+                <h2 class="display-6">The Art of Flowers</h2>
+                <p class="lead">We believe flowers are a beautiful way to express emotions.</p>
+                <p class="text-secondary mb-0">Every arrangement is thoughtfully created with attention to colour, balance and detail.</p>
+            </div>
+            <div class="col-12 col-md-5">
+                <div class="brand-note bg-white p-4 shadow-sm">
+                    <h3 class="h5">Visit us</h3>
+                    <p class="mb-1">Imanova 10a</p>
+                    <p class="mb-1">Bukhar Zhyrau 28</p>
+                    <p class="small text-secondary mb-3">Open 24 hours a day, 7 days a week.</p>
+                    <a class="btn btn-secondary btn-sm" href="tel:+77058885622">Call us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 
-    <!-- SITE FOOTER -->
-
-    <footer>
-
-        <p>
-            <strong>CHIC FLOWERS</strong>
-        </p>
-
-        <p>
-            Imanova 10a<br>
-            Bukhar Zhyrau 28
-        </p>
-
-        <p>
-            Open 24 hours a day, 7 days a week.
-        </p>
-
-        <p>
-            <a href="tel:+77058885622">
-                +7 705 888 5622
-            </a>
-        </p>
-
-        <p>
-            <a
-                href="https://www.instagram.com/chicflowers.kz/"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Instagram
-            </a>
-        </p>
-
-
-        <nav aria-label="Footer navigation">
-
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="catalog.html">Catalog</a></li>
-                <li><a href="order.html">Order &amp; Contact</a></li>
-                <li><a href="colophon.html">Colophon</a></li>
-            </ul>
-
+<footer class="text-white py-4 mt-4">
+    <div class="container text-center">
+        <p class="h5 mb-2">CHIC FLOWERS</p>
+        <p class="small mb-3">Imanova 10a · Bukhar Zhyrau 28 · +7 705 888 5622</p>
+        <!-- Colophon was removed from the main navigation and kept in the footer. -->
+        <nav aria-label="Footer navigation" class="mb-3">
+            <a class="mx-2" href="index.html">Home</a>
+            <a class="mx-2" href="catalog.html">Catalog</a>
+            <a class="mx-2" href="order.html">Order &amp; Contact</a>
+            <a class="mx-2" href="colophon.html">Colophon</a>
         </nav>
+        <p class="small mb-0">&copy; 2026 Chic Flowers. All rights reserved.</p>
+    </div>
+</footer>
 
+<!-- Bootstrap Modal component adapted as a simple sign-in form for the flower shop. -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="loginTitle">Sign in</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <div class="mb-3">
+                        <label class="form-label" for="loginEmail">Email</label>
+                        <input class="form-control" type="email" id="loginEmail" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="loginPassword">Password</label>
+                        <input class="form-control" type="password" id="loginPassword" name="password" required>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-dark" type="submit">Sign in</button>
+                        <button class="btn btn-outline-secondary" type="button" disabled>Register soon</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-        <p>
-            <small>
-                &copy; 2026 Chic Flowers. All rights reserved.
-            </small>
-        </p>
-
-    </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

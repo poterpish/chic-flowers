@@ -1,325 +1,59 @@
-/* Alua Kurmanbay - styles for index.html and catalog.html */
+/* Alua Kurmanbay - small correction layer for Assignment 3.
+   Bootstrap handles layout, spacing, buttons and responsive behaviour. */
 
-/*
-The hero id is unique because there is only one main introductory
-section on the home page.
-*/
-#home {
-    min-height: 650px;
-    padding: 5rem 2rem;
-    text-align: center;
+:root {
+    --chic-cream: #f8f5f0;
+    --chic-dark: #2f332b;
+    --chic-green: #727766;
+    --chic-border: #d8cfc3;
 }
 
-/*
-position: relative makes the hero the containing block
-for the absolutely positioned label inside it.
-*/
-#home {
-    position: relative;
+body {
+    background-color: var(--chic-cream);
+    color: var(--chic-dark);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/*
-This id is unique because there is only one category collection
-on the home page.
-*/
-#categories {
-    padding-top: 3rem;
+h1, h2, h3, .navbar-brand {
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-
-/*
-The hero image has a controlled size while keeping its proportions.
-*/
-.hero-image {
-    width: 520px;
-    max-width: 100%;
-    margin: 2rem auto;
-}
-
-
-/*
-Centering technique 2: flexbox.
-The hero actions are centered because they form a small horizontal group.
-*/
-.hero-actions {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
-
-
-/*
-position: absolute is useful for placing this label inside
-the relatively positioned hero without changing document flow.
-*/
-.hero-label {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    padding: 0.4rem 0.8rem;
-    background-color: rgb(114, 119, 102);
-    color: white;
-    font-size: 0.75rem;
+.navbar-brand {
     letter-spacing: 0.08em;
-    text-transform: uppercase;
 }
 
-
-/*
-Static positioning keeps this text in the normal document flow.
-It is written explicitly here to demonstrate position: static.
-*/
-.category-intro {
-    position: static;
-    max-width: 700px;
-    margin: 0 auto 2.5rem;
-    text-align: center;
-}
-
-
-/*
-Flexbox is suitable for the feature list because the items form
-a flexible row and can grow, shrink and wrap when necessary.
-*/
-.feature-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    padding-left: 0;
-    list-style: none;
-}
-
-.feature-list > li {
-    flex: 1 1 250px;
-    padding: 1.5rem;
-    border: 1px solid #d8cfc3;
-    background-color: #ffffff;
-}
-
-
-/*
-Grid suits the product collection better than flexbox because
-the cards need consistent rows and columns in two dimensions.
-*/
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(220px, 1fr));
-    gap: 2rem;
-}
-
-
-/*
-The featured card spans two columns to create hierarchy
-inside the product grid.
-*/
-.product-card.featured-product {
-    grid-column: span 2;
-}
-
-
-.product-card {
-    position: relative;
-    padding: 1.25rem;
-    border: 1px solid #d8cfc3;
-    background-color: #ffffff;
-}
-
-
-.product-card figure {
-    margin: 0;
-}
-
-
-.product-card img {
-    width: 100%;
-    height: 420px;
+.hero-photo {
+    max-height: 620px;
     object-fit: cover;
 }
 
-
-.product-card figcaption {
-    padding-top: 1rem;
+.product-card img {
+    height: 360px;
+    object-fit: cover;
 }
 
-
-.product-price {
-    display: block;
-    margin-top: 0.4rem;
-    font-size: 1.1rem;
-    font-weight: 600;
+.section-title {
+    color: var(--chic-dark);
 }
 
-
-/*
-Specificity: 0-1-0.
-This rule targets every element with the product-price class.
-*/
-.product-price {
-    color: #727766;
+.brand-note {
+    border-left: 4px solid var(--chic-green);
 }
 
-
-/*
-Specificity: 0-2-0.
-This rule wins because it contains two class selectors.
-The conflict is resolved through higher specificity, not !important.
-*/
-.product-card .product-price {
-    color: #2f332b;
+footer {
+    background-color: var(--chic-dark);
 }
 
-
-.order-link {
-    display: inline-block;
-    margin-top: 0.75rem;
-    padding: 0.7rem 1.2rem;
-    border: 1px solid #2f332b;
-    background-color: #ffffff;
-    color: #2f332b;
-}
-
-
-.order-link:hover {
-    background-color: #2f332b;
+footer a {
     color: white;
-    text-decoration: none;
 }
 
-
-/*
-Centering technique 3: grid.
-Grid place-items centers the catalog introduction content
-both horizontally and within its grid area.
-*/
-.catalog-intro {
-    display: grid;
-    place-items: center;
-    min-height: 300px;
-    text-align: center;
+footer a:hover {
+    color: var(--chic-border);
 }
 
-
-/*
-The first product receives a small visual distinction.
-:nth-child is useful because it selects an item according
-to its position among its siblings.
-*/
-.product-grid > .product-card:nth-child(1) {
-    border-width: 2px;
-}
-
-
-/*
-The attribute selector matches links whose href points
-to the order page.
-*/
-a[href="order.html"].order-link {
-    font-weight: 700;
-}
-
-
-/*
-::after adds a small arrow to order links without requiring
-extra HTML content.
-*/
-.order-link::after {
-    content: " →";
-}
-
-
-/*
-The card is the containing block for the badge because
-it uses position: relative.
-*/
-.product-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.4rem 0.7rem;
-    background-color: rgba(47, 51, 43, 0.85);
-    color: white;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-}
-
-
-/*
-position: fixed keeps this link visible while the page scrolls.
-It gives customers quick access to the order page.
-*/
-.quick-order {
-    position: fixed;
-    right: 2rem;
-    bottom: 2rem;
-    z-index: 10;
-    padding: 0.8rem 1.2rem;
-    border: 1px solid #2f332b;
-    background-color: #2f332b;
-    color: white;
-    font-weight: 600;
-}
-
-
-.quick-order:hover {
-    background-color: #727766;
-    color: white;
-    text-decoration: none;
-}
-
-
-/*
-The image is floated so the following paragraph can wrap around it.
-*/
-.story-image {
-    float: left;
-    width: 280px;
-    margin: 0 2rem 1rem 0;
-}
-
-
-/*
-Without clear, the following content could continue beside the
-floated image instead of starting below it.
-*/
-.clear-float {
-    clear: both;
-}
-
-
-/*
-A table row receives subtle emphasis on hover so it is easier
-to follow information across the columns.
-*/
-.catalog-table tbody tr:hover {
-    background-color: #f8f5f0;
-}
-
-
-.catalog-table th,
-.catalog-table td {
-    padding: 1rem 1.25rem;
-}
-
-
-/*
-Adjacent sibling selector matches a paragraph immediately
-following an h2 inside the catalog.
-*/
-.catalog-section h2 + p {
-    max-width: 700px;
-    line-height: 1.8;
-}
-
-
-/*
-Grouping selector applies the same spacing to these two
-meaningful page components.
-*/
-.catalog-section,
-.feature-section {
-    margin-bottom: 4rem;
+@media (max-width: 575.98px) {
+    .product-card img {
+        height: 300px;
+    }
 }

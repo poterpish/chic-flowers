@@ -1,0 +1,14 @@
+Alua Kurmanbay — Assignment 3 CSS cleanup
+
+Removed/replaced from Assignment 2:
+- Custom navigation flexbox -> Bootstrap navbar, navbar-expand-md, navbar-nav, ms-auto, gap-md-2.
+- Custom product grid -> Bootstrap row, row-cols-1, row-cols-md-2, row-cols-lg-3 and g-4.
+- Custom hero flex/grid layout -> Bootstrap row, col-12, col-lg-5, col-lg-7 and align-items-center.
+- Most custom margins and padding -> Bootstrap py-*, mb-*, mt-*, p-* and gap-* utilities.
+- Custom button styling -> Bootstrap btn, btn-dark, btn-outline-dark, btn-secondary and btn-sm/btn-lg.
+- Custom card borders/backgrounds -> Bootstrap card, border, rounded and shadow-sm.
+- Custom text alignment -> Bootstrap text-center, text-md-start and text-lg-start.
+- Custom table styling -> Bootstrap table, table-striped, table-hover and table-responsive.
+- Old fixed/absolute/float demonstrations from Assignment 2 -> removed because Assignment 3 requires Bootstrap to handle layout.
+
+Remaining custom CSS only keeps the Chic Flowers colours, font choices, image cropping and a small brand accent.
