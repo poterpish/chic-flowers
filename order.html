@@ -15,6 +15,8 @@
     <meta name="author" content=" Alua Kurmanbay, Gauhar Mukhametbay">
 
     <title>Chic Flowers | Order &amp; Contact</title>
+    <!-- Bootstrap 5.3.8 is used for responsive layout and components -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/gauhar.css">
@@ -28,39 +30,69 @@
         The same header and navigation are used on every page
         to keep the website structure consistent.
     -->
-    <header>
+   <header>
+    <nav class="navbar navbar-expand-md bg-white border-bottom shadow-sm" aria-label="Main navigation">
+        <div class="container">
 
-        <p>
-            <strong>CHIC FLOWERS</strong>
-        </p>
+            <a class="navbar-brand fw-semibold" href="index.html">CHIC FLOWERS</a>
 
-        <nav aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="catalog.html">Catalog</a></li>
-                <li><a href="order.html">Order &amp; Contact</a></li>
-                <li><a href="colophon.html">Colophon</a></li>
-            </ul>
-        </nav>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNav"
+                    aria-controls="mainNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-    </header>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-md-center gap-md-2">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="catalog.html">Catalog</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                           href="order.html">Order &amp; Contact</a>
+                    </li>
+
+                    <li class="nav-item ms-md-2">
+                        <button class="btn btn-outline-dark btn-sm"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#loginModal">
+                            Sign in
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
 
 
     <main>
 
         <!-- ORDER INTRODUCTION -->
 
-        <section>
+        <section class="container py-5 text-center">
 
-            <h1>Order Flowers</h1>
+            <h1 class="display-4 mb-4">Order Flowers</h1>
 
-            <p>
+            <p class="lead">
                 Choose your flowers and tell us about the occasion.
                 Complete the form below with your contact details,
                 preferred arrangement and collection date.
             </p>
 
-            <p>
+            <p class="text-muted mb-0">
                 Our florist can use your preferences to help prepare
                 an arrangement for a birthday, anniversary, celebration
                 or another special moment.
@@ -69,33 +101,33 @@
         </section>
 
 
-        <hr>
+        <hr class="my-5">
 
 
         <!-- ORDER PROCESS -->
 
-        <section>
+        <section class="container py-4 order-section">
 
-            <h2>How to Order</h2>
+            <h2 class="mb-4">How to Order</h2>
 
-            <ol>
-                <li>Choose your preferred bouquet or flower category.</li>
-                <li class="line">Complete the order form with your contact details.</li>
-                <li>Select the date and your preferred way to receive the order.</li>
-                <li>Confirm the details of your order with the florist.</li>
-            </ol>
+            <ol class="list-group list-group-numbered">
+        <li class="list-group-item">Choose your preferred bouquet or flower category.</li>
+        <li class="list-group-item">Complete the order form with your contact details.</li>
+        <li class="list-group-item">Select the date and your preferred way to receive the order.</li>
+        <li class="list-group-item">Confirm the details of your order with the florist.</li>            
+           </ol>
 
         </section>
 
 
-        <hr>
+        <hr class="my-5">
 
 
         <!-- ORDER FORM -->
 
-        <section>
+        <section class="container py-4">
 
-            <h2>Order Form</h2>
+            <h2 class="mb-3">Order Form</h2>
 
             <p>
                 Fill in the form below to provide the details
@@ -107,7 +139,7 @@
                 This form does not send or process data yet because
                 server-side form handling will be added later in the course.
             -->
-            <form action="#" method="post">
+            <form id="order-form" action="#" method="post" class="mx-auto">
 
 
                 <!-- CUSTOMER INFORMATION -->
@@ -116,44 +148,50 @@
 
                     <legend>Contact Information</legend>
 
+                    <div class="row g-3">
 
-                    <p>
-                        <label for="full-name">Full Name</label><br>
+
+                    <div class="col-12 col-md-6 mb-3">
+                            <label for="full-name" class="form-label">Full Name</label>
 
                         <input
+                            class="form-control"
                             type="text"
                             id="full-name"
                             name="full-name"
                             placeholder="Enter your full name"
                             required
                         >
-                    </p>
+                    </div>
 
 
-                    <p>
-                        <label for="email">Email Address</label><br>
+                    <div class="col-12 col-md-6 mb-3">
+                            <label for="email" class="form-label">Email Address</label>
 
                         <input
+                             class="form-control"
                             type="email"
                             id="email"
                             name="email"
                             placeholder="name@example.com"
                             required
                         >
-                    </p>
+                    </div>
 
 
-                    <p>
-                        <label for="phone">Phone Number</label><br>
+                    <div class="col-12 col-md-6 mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
 
                         <input
+                            class="form-control"
                             type="tel"
                             id="phone"
                             name="phone"
                             placeholder="+7 700 000 0000"
                             required
                         >
-                    </p>
+                    </div>
+                    </div>
 
                 </fieldset>
 
@@ -163,12 +201,16 @@
                 <fieldset>
 
                     <legend>Bouquet Details</legend>
+                    <div class="row g-3">
 
 
-                    <p>
-                        <label for="bouquet-type">Bouquet Type</label><br>
+                    <div class="col-12 col-md-6 mb-3">
+
+                            <label for="bouquet-type" class="form-label">Bouquet Type</label>
+
 
                         <select
+                             class="form-select"
                             id="bouquet-type"
                             name="bouquet-type"
                             required
@@ -178,13 +220,14 @@
                             <option value="mono">Mono Bouquet</option>
                             <option value="flower-box">Flower Box</option>
                         </select>
-                    </p>
+                    </div>
 
 
-                    <p>
-                        <label for="quantity">Quantity</label><br>
+                    <div class="col-12 col-md-6 mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
 
                         <input
+                            class="form-control"
                             type="number"
                             id="quantity"
                             name="quantity"
@@ -193,119 +236,130 @@
                             value="1"
                             required
                         >
-                    </p>
+                    </div>
 
 
-                    <p>
-                        <label for="order-date">Preferred Date</label><br>
+                   <div class="col-12 col-md-6 mb-3">
+                            <label for="order-date" class="form-label">Preferred Date</label>
 
-                        <input
-                            type="date"
-                            id="order-date"
-                            name="order-date"
-                            required
-                        >
-                    </p>
-
-
-                    <p>
-                        <label for="message">
-                            Tell Us About Your Order
-                        </label><br>
-
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="6"
-                            cols="40"
-                            placeholder="Tell us about the occasion, preferred flowers, colors or other wishes."
-                        ></textarea>
-                    </p>
-
-                </fieldset>
+    <input
+        class="form-control"
+        type="date"
+        id="order-date"
+        name="order-date"
+        required
+    >
+</div>
 
 
-                <!-- COLLECTION METHOD -->
+<div class="col-12 col-md-6 mb-3">
+    <label for="message" class="form-label">
+        Tell Us About Your Order
+    </label>
 
-                <fieldset>
+    <textarea
+        class="form-control"
+        id="message"
+        name="message"
+        rows="6"
+        placeholder="Tell us about the occasion, preferred flowers, colors or other wishes."
+    ></textarea>
+</div>
 
-                    <legend>How Would You Like to Receive Your Order?</legend>
+</div>
 
-                    <p>
-                        <input
-                            type="radio"
-                            id="pickup"
-                            name="receiving-method"
-                            value="pickup"
-                            required
-                        >
-
-                        <label for="pickup">
-                            Pick up from the shop
-                        </label>
-                    </p>
+</fieldset>
 
 
-                    <p>
-                        <input
-                            type="radio"
-                            id="delivery"
-                            name="receiving-method"
-                            value="delivery"
-                        >
+<!-- COLLECTION METHOD -->
 
-                        <label for="delivery">
-                            Delivery
-                        </label>
-                    </p>
+<fieldset class="mb-4 p-3 border rounded">
 
-                </fieldset>
+    <legend>How Would You Like to Receive Your Order?</legend>
 
+    <div class="form-check mb-2">
+        <input
+            class="form-check-input"
+            type="radio"
+            id="pickup"
+            name="receiving-method"
+            value="pickup"
+            required
+        >
 
-                <!-- ADDITIONAL OPTIONS -->
-
-                <fieldset>
-
-                    <legend>Additional Options</legend>
-
-                    <p>
-                        <input
-                            type="checkbox"
-                            id="card"
-                            name="card"
-                            value="yes"
-                        >
-
-                        <label for="card">
-                            Add a greeting card to the order
-                        </label>
-                    </p>
+        <label class="form-check-label" for="pickup">
+            Pick up from the shop
+        </label>
+    </div>
 
 
-                    <p>
-                        <input
-                            type="checkbox"
-                            id="contact-permission"
-                            name="contact-permission"
-                            value="yes"
-                            required
-                        >
+    <div class="form-check mb-2">
+        <input
+            class="form-check-input"
+            type="radio"
+            id="delivery"
+            name="receiving-method"
+            value="delivery"
+        >
 
-                        <label for="contact-permission">
-                            I agree to be contacted about this order
-                        </label>
-                    </p>
+        <label class="form-check-label" for="delivery">
+            Delivery
+        </label>
+    </div>
 
-                </fieldset>
-                
+</fieldset>
 
-                <p>
-                    <button type="submit">Submit Order</button>
 
-                    <button type="reset">Reset Form</button>
-                </p>
+<!-- ADDITIONAL OPTIONS -->
 
-            </form>
+<fieldset class="mb-4 p-3 border rounded">
+
+    <legend>Additional Options</legend>
+
+    <div class="form-check mb-2">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            id="card"
+            name="card"
+            value="yes"
+        >
+
+        <label class="form-check-label" for="card">
+            Add a greeting card to the order
+        </label>
+    </div>
+
+
+    <div class="form-check mb-2">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            id="contact-permission"
+            name="contact-permission"
+            value="yes"
+            required
+        >
+
+        <label class="form-check-label" for="contact-permission">
+            I agree to be contacted about this order
+        </label>
+    </div>
+
+</fieldset>
+
+
+<p class="form-actions d-flex gap-2">
+    <button type="submit" class="btn btn-dark">
+        Submit Order
+    </button>
+
+    <button type="reset" class="btn btn-outline-secondary">
+        Reset Form
+    </button>
+</p>
+
+</form>
 
         </section>
 
@@ -315,23 +369,33 @@
 
         <!-- SHOP LOCATIONS -->
 
-        <section id="contact">
+        <section id="contact" class="container py-4">
 
-            <h2>Visit Us</h2>
+            <h2 class="mb-4">Visit Us</h2>
 
-            <p>
+            <p class="lead">
                 Chic Flowers has two locations in Astana.
                 Both locations are open around the clock.
             </p>
 
 
+            <div class="row g-4 mb-4">
+             <div class="col-md-6">
+         <div class="card h-100">
+        <div class="card-body">
             <h3>Imanova Location</h3>
 
             <p>
                 <strong>Address:</strong><br>
                 Imanova 10a
             </p>
+                    </div>
+                  </div>
+                </div>
 
+        <div class="col-md-6">
+    <div class="card h-100">
+        <div class="card-body">
 
             <h3>Bukhar Zhyrau Location</h3>
 
@@ -340,14 +404,19 @@
                 Bukhar Zhyrau 28
             </p>
 
+        </div>
+    </div>
+</div>
+    
 
-            <p>
+
+            <p class="mb-3">
                 <strong>Opening Hours:</strong><br>
                 Open 24 hours a day, 7 days a week.
             </p>
 
 
-            <p>
+            <p class="mb-3">
                 <strong>Phone:</strong><br>
 
                 <a href="tel:+77058885622">
@@ -358,6 +427,7 @@
 
             <p>
                 <a
+                    class="btn btn-outline-dark"
                     href="https://www.instagram.com/chicflowers.kz/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -374,15 +444,17 @@
 
         <!-- PRACTICAL INFORMATION -->
 
-        <aside>
+        <aside class="container py-4">
+    <div class="alert alert-secondary" role="alert">
 
-            <h2>Before You Order</h2>
+            <h2 class="mb-3">Before You Order</h2>
 
-            <p>
+            <p class="lead">
                 Flower availability may change depending on the season.
                 Contact Chic Flowers to confirm the final composition,
                 availability and order details.
             </p>
+            </div>
 
         </aside>
 
@@ -391,7 +463,7 @@
 
     <!-- SITE FOOTER -->
 
-    <footer>
+    <footer class="container py-4 text-center">
 
         <p>
             <strong>CHIC FLOWERS</strong>
@@ -423,13 +495,12 @@
         </p>
 
 
-        <nav aria-label="Footer navigation">
+        <nav class="mt-3" aria-label="Footer navigation">
 
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="catalog.html">Catalog</a></li>
-                <li><a href="order.html">Order &amp; Contact</a></li>
-                <li><a href="colophon.html">Colophon</a></li>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="catalog.html">Catalog</a></li>
+                <li class="nav-item"><a class="nav-link" href="order.html">Order &amp; Contact</a></li>
             </ul>
 
         </nav>
@@ -442,6 +513,8 @@
         </p>
 
     </footer>
+    <!-- Bootstrap JavaScript bundle for interactive components -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>    
 
 </body>
 

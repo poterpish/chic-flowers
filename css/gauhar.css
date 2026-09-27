@@ -1,4 +1,4 @@
-﻿/* Gauhar Mukhametbay - styles for order.html and colophon.html */
+﻿/* Gauhar Mukhametbay - styles for order.html  */
 
 /*
 The order-form id is unique because there is only one main
@@ -10,13 +10,7 @@ order form on the Order & Contact page.
     margin: 0 auto;
 }
 
-/*
-The colophon-info id is unique because there is only one main
-project information section on the Colophon page.
-*/
-#colophon-info {
-    padding-top: 2rem;
-}
+
 
 .page-intro {
     max-width: 750px;
@@ -200,7 +194,7 @@ an unnecessary HTML element.
 }
 
 /*
-Grid is used for the Colophon project information because
+Grid is used for the  project information because
 the information is divided into several equal content blocks.
 */
 .project-grid {
@@ -263,8 +257,7 @@ floated image instead of beginning below it.
 Grouping selector gives the two main page sections
 consistent spacing.
 */
-.order-section,
-.colophon-section {
+.order-section{
     margin-bottom: 4rem;
 }
 
