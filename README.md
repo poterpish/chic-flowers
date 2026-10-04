@@ -51,7 +51,7 @@ The website contains four pages:
 - `index.html` — Home page
 - `catalog.html` — Flower catalog and prices
 - `order.html` — Order and contact information
-- `colophon.html` — Project information and authorship
+- `blog.html` — Flower Journal with flower tips and care articles
 
 ## Team Members
 
@@ -71,9 +71,9 @@ Responsible for:
 
 Responsible for:
 - `order.html`
-- `colophon.html`
+- `blog.html`
 - Order & Contact page
-- Colophon page
+- Flower Journal page
 - project documentation for these pages
 
 ## Project Structure
@@ -83,7 +83,7 @@ project/
 ├── index.html
 ├── catalog.html
 ├── order.html
-├── colophon.html
+├── blog.html
 ├── css/
 │   ├── base.css
 │   ├── alua.css
@@ -91,3 +91,54 @@ project/
 ├── img/
 ├── removed-css.txt
 └── README.md
+
+## User Journeys
+
+### Journey 1 — Browse and Order Flowers
+1. The visitor opens the Home page.
+2. The visitor goes to the Catalog page.
+3. The visitor chooses a flower category and views bouquets and prices.
+4. The visitor opens the Order & Contact page.
+5. The visitor fills in the order form and submits the order.
+6. An order confirmation message appears.
+
+### Journey 2 — Read Flower Tips
+1. The visitor opens the Home page.
+2. The visitor goes to the Blog page.
+3. The visitor chooses an article.
+4. The visitor clicks Read More.
+5. The visitor reads the full flower article.
+
+### Journey 3 — Find Contact Information
+1. The visitor opens the Order & Contact page.
+2. The visitor views the Chic Flowers locations.
+3. The visitor checks the opening hours and contact information.
+4. The visitor can use the provided contact information to contact the flower shop.
+
+## Quality Pass
+
+The website was reviewed to make sure the main visitor flows work correctly.
+
+- Checked navigation links on all pages.
+- Checked the website on phone and desktop screen sizes.
+- Fixed broken and outdated links.
+- Removed unfinished content and old Colophon references.
+- Checked the Order form and Blog article links.
+- Made the navigation and footer consistent across the website.
+- Checked that images load correctly.
+- Checked that there is no horizontal overflow on mobile screens.
+
+## Midterm Project Status
+
+The Chic Flowers website contains four completed pages:
+
+- `index.html` — Home
+- `catalog.html` — Flower Catalog
+- `order.html` — Order & Contact
+- `blog.html` — Flower Journal
+
+The website uses Bootstrap for responsive layout, navigation, buttons, spacing, and other interface components. Custom CSS is used for the visual style and small corrections.
+
+The website was tested on phone and desktop screen sizes. Navigation, page links, the Order form, and Blog article links were checked.
+
+The HTML and CSS structure is prepared for future JavaScript functionality.

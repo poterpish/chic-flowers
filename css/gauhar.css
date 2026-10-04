@@ -16,3 +16,15 @@ textarea[required] {
 .order-note {
     border-left: 3px solid #727766;
 }
+.order-success-message {
+    display: none;
+}
+
+.order-success-message:target {
+    display: block;
+}
+.card-img-top {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
