@@ -91,6 +91,7 @@ project/
 ├── img/
 ├── removed-css.txt
 └── README.md
+```
 
 ## User Journeys
 
@@ -141,4 +142,4 @@ The website uses Bootstrap for responsive layout, navigation, buttons, spacing, 
 
 The website was tested on phone and desktop screen sizes. Navigation, page links, the Order form, and Blog article links were checked.
 
-The HTML and CSS structure is prepared for future JavaScript functionality.
+The HTML and CSS structure is prepared for future JavaScript functionality. Forms, controls, messages, and interactive blocks have stable ids, and state classes are prepared before the midterm freeze.

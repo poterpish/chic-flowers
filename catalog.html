@@ -25,8 +25,8 @@
                 <ul class="navbar-nav ms-auto align-items-md-center gap-md-2">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="catalog.html">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" href="order.html">Order &amp; Contact</a></li>
-                    <li class="nav-item ms-md-2"><button class="btn btn-outline-dark btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Sign in</button></li>
                 </ul>
             </div>
         </div>
@@ -41,8 +41,23 @@
             <a class="btn btn-dark" href="#premium">Premium</a>
             <a class="btn btn-outline-dark" href="#mono">Mono Bouquets</a>
             <a class="btn btn-secondary btn-sm" href="#boxes">Flower Boxes</a>
-            <button class="btn btn-outline-secondary btn-sm" type="button" disabled>Seasonal soon</button>
         </div>
+
+        <!-- Prepared for future JavaScript: search controls already exist in the frozen HTML. -->
+        <form id="catalog-search-form" class="row g-2 justify-content-center mt-4" action="catalog.html" method="get">
+            <div class="col-12 col-md-6">
+                <label class="visually-hidden" for="catalog-search">Search the catalog</label>
+                <input class="form-control" id="catalog-search" name="q" type="search" placeholder="Search by bouquet name" autocomplete="off">
+            </div>
+            <div class="col-12 col-md-auto">
+                <button class="btn btn-dark w-100" id="catalog-search-button" type="submit">Search</button>
+            </div>
+            <div class="col-12 col-md-auto">
+                <a class="btn btn-outline-secondary w-100" id="catalog-reset" href="catalog.html">Show all</a>
+            </div>
+        </form>
+        <div id="catalog-error" class="state-message error hidden" role="alert"></div>
+        <div id="catalog-results-message" class="state-message success hidden" role="status" aria-live="polite"></div>
     </section>
 
     <section class="container py-4" id="premium">
@@ -52,9 +67,9 @@
         </div>
         <!-- Responsive block 2: cards change from 1 to 2 to 3 columns. -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7380.PNG" class="card-img-top" alt="Hydrangea Cloud bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Hydrangea Cloud</h3><p class="text-secondary">Premium bouquet arranged with hydrangeas.</p><p class="fw-bold mt-auto">35 000 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7381.PNG" class="card-img-top" alt="Velvet Whisper flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">Velvet Whisper</h3><p class="text-secondary">Delicate floral arrangement in soft blue and pink tones.</p><p class="fw-bold mt-auto">40 000 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7382.PNG" class="card-img-top" alt="The Signature flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">The Signature</h3><p class="text-secondary">Exclusive premium floral composition.</p><p class="fw-bold mt-auto">55 000 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-hydrangea-cloud"><img src="img/IMG_7380.PNG" class="card-img-top" alt="Hydrangea Cloud bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Hydrangea Cloud</h3><p class="text-secondary">Premium bouquet arranged with hydrangeas.</p><p class="fw-bold mt-auto">35 000 ₸</p><a class="btn btn-dark order-button" id="order-hydrangea-cloud" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-velvet-whisper"><img src="img/IMG_7381.PNG" class="card-img-top" alt="Velvet Whisper flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">Velvet Whisper</h3><p class="text-secondary">Delicate floral arrangement in soft blue and pink tones.</p><p class="fw-bold mt-auto">40 000 ₸</p><a class="btn btn-dark order-button" id="order-velvet-whisper" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-the-signature"><img src="img/IMG_7382.PNG" class="card-img-top" alt="The Signature flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">The Signature</h3><p class="text-secondary">Exclusive premium floral composition.</p><p class="fw-bold mt-auto">55 000 ₸</p><a class="btn btn-dark order-button" id="order-the-signature" href="order.html#order-form">Order Now</a></div></article></div>
         </div>
     </section>
 
@@ -62,22 +77,22 @@
         <div class="text-center text-md-start mb-4"><p class="small text-uppercase text-secondary mb-1">Collection</p><h2 class="display-6">Mono Bouquets</h2></div>
         <!-- Responsive block 3 uses the same Bootstrap breakpoints for consistent cards. -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7385.PNG" class="card-img-top" alt="Large bouquet of light roses"><div class="card-body d-flex flex-column"><h3 class="h4">Rose Elegance</h3><p class="text-secondary">A large bouquet of fresh roses.</p><p class="fw-bold mt-auto">69 500 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7386.PNG" class="card-img-top" alt="White Momoko flower bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Momoko Dream</h3><p class="text-secondary">A soft mono bouquet with a clean presentation.</p><p class="fw-bold mt-auto">63 500 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7387.PNG" class="card-img-top" alt="Large pink rose bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Peony-roses Cloud</h3><p class="text-secondary">A full bouquet of fresh pink peony roses.</p><p class="fw-bold mt-auto">105 000 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-rose-elegance"><img src="img/IMG_7385.PNG" class="card-img-top" alt="Large bouquet of light roses"><div class="card-body d-flex flex-column"><h3 class="h4">Rose Elegance</h3><p class="text-secondary">A large bouquet of fresh roses.</p><p class="fw-bold mt-auto">69 500 ₸</p><a class="btn btn-dark order-button" id="order-rose-elegance" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-momoko-dream"><img src="img/IMG_7386.PNG" class="card-img-top" alt="White Momoko flower bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Momoko Dream</h3><p class="text-secondary">A soft mono bouquet with a clean presentation.</p><p class="fw-bold mt-auto">63 500 ₸</p><a class="btn btn-dark order-button" id="order-momoko-dream" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-peony-roses-cloud"><img src="img/IMG_7387.PNG" class="card-img-top" alt="Large pink rose bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Peony-roses Cloud</h3><p class="text-secondary">A full bouquet of fresh pink peony roses.</p><p class="fw-bold mt-auto">105 000 ₸</p><a class="btn btn-dark order-button" id="order-peony-roses-cloud" href="order.html#order-form">Order Now</a></div></article></div>
         </div>
     </section>
 
     <section class="container py-5" id="boxes">
         <div class="text-center text-md-start mb-4"><p class="small text-uppercase text-secondary mb-1">Collection</p><h2 class="display-6">Flower Boxes</h2></div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7388.PNG" class="card-img-top" alt="Velvet Mix flower box"><div class="card-body d-flex flex-column"><h3 class="h4">Velvet Mix</h3><p class="text-secondary">Fresh flowers in a light elegant box.</p><p class="fw-bold mt-auto">25 500 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7389.PNG" class="card-img-top" alt="Blush Box flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">Blush Box</h3><p class="text-secondary">Soft pink flowers in a rounded box.</p><p class="fw-bold mt-auto">25 000 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card"><img src="img/IMG_7390.PNG" class="card-img-top" alt="Royal Bloom flower box"><div class="card-body d-flex flex-column"><h3 class="h4">Royal Bloom</h3><p class="text-secondary">A mixed floral box in pink and cream tones.</p><p class="fw-bold mt-auto">48 500 ₸</p><a class="btn btn-dark" href="order.html">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-velvet-mix"><img src="img/IMG_7388.PNG" class="card-img-top" alt="Velvet Mix flower box"><div class="card-body d-flex flex-column"><h3 class="h4">Velvet Mix</h3><p class="text-secondary">Fresh flowers in a light elegant box.</p><p class="fw-bold mt-auto">25 500 ₸</p><a class="btn btn-dark order-button" id="order-velvet-mix" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-blush-box"><img src="img/IMG_7389.PNG" class="card-img-top" alt="Blush Box flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">Blush Box</h3><p class="text-secondary">Soft pink flowers in a rounded box.</p><p class="fw-bold mt-auto">25 000 ₸</p><a class="btn btn-dark order-button" id="order-blush-box" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-royal-bloom"><img src="img/IMG_7390.PNG" class="card-img-top" alt="Royal Bloom flower box"><div class="card-body d-flex flex-column"><h3 class="h4">Royal Bloom</h3><p class="text-secondary">A mixed floral box in pink and cream tones.</p><p class="fw-bold mt-auto">48 500 ₸</p><a class="btn btn-dark order-button" id="order-royal-bloom" href="order.html#order-form">Order Now</a></div></article></div>
         </div>
     </section>
 
-    <section class="container py-5">
+    <section class="container py-5" id="catalog-overview">
         <h2 class="h2 mb-3">Catalog Overview</h2>
         <div class="table-responsive shadow-sm">
             <table class="table table-striped table-hover align-middle mb-0">
@@ -104,18 +119,12 @@
         <p class="h5 mb-2">CHIC FLOWERS</p>
         <p class="small mb-3">Imanova 10a · Bukhar Zhyrau 28 · +7 705 888 5622</p>
         <nav aria-label="Footer navigation" class="mb-3">
-            <a class="mx-2" href="index.html">Home</a><a class="mx-2" href="catalog.html">Catalog</a><a class="mx-2" href="order.html">Order &amp; Contact</a><a class="mx-2" href="colophon.html">Colophon</a>
+            <a class="mx-2" href="index.html">Home</a><a class="mx-2" href="catalog.html">Catalog</a><a class="mx-2" href="blog.html">Blog</a><a class="mx-2" href="order.html">Order &amp; Contact</a>
         </nav>
         <p class="small mb-0">&copy; 2026 Chic Flowers. All rights reserved.</p>
     </div>
 </footer>
 
-<!-- Bootstrap Modal component adapted as a simple sign-in form for the flower shop. -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h2 class="modal-title fs-5" id="loginTitle">Sign in</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body">
-        <form action="#" method="post"><div class="mb-3"><label class="form-label" for="loginEmail">Email</label><input class="form-control" type="email" id="loginEmail" name="email" required></div><div class="mb-3"><label class="form-label" for="loginPassword">Password</label><input class="form-control" type="password" id="loginPassword" name="password" required></div><div class="d-flex gap-2"><button class="btn btn-dark" type="submit">Sign in</button><button class="btn btn-outline-secondary" type="button" disabled>Register soon</button></div></form>
-    </div></div></div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
