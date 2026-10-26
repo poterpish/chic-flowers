@@ -1,0 +1,7 @@
+PASS node --check js/data.js
+PASS node --check js/logic.js
+PASS node --check js/main.js
+PASS node --check js/home.js
+PASS node --check js/catalog.js
+PASS node --check js/order.js
+PASS node --check js/blog.js

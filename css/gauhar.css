@@ -1,30 +1,16 @@
-﻿/* Gauhar Mukhametbay - small correction layer for Assignment 3.
-   Bootstrap handles layout, spacing, buttons and responsive behaviour. */
-
-.order-section h2::after {
-    content: " ✦";
-    color: #727766;
-    font-size: 0.7em;
-}
-
-input[required],
-select[required],
-textarea[required] {
-    border-left: 3px solid #727766;
-}
-
-.order-note {
-    border-left: 3px solid #727766;
-}
-.order-success-message {
-    display: none;
-}
-
-.order-success-message:target {
-    display: block;
-}
-.card-img-top {
-    width: 100%;
-    height: 400px;
+/* Gauhar pages use the shared Alua colour palette and Bootstrap layout. */
+/* Limit journal images to a consistent card height. */
+.journal-card img {
+    height: 300px;
     object-fit: cover;
+}
+
+/* Keep long form labels and content comfortably readable. */
+#order-form fieldset {
+    min-width: 0;
+}
+
+/* Small correction; Bootstrap controls the layout and spacing. */
+#order-review:target .card {
+    box-shadow: 0 0 0 2px var(--chic-green);
 }

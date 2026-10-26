@@ -11,7 +11,12 @@
     <!-- Bootstrap 5.3.3 is used for layout, utilities, navigation and components. -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/alua.css">
+    <script src="js/data.js" defer></script>
+    <script src="js/logic.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/catalog.js" defer></script>
 </head>
+
 <body>
 <header>
     <nav class="navbar navbar-expand-md bg-white border-bottom shadow-sm" aria-label="Main navigation">
@@ -34,86 +39,754 @@
 </header>
 
 <main>
-    <section class="container py-5 text-center">
+    <section class="container py-5 text-center" id="catalog-intro">
+        <p class="small text-uppercase text-secondary mb-2">CHIC FLOWERS · ASTANA</p>
         <h1 class="display-4 fw-semibold">Flower Catalog</h1>
-        <p class="lead text-secondary mx-auto">Discover flowers for every occasion, from elegant mono bouquets to signature arrangements and flower boxes.</p>
-        <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
-            <a class="btn btn-dark" href="#premium">Premium</a>
+        <p class="lead text-secondary mx-auto">Explore real bouquet styles and prices. Choose the flowers you love and continue to our order form.</p>
+        <div class="d-flex flex-wrap justify-content-center gap-2 my-4">
+            <a class="btn btn-dark" href="#premium">Premium Bouquets</a>
             <a class="btn btn-outline-dark" href="#mono">Mono Bouquets</a>
-            <a class="btn btn-secondary btn-sm" href="#boxes">Flower Boxes</a>
+            <a class="btn btn-outline-dark" href="#boxes">Flower Boxes</a>
+            <a class="btn btn-outline-secondary" href="#basket">Your basket</a>
         </div>
-
-        <!-- Prepared for future JavaScript: search controls already exist in the frozen HTML. -->
-        <form id="catalog-search-form" class="row g-2 justify-content-center mt-4" action="catalog.html" method="get">
-            <div class="col-12 col-md-6">
-                <label class="visually-hidden" for="catalog-search">Search the catalog</label>
-                <input class="form-control" id="catalog-search" name="q" type="search" placeholder="Search by bouquet name" autocomplete="off">
-            </div>
-            <div class="col-12 col-md-auto">
-                <button class="btn btn-dark w-100" id="catalog-search-button" type="submit">Search</button>
-            </div>
-            <div class="col-12 col-md-auto">
-                <a class="btn btn-outline-secondary w-100" id="catalog-reset" href="catalog.html">Show all</a>
-            </div>
-        </form>
-        <div id="catalog-error" class="state-message error hidden" role="alert"></div>
-        <div id="catalog-results-message" class="state-message success hidden" role="status" aria-live="polite"></div>
+        <p class="small text-secondary mb-0">Select bouquets to see a basket summary and total below. The basket is a local selection. Confirm orders and payment directly with Chic Flowers.</p>
     </section>
-
-    <section class="container py-4" id="premium">
-        <div class="d-flex justify-content-between align-items-end mb-4">
-            <div><p class="small text-uppercase text-secondary mb-1">Collection</p><h2 class="display-6 mb-0">Premium Bouquets</h2></div>
-            <span class="badge text-bg-dark d-none d-md-inline">3 arrangements</span>
+    <section class="container py-5" id="premium">
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
+            <h2 class="display-6 mb-0">Premium Bouquets</h2>
+            <span class="badge text-bg-dark">13 arrangements</span>
         </div>
-        <!-- Responsive block 2: cards change from 1 to 2 to 3 columns. -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-hydrangea-cloud"><img src="img/IMG_7380.PNG" class="card-img-top" alt="Hydrangea Cloud bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Hydrangea Cloud</h3><p class="text-secondary">Premium bouquet arranged with hydrangeas.</p><p class="fw-bold mt-auto">35 000 ₸</p><a class="btn btn-dark order-button" id="order-hydrangea-cloud" href="order.html#order-form">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-velvet-whisper"><img src="img/IMG_7381.PNG" class="card-img-top" alt="Velvet Whisper flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">Velvet Whisper</h3><p class="text-secondary">Delicate floral arrangement in soft blue and pink tones.</p><p class="fw-bold mt-auto">40 000 ₸</p><a class="btn btn-dark order-button" id="order-velvet-whisper" href="order.html#order-form">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-the-signature"><img src="img/IMG_7382.PNG" class="card-img-top" alt="The Signature flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">The Signature</h3><p class="text-secondary">Exclusive premium floral composition.</p><p class="fw-bold mt-auto">55 000 ₸</p><a class="btn btn-dark order-button" id="order-the-signature" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-hydrangea-cloud">
+                    <img src="img/IMG_7380.PNG" class="card-img-top" alt="Hydrangea Cloud flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Hydrangea Cloud</h3>
+                        <p class="card-text text-secondary small">Premium bouquet arranged with hydrangeas.</p>
+                        <p class="fw-bold mt-auto mb-3">35 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-hydrangea-cloud" name="bouquet" value="Hydrangea Cloud" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-hydrangea-cloud">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-velvet-whisper">
+                    <img src="img/IMG_7381.PNG" class="card-img-top" alt="Velvet Whisper flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Velvet Whisper</h3>
+                        <p class="card-text text-secondary small">Delicate floral arrangement in soft blue and pink tones.</p>
+                        <p class="fw-bold mt-auto mb-3">40 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-velvet-whisper" name="bouquet" value="Velvet Whisper" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-velvet-whisper">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-the-signature">
+                    <img src="img/IMG_7382.PNG" class="card-img-top" alt="The Signature flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">The Signature</h3>
+                        <p class="card-text text-secondary small">Exclusive premium floral composition.</p>
+                        <p class="fw-bold mt-auto mb-3">55 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-the-signature" name="bouquet" value="The Signature" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-the-signature">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-pink-symphony">
+                    <img src="img/5382357388360359881.jpg" class="card-img-top" alt="Pink Symphony flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pink Symphony</h3>
+                        <p class="card-text text-secondary small">A luxurious bouquet of soft pink roses for special moments.</p>
+                        <p class="fw-bold mt-auto mb-3">64 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-pink-symphony" name="bouquet" value="Pink Symphony" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-pink-symphony">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-blush-paradise">
+                    <img src="img/5382357388360359893.jpg" class="card-img-top" alt="Blush Paradise flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Blush Paradise</h3>
+                        <p class="card-text text-secondary small">Soft pink roses and delicate flowers in a romantic arrangement.</p>
+                        <p class="fw-bold mt-auto mb-3">68 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-blush-paradise" name="bouquet" value="Blush Paradise" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-blush-paradise">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-pastel-dreams">
+                    <img src="img/5382357388360359892.jpg" class="card-img-top" alt="Pastel Dreams flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pastel Dreams</h3>
+                        <p class="card-text text-secondary small">Beautiful blue and pink hydrangeas with elegant roses.</p>
+                        <p class="fw-bold mt-auto mb-3">74 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-pastel-dreams" name="bouquet" value="Pastel Dreams" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-pastel-dreams">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-sweet-elegance">
+                    <img src="img/5382357388360359891.jpg" class="card-img-top" alt="Sweet Elegance flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Sweet Elegance</h3>
+                        <p class="card-text text-secondary small">A lovely mix of pink roses and pastel flowers.</p>
+                        <p class="fw-bold mt-auto mb-3">85 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-sweet-elegance" name="bouquet" value="Sweet Elegance" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-sweet-elegance">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-royal-garden">
+                    <img src="img/5382357388360359889.jpg" class="card-img-top" alt="Royal Garden flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Royal Garden</h3>
+                        <p class="card-text text-secondary small">A luxurious basket of colorful hydrangeas and delicate roses.</p>
+                        <p class="fw-bold mt-auto mb-3">170 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-royal-garden" name="bouquet" value="Royal Garden" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-royal-garden">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-lavender-bliss">
+                    <img src="img/5382357388360359888.jpg" class="card-img-top" alt="Lavender Bliss flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Lavender Bliss</h3>
+                        <p class="card-text text-secondary small">Pastel hydrangeas and soft roses in a dreamy arrangement.</p>
+                        <p class="fw-bold mt-auto mb-3">74 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-lavender-bliss" name="bouquet" value="Lavender Bliss" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-lavender-bliss">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-pink-blossom">
+                    <img src="img/5382357388360359928.jpg" class="card-img-top" alt="Pink Blossom flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pink Blossom</h3>
+                        <p class="card-text text-secondary small">A beautiful mix of pink roses, white hydrangeas, and elegant calla lilies.</p>
+                        <p class="fw-bold mt-auto mb-3">150 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-pink-blossom" name="bouquet" value="Pink Blossom" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-pink-blossom">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-rose-romance">
+                    <img src="img/5382357388360359927.jpg" class="card-img-top" alt="Rose Romance flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Rose Romance</h3>
+                        <p class="card-text text-secondary small">A romantic basket of soft pink and creamy white roses.</p>
+                        <p class="fw-bold mt-auto mb-3">62 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-rose-romance" name="bouquet" value="Rose Romance" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-rose-romance">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-pastel-heaven">
+                    <img src="img/5382357388360359926.jpg" class="card-img-top" alt="Pastel Heaven flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pastel Heaven</h3>
+                        <p class="card-text text-secondary small">A luxurious arrangement of pink, blue, and white hydrangeas.</p>
+                        <p class="fw-bold mt-auto mb-3">150 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-pastel-heaven" name="bouquet" value="Pastel Heaven" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-pastel-heaven">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <!-- <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-premium-sweet-harmony">
+                    <img src="img/premium-img-10.jpg" class="card-img-top" alt="Sweet Harmony flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Sweet Harmony</h3>
+                        <p class="card-text text-secondary small">A dreamy basket of pink hydrangeas, creamy roses, and delicate white orchids.</p>
+                        <p class="fw-bold mt-auto mb-3">82 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-premium-sweet-harmony" name="bouquet" value="Sweet Harmony" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-premium-sweet-harmony">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div> -->
         </div>
     </section>
-
     <section class="container py-5" id="mono">
-        <div class="text-center text-md-start mb-4"><p class="small text-uppercase text-secondary mb-1">Collection</p><h2 class="display-6">Mono Bouquets</h2></div>
-        <!-- Responsive block 3 uses the same Bootstrap breakpoints for consistent cards. -->
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
+            <h2 class="display-6 mb-0">Mono Bouquets</h2>
+            <span class="badge text-bg-dark">13 arrangements</span>
+        </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-rose-elegance"><img src="img/IMG_7385.PNG" class="card-img-top" alt="Large bouquet of light roses"><div class="card-body d-flex flex-column"><h3 class="h4">Rose Elegance</h3><p class="text-secondary">A large bouquet of fresh roses.</p><p class="fw-bold mt-auto">69 500 ₸</p><a class="btn btn-dark order-button" id="order-rose-elegance" href="order.html#order-form">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-momoko-dream"><img src="img/IMG_7386.PNG" class="card-img-top" alt="White Momoko flower bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Momoko Dream</h3><p class="text-secondary">A soft mono bouquet with a clean presentation.</p><p class="fw-bold mt-auto">63 500 ₸</p><a class="btn btn-dark order-button" id="order-momoko-dream" href="order.html#order-form">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-peony-roses-cloud"><img src="img/IMG_7387.PNG" class="card-img-top" alt="Large pink rose bouquet"><div class="card-body d-flex flex-column"><h3 class="h4">Peony-roses Cloud</h3><p class="text-secondary">A full bouquet of fresh pink peony roses.</p><p class="fw-bold mt-auto">105 000 ₸</p><a class="btn btn-dark order-button" id="order-peony-roses-cloud" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-rose-elegance">
+                    <img src="img/IMG_7385.PNG" class="card-img-top" alt="Rose Elegance flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Rose Elegance</h3>
+                        <p class="card-text text-secondary small">A large bouquet of fresh roses.</p>
+                        <p class="fw-bold mt-auto mb-3">69 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-rose-elegance" name="bouquet" value="Rose Elegance" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-rose-elegance">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-momoko-dream">
+                    <img src="img/IMG_7386.PNG" class="card-img-top" alt="Momoko Dream flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Momoko Dream</h3>
+                        <p class="card-text text-secondary small">A soft mono bouquet with a clean presentation.</p>
+                        <p class="fw-bold mt-auto mb-3">63 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-momoko-dream" name="bouquet" value="Momoko Dream" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-momoko-dream">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-peony-roses-cloud">
+                    <img src="img/IMG_7387.PNG" class="card-img-top" alt="Peony-roses Cloud flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Peony-roses Cloud</h3>
+                        <p class="card-text text-secondary small">A full bouquet of fresh pink peony roses.</p>
+                        <p class="fw-bold mt-auto mb-3">105 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-peony-roses-cloud" name="bouquet" value="Peony-roses Cloud" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-peony-roses-cloud">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-pink-blossom-basket">
+                    <img src="img/IMG_9598.PNG" class="card-img-top" alt="Pink Blossom Basket flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pink Blossom Basket</h3>
+                        <p class="card-text text-secondary small">A charming basket of vibrant pink spray roses, filled with beauty and tenderness.</p>
+                        <p class="fw-bold mt-auto mb-3">14 500 ₸ (S) / 20 500 ₸ (M)</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-pink-blossom-basket-s" name="bouquet" value="Pink Blossom Basket (S)" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-pink-blossom-basket-s">Select S</label>
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-pink-blossom-basket-m" name="bouquet" value="Pink Blossom Basket (M)" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-pink-blossom-basket-m">Select M</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-golden-serenity">
+                    <img src="img/IMG_9599.PNG" class="card-img-top" alt="Golden Serenity flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Golden Serenity</h3>
+                        <p class="card-text text-secondary small">A graceful arrangement of soft yellow roses, radiating warmth and elegance.</p>
+                        <p class="fw-bold mt-auto mb-3">28 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-golden-serenity" name="bouquet" value="Golden Serenity" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-golden-serenity">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-rose-amour">
+                    <img src="img/IMG_9600.PNG" class="card-img-top" alt="Rosé Amour flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Rosé Amour</h3>
+                        <p class="card-text text-secondary small">A luxurious bouquet of delicate pink roses, created to express love and admiration.</p>
+                        <p class="fw-bold mt-auto mb-3">28 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-rose-amour" name="bouquet" value="Rosé Amour" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-rose-amour">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-pink-royalty">
+                    <img src="img/IMG_9601.PNG" class="card-img-top" alt="Pink Royalty flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pink Royalty</h3>
+                        <p class="card-text text-secondary small">An extraordinary arrangement of lush pink garden roses for truly unforgettable moments.</p>
+                        <p class="fw-bold mt-auto mb-3">175 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-pink-royalty" name="bouquet" value="Pink Royalty" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-pink-royalty">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-ivory-grace">
+                    <img src="img/IMG_9602.PNG" class="card-img-top" alt="Ivory Grace flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Ivory Grace</h3>
+                        <p class="card-text text-secondary small">An elegant basket of pristine white roses and eucalyptus, symbolizing timeless beauty.</p>
+                        <p class="fw-bold mt-auto mb-3">37 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-ivory-grace" name="bouquet" value="Ivory Grace" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-ivory-grace">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-lavender-romance">
+                    <img src="img/IMG_9604.PNG" class="card-img-top" alt="Lavender Romance flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Lavender Romance</h3>
+                        <p class="card-text text-secondary small">A stunning bouquet of romantic pink roses wrapped in soft lavender tones.</p>
+                        <p class="fw-bold mt-auto mb-3">35 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-lavender-romance" name="bouquet" value="Lavender Romance" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-lavender-romance">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-blushing-beauty">
+                    <img src="img/IMG_9603.PNG" class="card-img-top" alt="Blushing Beauty flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Blushing Beauty</h3>
+                        <p class="card-text text-secondary small">A captivating basket of exquisite pink garden roses, designed to leave a lasting impression.</p>
+                        <p class="fw-bold mt-auto mb-3">35 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-blushing-beauty" name="bouquet" value="Blushing Beauty" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-blushing-beauty">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-peach-perfection">
+                    <img src="img/IMG_9608.PNG" class="card-img-top" alt="Peach Perfection flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Peach Perfection</h3>
+                        <p class="card-text text-secondary small">A dreamy bouquet of delicate peach roses, bringing softness and sophistication to every occasion.</p>
+                        <p class="fw-bold mt-auto mb-3">34 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-peach-perfection" name="bouquet" value="Peach Perfection" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-peach-perfection">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-vanilla-dream">
+                    <img src="img/IMG_9606.PNG" class="card-img-top" alt="Vanilla Dream flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Vanilla Dream</h3>
+                        <p class="card-text text-secondary small">A luxurious blend of creamy garden roses and delicate orchids, full of effortless elegance.</p>
+                        <p class="fw-bold mt-auto mb-3">29 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-vanilla-dream" name="bouquet" value="Vanilla Dream" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-vanilla-dream">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <!-- <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-mono-pure-elegance">
+                    <img src="img/mono-img-10.jpg" class="card-img-top" alt="Pure Elegance flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pure Elegance</h3>
+                        <p class="card-text text-secondary small">A timeless basket of ivory roses and fresh eucalyptus, perfect for life’s most beautiful moments.</p>
+                        <p class="fw-bold mt-auto mb-3">26 900 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-mono-pure-elegance" name="bouquet" value="Pure Elegance" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-mono-pure-elegance">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div> -->
         </div>
     </section>
-
     <section class="container py-5" id="boxes">
-        <div class="text-center text-md-start mb-4"><p class="small text-uppercase text-secondary mb-1">Collection</p><h2 class="display-6">Flower Boxes</h2></div>
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-4">
+            <h2 class="display-6 mb-0">Flower Boxes</h2>
+            <span class="badge text-bg-dark">13 arrangements</span>
+        </div>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-velvet-mix"><img src="img/IMG_7388.PNG" class="card-img-top" alt="Velvet Mix flower box"><div class="card-body d-flex flex-column"><h3 class="h4">Velvet Mix</h3><p class="text-secondary">Fresh flowers in a light elegant box.</p><p class="fw-bold mt-auto">25 500 ₸</p><a class="btn btn-dark order-button" id="order-velvet-mix" href="order.html#order-form">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-blush-box"><img src="img/IMG_7389.PNG" class="card-img-top" alt="Blush Box flower arrangement"><div class="card-body d-flex flex-column"><h3 class="h4">Blush Box</h3><p class="text-secondary">Soft pink flowers in a rounded box.</p><p class="fw-bold mt-auto">25 000 ₸</p><a class="btn btn-dark order-button" id="order-blush-box" href="order.html#order-form">Order Now</a></div></article></div>
-            <div class="col"><article class="card h-100 shadow-sm product-card" id="product-royal-bloom"><img src="img/IMG_7390.PNG" class="card-img-top" alt="Royal Bloom flower box"><div class="card-body d-flex flex-column"><h3 class="h4">Royal Bloom</h3><p class="text-secondary">A mixed floral box in pink and cream tones.</p><p class="fw-bold mt-auto">48 500 ₸</p><a class="btn btn-dark order-button" id="order-royal-bloom" href="order.html#order-form">Order Now</a></div></article></div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-velvet-mix">
+                    <img src="img/IMG_7388.PNG" class="card-img-top" alt="Velvet Mix flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Velvet Mix</h3>
+                        <p class="card-text text-secondary small">Fresh flowers in a light elegant box.</p>
+                        <p class="fw-bold mt-auto mb-3">25 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-velvet-mix" name="bouquet" value="Velvet Mix" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-velvet-mix">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-blush-box">
+                    <img src="img/IMG_7389.PNG" class="card-img-top" alt="Blush Box flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Blush Box</h3>
+                        <p class="card-text text-secondary small">Soft pink flowers in a rounded box.</p>
+                        <p class="fw-bold mt-auto mb-3">25 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-blush-box" name="bouquet" value="Blush Box" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-blush-box">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-royal-bloom">
+                    <img src="img/IMG_7390.PNG" class="card-img-top" alt="Royal Bloom flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Royal Bloom</h3>
+                        <p class="card-text text-secondary small">A mixed floral box in pink and cream tones.</p>
+                        <p class="fw-bold mt-auto mb-3">48 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-royal-bloom" name="bouquet" value="Royal Bloom" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-royal-bloom">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-pastel-harmony">
+                    <img src="img/IMG_9614.PNG" class="card-img-top" alt="Pastel Harmony flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pastel Harmony</h3>
+                        <p class="card-text text-secondary small">A charming flower box of blush pink and ivory blooms with delicate lavender accents, creating a perfect harmony of elegance.</p>
+                        <p class="fw-bold mt-auto mb-3">19 000 ₸ (S) / 25 500 ₸ (L)</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-pastel-harmony-s" name="bouquet" value="Pastel Harmony (S)" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-pastel-harmony-s">Select S</label>
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-pastel-harmony-l" name="bouquet" value="Pastel Harmony (L)" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-pastel-harmony-l">Select L</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-rosy-symphony">
+                    <img src="img/IMG_9623.PNG" class="card-img-top" alt="Rosy Symphony flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Rosy Symphony</h3>
+                        <p class="card-text text-secondary small">A luxurious arrangement of pastel roses, delicate orchids, and soft pink blossoms, designed for unforgettable moments.</p>
+                        <p class="fw-bold mt-auto mb-3">75 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-rosy-symphony" name="bouquet" value="Rosy Symphony" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-rosy-symphony">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-pink-celebration">
+                    <img src="img/IMG_9615.PNG" class="card-img-top" alt="Pink Celebration flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Pink Celebration</h3>
+                        <p class="card-text text-secondary small">A joyful arrangement of vibrant pink roses and fluffy white blooms, beautifully presented in a charming floral box.</p>
+                        <p class="fw-bold mt-auto mb-3">45 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-pink-celebration" name="bouquet" value="Pink Celebration" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-pink-celebration">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-spring-delight">
+                    <img src="img/IMG_9617 (2).PNG" class="card-img-top" alt="Spring Delight flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Spring Delight</h3>
+                        <p class="card-text text-secondary small">A delightful basket of soft pink and creamy white flowers, capturing the freshness and beauty of spring.</p>
+                        <p class="fw-bold mt-auto mb-3">15 500 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-spring-delight" name="bouquet" value="Spring Delight" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-spring-delight">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-enchanted-garden">
+                    <img src="img/IMG_9618.PNG" class="card-img-top" alt="Enchanted Garden flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Enchanted Garden</h3>
+                        <p class="card-text text-secondary small">A romantic flower box of blush pink blossoms, ivory roses, and delicate orchids, inspired by a blooming garden.</p>
+                        <p class="fw-bold mt-auto mb-3">27 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-enchanted-garden" name="bouquet" value="Enchanted Garden" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-enchanted-garden">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-blush-affection">
+                    <img src="img/IMG_9619.PNG" class="card-img-top" alt="Blush Affection flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Blush Affection</h3>
+                        <p class="card-text text-secondary small">A graceful arrangement of soft pink blooms and fresh eucalyptus, expressing warmth, tenderness, and affection.</p>
+                        <p class="fw-bold mt-auto mb-3">18 900 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-blush-affection" name="bouquet" value="Blush Affection" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-blush-affection">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <!-- <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-grand-romance">
+                    <img src="img/IMG_96.PNG" class="card-img-top" alt="Grand Romance flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Grand Romance</h3>
+                        <p class="card-text text-secondary small">A magnificent floral masterpiece of lush pink and white blooms, created to make life’s grandest moments unforgettable.</p>
+                        <p class="fw-bold mt-auto mb-3">118 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-grand-romance" name="bouquet" value="Grand Romance" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-grand-romance">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div> -->
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-blue-serenity">
+                    <img src="img/IMG_9624.PNG" class="card-img-top" alt="Blue Serenity flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Blue Serenity</h3>
+                        <p class="card-text text-secondary small">An exquisite flower box of ivory roses, delicate orchids, and dreamy blue accents, radiating elegance and tranquility.</p>
+                        <p class="fw-bold mt-auto mb-3">39 900 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-blue-serenity" name="bouquet" value="Blue Serenity" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-blue-serenity">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-blushing-clouds">
+                    <img src="img/IMG_9625.PNG" class="card-img-top" alt="Blushing Clouds flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Blushing Clouds</h3>
+                        <p class="card-text text-secondary small">A dreamy arrangement of pastel pink and creamy white flowers, bringing softness, romance, and effortless beauty.</p>
+                        <p class="fw-bold mt-auto mb-3">22 900 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-blushing-clouds" name="bouquet" value="Blushing Clouds" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-blushing-clouds">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col">
+                <article class="card h-100 shadow-sm product-card" id="product-boxes-royal-bloom-alt">
+                    <img src="img/IMG_9613.PNG" class="card-img-top" alt="Royal Bloom flower arrangement" loading="lazy" width="700" height="760">
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title">Royal Bloom</h3>
+                        <p class="card-text text-secondary small">An extraordinary arrangement of lush pink hydrangeas, elegant lilies, and delicate roses, designed to leave a lasting impression.</p>
+                        <p class="fw-bold mt-auto mb-3">40 000 ₸</p>
+                        <div class="d-flex flex-wrap gap-2">
+                            <input class="btn-check product-pick" type="checkbox" id="pick-boxes-royal-bloom-alt" name="bouquet" value="Royal Bloom" form="basket-form" autocomplete="off">
+                            <label class="btn btn-outline-dark btn-sm" for="pick-boxes-royal-bloom-alt">Add to basket</label>
+                            <a class="btn btn-dark btn-sm" href="order.html#order-form">Order now</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </div>
     </section>
-
+    <!-- Native HTML checkbox selection. CSS shows the chosen items and total; no custom JavaScript. -->
+    <section class="container py-5" id="basket">
+        <div class="row g-4">
+            <div class="col-12 col-lg-7">
+                <h2 class="display-6">Your basket</h2>
+                <p class="text-secondary">Bouquets selected above appear here. Select again or use Remove to take an item out.</p>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="mb-3 text-secondary" id="basket-empty">No bouquets selected yet. Choose an item from the catalog above.</p>
+                        <ul class="list-group list-group-flush" id="basket-items">
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-hydrangea-cloud"><span>Hydrangea Cloud <span class="text-secondary">— 35 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-hydrangea-cloud">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-velvet-whisper"><span>Velvet Whisper <span class="text-secondary">— 40 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-velvet-whisper">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-the-signature"><span>The Signature <span class="text-secondary">— 55 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-the-signature">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-pink-symphony"><span>Pink Symphony <span class="text-secondary">— 64 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-pink-symphony">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-blush-paradise"><span>Blush Paradise <span class="text-secondary">— 68 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-blush-paradise">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-pastel-dreams"><span>Pastel Dreams <span class="text-secondary">— 74 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-pastel-dreams">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-sweet-elegance"><span>Sweet Elegance <span class="text-secondary">— 85 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-sweet-elegance">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-royal-garden"><span>Royal Garden <span class="text-secondary">— 170 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-royal-garden">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-lavender-bliss"><span>Lavender Bliss <span class="text-secondary">— 74 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-lavender-bliss">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-pink-blossom"><span>Pink Blossom <span class="text-secondary">— 150 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-pink-blossom">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-rose-romance"><span>Rose Romance <span class="text-secondary">— 62 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-rose-romance">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-pastel-heaven"><span>Pastel Heaven <span class="text-secondary">— 150 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-pastel-heaven">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-premium-sweet-harmony"><span>Sweet Harmony <span class="text-secondary">— 82 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-premium-sweet-harmony">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-rose-elegance"><span>Rose Elegance <span class="text-secondary">— 69 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-rose-elegance">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-momoko-dream"><span>Momoko Dream <span class="text-secondary">— 63 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-momoko-dream">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-peony-roses-cloud"><span>Peony-roses Cloud <span class="text-secondary">— 105 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-peony-roses-cloud">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-pink-blossom-basket-s"><span>Pink Blossom Basket (S) <span class="text-secondary">— 14 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-pink-blossom-basket-s">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-pink-blossom-basket-m"><span>Pink Blossom Basket (M) <span class="text-secondary">— 20 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-pink-blossom-basket-m">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-golden-serenity"><span>Golden Serenity <span class="text-secondary">— 28 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-golden-serenity">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-rose-amour"><span>Rosé Amour <span class="text-secondary">— 28 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-rose-amour">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-pink-royalty"><span>Pink Royalty <span class="text-secondary">— 175 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-pink-royalty">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-ivory-grace"><span>Ivory Grace <span class="text-secondary">— 37 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-ivory-grace">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-lavender-romance"><span>Lavender Romance <span class="text-secondary">— 35 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-lavender-romance">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-blushing-beauty"><span>Blushing Beauty <span class="text-secondary">— 35 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-blushing-beauty">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-peach-perfection"><span>Peach Perfection <span class="text-secondary">— 34 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-peach-perfection">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-vanilla-dream"><span>Vanilla Dream <span class="text-secondary">— 29 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-vanilla-dream">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-mono-pure-elegance"><span>Pure Elegance <span class="text-secondary">— 26 900 ₸</span></span><label class="btn btn-sm btn-link" for="pick-mono-pure-elegance">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-velvet-mix"><span>Velvet Mix <span class="text-secondary">— 25 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-velvet-mix">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-blush-box"><span>Blush Box <span class="text-secondary">— 25 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-blush-box">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-royal-bloom"><span>Royal Bloom <span class="text-secondary">— 48 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-royal-bloom">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-pastel-harmony-s"><span>Pastel Harmony (S) <span class="text-secondary">— 19 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-pastel-harmony-s">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-pastel-harmony-l"><span>Pastel Harmony (L) <span class="text-secondary">— 25 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-pastel-harmony-l">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-rosy-symphony"><span>Rosy Symphony <span class="text-secondary">— 110 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-rosy-symphony">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-pink-celebration"><span>Pink Celebration <span class="text-secondary">— 115 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-pink-celebration">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-spring-delight"><span>Spring Delight <span class="text-secondary">— 15 500 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-spring-delight">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-enchanted-garden"><span>Enchanted Garden <span class="text-secondary">— 27 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-enchanted-garden">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-blush-affection"><span>Blush Affection <span class="text-secondary">— 18 900 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-blush-affection">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-grand-romance"><span>Grand Romance <span class="text-secondary">— 118 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-grand-romance">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-blue-serenity"><span>Blue Serenity <span class="text-secondary">— 39 900 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-blue-serenity">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-blushing-clouds"><span>Blushing Clouds <span class="text-secondary">— 22 900 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-blushing-clouds">Remove</label></li>
+                            <li class="list-group-item basket-entry" id="basket-pick-boxes-royal-bloom-alt"><span>Royal Bloom <span class="text-secondary">— 180 000 ₸</span></span><label class="btn btn-sm btn-link" for="pick-boxes-royal-bloom-alt">Remove</label></li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center border-top pt-3 mt-2">
+                            <strong>Selected total</strong>
+                            <output id="basket-total" aria-label="Total in tenge"></output>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5">
+                <div class="brand-note bg-white p-4 shadow-sm h-100">
+                    <h3 class="h4">Continue to order</h3>
+                    <p class="text-secondary">Use the basket to compare your selection. On the next page, enter the exact bouquet names and sizes in the order message.</p>
+                    <form id="basket-form" action="order.html#order-form" method="get">
+                        <button class="btn btn-dark w-100 mb-3" id="basket-checkout" type="submit">Continue to order details</button>
+                    </form>
+                    <p class="small text-secondary mb-0">Your selected bouquets are passed as URL parameters, but this HTML-only page cannot read them back into the order form. Write the selected names there. Online payment is not available.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="container py-5" id="catalog-overview">
         <h2 class="h2 mb-3">Catalog Overview</h2>
+        <p class="text-secondary">Compare the prices of all available arrangements. Sizes with different prices are shown separately.</p>
         <div class="table-responsive shadow-sm">
             <table class="table table-striped table-hover align-middle mb-0">
                 <caption class="px-2">Chic Flowers arrangements and prices</caption>
                 <thead class="table-dark"><tr><th scope="col">Category</th><th scope="col">Arrangement</th><th scope="col">Price</th></tr></thead>
                 <tbody>
-                    <tr><td>Premium</td><td>Hydrangea Cloud</td><td>35 000 ₸</td></tr>
-                    <tr><td>Premium</td><td>Velvet Whisper</td><td>40 000 ₸</td></tr>
-                    <tr><td>Premium</td><td>The Signature</td><td>55 000 ₸</td></tr>
-                    <tr><td>Mono</td><td>Rose Elegance</td><td>69 500 ₸</td></tr>
-                    <tr><td>Mono</td><td>Momoko Dream</td><td>63 500 ₸</td></tr>
-                    <tr><td>Mono</td><td>Peony-roses Cloud</td><td>105 000 ₸</td></tr>
-                    <tr><td>Flower Box</td><td>Velvet Mix</td><td>25 500 ₸</td></tr>
-                    <tr><td>Flower Box</td><td>Blush Box</td><td>25 000 ₸</td></tr>
-                    <tr><td>Flower Box</td><td>Royal Bloom</td><td>48 500 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Hydrangea Cloud</td><td>35 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Velvet Whisper</td><td>40 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>The Signature</td><td>55 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Pink Symphony</td><td>64 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Blush Paradise</td><td>68 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Pastel Dreams</td><td>74 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Sweet Elegance</td><td>85 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Royal Garden</td><td>170 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Lavender Bliss</td><td>74 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Pink Blossom</td><td>150 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Rose Romance</td><td>62 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Pastel Heaven</td><td>150 000 ₸</td></tr>
+                    <tr><td>Premium Bouquets</td><td>Sweet Harmony</td><td>82 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Rose Elegance</td><td>69 500 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Momoko Dream</td><td>63 500 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Peony-roses Cloud</td><td>105 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Pink Blossom Basket</td><td>14 500 ₸ (S) / 20 500 ₸ (M)</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Golden Serenity</td><td>28 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Rosé Amour</td><td>28 500 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Pink Royalty</td><td>175 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Ivory Grace</td><td>37 500 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Lavender Romance</td><td>35 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Blushing Beauty</td><td>35 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Peach Perfection</td><td>34 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Vanilla Dream</td><td>29 000 ₸</td></tr>
+                    <tr><td>Mono Bouquets</td><td>Pure Elegance</td><td>26 900 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Velvet Mix</td><td>25 500 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Blush Box</td><td>25 000 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Royal Bloom</td><td>48 500 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Pastel Harmony</td><td>19 000 ₸ (S) / 25 500 ₸ (L)</td></tr>
+                    <tr><td>Flower Boxes</td><td>Rosy Symphony</td><td>110 000 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Pink Celebration</td><td>115 000 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Spring Delight</td><td>15 500 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Enchanted Garden</td><td>27 000 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Blush Affection</td><td>18 900 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Grand Romance</td><td>118 000 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Blue Serenity</td><td>39 900 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Blushing Clouds</td><td>22 900 ₸</td></tr>
+                    <tr><td>Flower Boxes</td><td>Royal Bloom</td><td>180 000 ₸</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
 </main>
-
 <footer class="text-white py-4 mt-4">
     <div class="container text-center">
         <p class="h5 mb-2">CHIC FLOWERS</p>
@@ -124,7 +797,6 @@
         <p class="small mb-0">&copy; 2026 Chic Flowers. All rights reserved.</p>
     </div>
 </footer>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

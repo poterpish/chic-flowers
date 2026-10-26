@@ -1,0 +1,1520 @@
+{
+  "runAt": "2026-10-26T11:30:26.755Z",
+  "browser": "156.0.8078.47",
+  "checks": [
+    {
+      "name": "Home finder, invalid input, empty result, reset and random recommendation",
+      "status": "passed"
+    },
+    {
+      "name": "Home to catalog transfers shared basket and selected state",
+      "status": "passed"
+    },
+    {
+      "name": "Catalog connected controls, empty state and reset",
+      "status": "passed"
+    },
+    {
+      "name": "Cart arithmetic, remove, clear cancellation and repeated quantities",
+      "status": "passed"
+    },
+    {
+      "name": "Checkout transfers items, validates fields, and confirms a demo only",
+      "status": "passed"
+    },
+    {
+      "name": "Delivery cross-field validation, stale confirmation removal and reset",
+      "status": "passed"
+    },
+    {
+      "name": "Journal search, topic filter and no-results reset",
+      "status": "passed"
+    },
+    {
+      "name": "Comments validate, render safe text and automatic time, edit and remove",
+      "status": "passed"
+    },
+    {
+      "name": "Cross-tab shared basket synchronization",
+      "status": "passed"
+    },
+    {
+      "name": "Malformed stored data recovers without an application exception",
+      "status": "passed"
+    },
+    {
+      "name": "Tampered checkout is normalized using canonical prices and limits",
+      "status": "passed"
+    },
+    {
+      "name": "Blocked storage still transfers Home → Basket → Order via IDs only",
+      "status": "passed"
+    },
+    {
+      "name": "Responsive widths, duplicate IDs, labels and mobile navigation",
+      "status": "passed"
+    }
+  ],
+  "applicationErrors": [],
+  "consoleErrors": [
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7379.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7379.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7379.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7379.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7379.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359893.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7380.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359926.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359888.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359928.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359892.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359881.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359927.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359889.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5382357388360359891.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7382.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7381.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9603.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9599.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9602.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9604.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7386.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9608.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9598.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7387.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9601.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9600.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7385.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9606.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9624.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9619.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9625.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9618.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7389.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9614.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9623.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9615.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9613.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7390.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/IMG_7388.PNG"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535335.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+    },
+    {
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "url": "http://127.0.0.1:8765/img/chic-bouquet.png"
+    }
+  ],
+  "missingImages": [
+    "http://127.0.0.1:8765/img/IMG_7380.PNG",
+    "http://127.0.0.1:8765/img/IMG_7379.PNG",
+    "http://127.0.0.1:8765/img/IMG_7385.PNG",
+    "http://127.0.0.1:8765/img/IMG_7388.PNG",
+    "http://127.0.0.1:8765/img/IMG_9598.PNG",
+    "http://127.0.0.1:8765/img/IMG_9617%20(2).PNG",
+    "http://127.0.0.1:8765/img/IMG_9619.PNG",
+    "http://127.0.0.1:8765/img/IMG_9614.PNG",
+    "http://127.0.0.1:8765/img/IMG_9625.PNG",
+    "http://127.0.0.1:8765/img/IMG_9618.PNG",
+    "http://127.0.0.1:8765/img/5382357388360359892.jpg",
+    "http://127.0.0.1:8765/img/5382357388360359893.jpg",
+    "http://127.0.0.1:8765/img/IMG_7382.PNG",
+    "http://127.0.0.1:8765/img/5382357388360359881.jpg",
+    "http://127.0.0.1:8765/img/IMG_7381.PNG",
+    "http://127.0.0.1:8765/img/5382357388360359928.jpg",
+    "http://127.0.0.1:8765/img/5382357388360359888.jpg",
+    "http://127.0.0.1:8765/img/5382357388360359926.jpg",
+    "http://127.0.0.1:8765/img/5382357388360359889.jpg",
+    "http://127.0.0.1:8765/img/5382357388360359927.jpg",
+    "http://127.0.0.1:8765/img/5382357388360359891.jpg",
+    "http://127.0.0.1:8765/img/IMG_7386.PNG",
+    "http://127.0.0.1:8765/img/IMG_7387.PNG",
+    "http://127.0.0.1:8765/img/IMG_9603.PNG",
+    "http://127.0.0.1:8765/img/IMG_9599.PNG",
+    "http://127.0.0.1:8765/img/IMG_9604.PNG",
+    "http://127.0.0.1:8765/img/IMG_9600.PNG",
+    "http://127.0.0.1:8765/img/IMG_9602.PNG",
+    "http://127.0.0.1:8765/img/IMG_9608.PNG",
+    "http://127.0.0.1:8765/img/IMG_9601.PNG",
+    "http://127.0.0.1:8765/img/IMG_9606.PNG",
+    "http://127.0.0.1:8765/img/IMG_9624.PNG",
+    "http://127.0.0.1:8765/img/IMG_7389.PNG",
+    "http://127.0.0.1:8765/img/IMG_9615.PNG",
+    "http://127.0.0.1:8765/img/IMG_9623.PNG",
+    "http://127.0.0.1:8765/img/IMG_9613.PNG",
+    "http://127.0.0.1:8765/img/IMG_7390.PNG",
+    "http://127.0.0.1:8765/img/chic-bouquet.png",
+    "http://127.0.0.1:8765/img/5337175895774535335.jpg",
+    "http://127.0.0.1:8765/img/5337175895774535334.jpg"
+  ],
+  "failedResources": [],
+  "environmentNote": "The test browser accepts the workspace proxy certificate for the existing Bootstrap CDN. No application security settings or source resources are changed.",
+  "applicationChecksPassed": true,
+  "consoleErrorCount": 353,
+  "qualification": "Application tests are separate from asset validation. Original img files were not supplied; restore them in the original repository and rerun before submission."
+}

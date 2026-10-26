@@ -1,0 +1,15 @@
+index.html: frozen bytes unchanged except deferred script links
+catalog.html: frozen bytes unchanged except deferred script links
+order.html: frozen bytes unchanged except deferred script links
+blog.html: frozen bytes unchanged except deferred script links
+css/alua.css: frozen bytes unchanged
+css/gauhar.css: frozen bytes unchanged
+css/base.css: frozen bytes unchanged
+js/blog.js: strict mode and prohibited-pattern scan passed
+js/catalog.js: strict mode and prohibited-pattern scan passed
+js/data.js: strict mode and prohibited-pattern scan passed
+js/home.js: strict mode and prohibited-pattern scan passed
+js/logic.js: strict mode and prohibited-pattern scan passed
+js/main.js: strict mode and prohibited-pattern scan passed
+js/order.js: strict mode and prohibited-pattern scan passed
+PASS: 14 source/freeze checks

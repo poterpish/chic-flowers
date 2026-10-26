@@ -1,0 +1,25 @@
+✔ canonical catalog contains 38 unique options belonging to 36 arrangements (2.325156ms)
+✔ prices use visible midterm cards and stale basket-only options are absent (0.164112ms)
+✔ size options have separate IDs and correct prices without merging basket lines (0.35295ms)
+✔ search, category and maximum price work together with trimming and case folding (0.368253ms)
+✔ price and name sorting return new arrays without changing the catalog (7.184026ms)
+✔ budget boundary and no-results states return the correct arrays (0.361653ms)
+✔ basket calculation uses catalog prices for line subtotals, quantity and total (8.857662ms)
+✔ normalization rejects invalid containers, unknown IDs and invalid quantities (0.444715ms)
+✔ normalization merges duplicates, clamps a SKU and does not mutate input (0.358708ms)
+✔ normalization enforces the 30-item basket cap across different SKUs (0.574196ms)
+✔ name validation trims whitespace, accepts letters and enforces length (0.565954ms)
+✔ Kazakhstan phone validation accepts supported formats and rejects malformed plus signs (0.308635ms)
+✔ optional email accepts empty input but validates every entered address (0.237139ms)
+✔ Astana date changes exactly at UTC 19:00 and dateAfter uses that calendar (5.206741ms)
+✔ preferred dates include today and day 30, reject past, day 31 and impossible dates (0.95051ms)
+✔ random recommendation returns a real alternative without changing the pool (0.347142ms)
+✔ demo reference is explicitly marked and contains Astana date and a six-digit suffix (0.341523ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 44.799012

@@ -1,0 +1,40 @@
+{
+  "description": "SHA-256 of the exact supplied midterm source attachments before changes. No remote Git tag was available.",
+  "files": [
+    {
+      "path": "index.html",
+      "uploaded_name": "index(20261026-111820).html",
+      "sha256": "ce04c594958b4857c0830b40655626491103a7f72a2c942cc346134465918339"
+    },
+    {
+      "path": "catalog.html",
+      "uploaded_name": "catalog(9).html",
+      "sha256": "2898c4131419e0550314ce6f6bd0a145556be68a515c1f3d6df183a0dd49e6cc"
+    },
+    {
+      "path": "order.html",
+      "uploaded_name": "order(5).html",
+      "sha256": "874e9aeb34ae40aea507c29bfeb6b9d7f6fc563f9749197023736530975d6024"
+    },
+    {
+      "path": "blog.html",
+      "uploaded_name": "blog(3).html",
+      "sha256": "084a6616878a3d410ada09fd051f91bb7e3dd728052e5d15aa0b3e6bc06057fb"
+    },
+    {
+      "path": "css/alua.css",
+      "uploaded_name": "alua(7).css",
+      "sha256": "30da76e00d3e205db2d2bc4d603c68dc079b87d89027a0332ca7ec1cd5d53d8a"
+    },
+    {
+      "path": "css/gauhar.css",
+      "uploaded_name": "gauhar(5).css",
+      "sha256": "2f825ec1af17cb9a5efb7a2ac0061cf24c26b56e5a26d145be80428adcbec1b2"
+    },
+    {
+      "path": "css/base.css",
+      "uploaded_name": "base(3).css",
+      "sha256": "2e16a2df30a2d3045e5a04765f1f1ac1326f1c73f8cc2dfe979c680e66c8736f"
+    }
+  ]
+}

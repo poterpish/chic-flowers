@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "baseline": "SHA-256 of the exact supplied midterm source attachments before changes. No remote Git tag was available.",
+  "checks": [
+    "index.html: frozen bytes unchanged except deferred script links",
+    "catalog.html: frozen bytes unchanged except deferred script links",
+    "order.html: frozen bytes unchanged except deferred script links",
+    "blog.html: frozen bytes unchanged except deferred script links",
+    "css/alua.css: frozen bytes unchanged",
+    "css/gauhar.css: frozen bytes unchanged",
+    "css/base.css: frozen bytes unchanged",
+    "js/blog.js: strict mode and prohibited-pattern scan passed",
+    "js/catalog.js: strict mode and prohibited-pattern scan passed",
+    "js/data.js: strict mode and prohibited-pattern scan passed",
+    "js/home.js: strict mode and prohibited-pattern scan passed",
+    "js/logic.js: strict mode and prohibited-pattern scan passed",
+    "js/main.js: strict mode and prohibited-pattern scan passed",
+    "js/order.js: strict mode and prohibited-pattern scan passed"
+  ],
+  "limitation": "Static scan complements browser checks. It does not certify an unavailable midterm Git tag or missing photographs."
+}

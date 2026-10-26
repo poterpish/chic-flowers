@@ -91,3 +91,52 @@ footer a:hover {
     background-color: #d1e7dd;
     color: #0f5132;
 }
+
+/* The selection is native HTML. CSS :has() shows chosen items in the basket. */
+.basket-entry { display: none; }
+#basket-items { counter-reset: basket-total 0; }
+#basket-total::after { content: counter(basket-total) " ₸"; font-weight: 700; }
+body:has(.product-pick:checked) #basket-empty { display: none; }
+.basket-entry .btn-link { white-space: nowrap; }
+.basket-entry { align-items: center; justify-content: space-between; gap: 0.75rem; }
+body:has(#pick-premium-hydrangea-cloud:checked) #basket-pick-premium-hydrangea-cloud { display: flex; counter-increment: basket-total 35000; }
+body:has(#pick-premium-velvet-whisper:checked) #basket-pick-premium-velvet-whisper { display: flex; counter-increment: basket-total 40000; }
+body:has(#pick-premium-the-signature:checked) #basket-pick-premium-the-signature { display: flex; counter-increment: basket-total 55000; }
+body:has(#pick-premium-pink-symphony:checked) #basket-pick-premium-pink-symphony { display: flex; counter-increment: basket-total 64000; }
+body:has(#pick-premium-blush-paradise:checked) #basket-pick-premium-blush-paradise { display: flex; counter-increment: basket-total 68000; }
+body:has(#pick-premium-pastel-dreams:checked) #basket-pick-premium-pastel-dreams { display: flex; counter-increment: basket-total 74000; }
+body:has(#pick-premium-sweet-elegance:checked) #basket-pick-premium-sweet-elegance { display: flex; counter-increment: basket-total 85000; }
+body:has(#pick-premium-royal-garden:checked) #basket-pick-premium-royal-garden { display: flex; counter-increment: basket-total 170000; }
+body:has(#pick-premium-lavender-bliss:checked) #basket-pick-premium-lavender-bliss { display: flex; counter-increment: basket-total 74000; }
+body:has(#pick-premium-pink-blossom:checked) #basket-pick-premium-pink-blossom { display: flex; counter-increment: basket-total 150000; }
+body:has(#pick-premium-rose-romance:checked) #basket-pick-premium-rose-romance { display: flex; counter-increment: basket-total 62000; }
+body:has(#pick-premium-pastel-heaven:checked) #basket-pick-premium-pastel-heaven { display: flex; counter-increment: basket-total 150000; }
+body:has(#pick-premium-sweet-harmony:checked) #basket-pick-premium-sweet-harmony { display: flex; counter-increment: basket-total 82000; }
+body:has(#pick-mono-rose-elegance:checked) #basket-pick-mono-rose-elegance { display: flex; counter-increment: basket-total 69500; }
+body:has(#pick-mono-momoko-dream:checked) #basket-pick-mono-momoko-dream { display: flex; counter-increment: basket-total 63500; }
+body:has(#pick-mono-peony-roses-cloud:checked) #basket-pick-mono-peony-roses-cloud { display: flex; counter-increment: basket-total 105000; }
+body:has(#pick-mono-pink-blossom-basket-s:checked) #basket-pick-mono-pink-blossom-basket-s { display: flex; counter-increment: basket-total 14500; }
+body:has(#pick-mono-pink-blossom-basket-m:checked) #basket-pick-mono-pink-blossom-basket-m { display: flex; counter-increment: basket-total 20500; }
+body:has(#pick-mono-golden-serenity:checked) #basket-pick-mono-golden-serenity { display: flex; counter-increment: basket-total 28000; }
+body:has(#pick-mono-rose-amour:checked) #basket-pick-mono-rose-amour { display: flex; counter-increment: basket-total 28500; }
+body:has(#pick-mono-pink-royalty:checked) #basket-pick-mono-pink-royalty { display: flex; counter-increment: basket-total 175000; }
+body:has(#pick-mono-ivory-grace:checked) #basket-pick-mono-ivory-grace { display: flex; counter-increment: basket-total 37500; }
+body:has(#pick-mono-lavender-romance:checked) #basket-pick-mono-lavender-romance { display: flex; counter-increment: basket-total 35000; }
+body:has(#pick-mono-blushing-beauty:checked) #basket-pick-mono-blushing-beauty { display: flex; counter-increment: basket-total 35000; }
+body:has(#pick-mono-peach-perfection:checked) #basket-pick-mono-peach-perfection { display: flex; counter-increment: basket-total 34000; }
+body:has(#pick-mono-vanilla-dream:checked) #basket-pick-mono-vanilla-dream { display: flex; counter-increment: basket-total 29000; }
+body:has(#pick-mono-pure-elegance:checked) #basket-pick-mono-pure-elegance { display: flex; counter-increment: basket-total 26900; }
+body:has(#pick-boxes-velvet-mix:checked) #basket-pick-boxes-velvet-mix { display: flex; counter-increment: basket-total 25500; }
+body:has(#pick-boxes-blush-box:checked) #basket-pick-boxes-blush-box { display: flex; counter-increment: basket-total 25000; }
+body:has(#pick-boxes-royal-bloom:checked) #basket-pick-boxes-royal-bloom { display: flex; counter-increment: basket-total 48500; }
+body:has(#pick-boxes-pastel-harmony-s:checked) #basket-pick-boxes-pastel-harmony-s { display: flex; counter-increment: basket-total 19000; }
+body:has(#pick-boxes-pastel-harmony-l:checked) #basket-pick-boxes-pastel-harmony-l { display: flex; counter-increment: basket-total 25500; }
+body:has(#pick-boxes-rosy-symphony:checked) #basket-pick-boxes-rosy-symphony { display: flex; counter-increment: basket-total 110000; }
+body:has(#pick-boxes-pink-celebration:checked) #basket-pick-boxes-pink-celebration { display: flex; counter-increment: basket-total 115000; }
+body:has(#pick-boxes-spring-delight:checked) #basket-pick-boxes-spring-delight { display: flex; counter-increment: basket-total 15500; }
+body:has(#pick-boxes-enchanted-garden:checked) #basket-pick-boxes-enchanted-garden { display: flex; counter-increment: basket-total 27000; }
+body:has(#pick-boxes-blush-affection:checked) #basket-pick-boxes-blush-affection { display: flex; counter-increment: basket-total 18900; }
+body:has(#pick-boxes-grand-romance:checked) #basket-pick-boxes-grand-romance { display: flex; counter-increment: basket-total 118000; }
+body:has(#pick-boxes-blue-serenity:checked) #basket-pick-boxes-blue-serenity { display: flex; counter-increment: basket-total 39900; }
+body:has(#pick-boxes-blushing-clouds:checked) #basket-pick-boxes-blushing-clouds { display: flex; counter-increment: basket-total 22900; }
+body:has(#pick-boxes-royal-bloom-alt:checked) #basket-pick-boxes-royal-bloom-alt { display: flex; counter-increment: basket-total 180000; }
