@@ -1,0 +1,110 @@
+{
+  "run_at": "2026-11-02T10:33:24.020661+00:00",
+  "mode": "isolated in-memory DOM",
+  "checks": [
+    {
+      "name": "Home finder: invalid/empty/reset, random recommendation, delegated add",
+      "passed": true
+    },
+    {
+      "name": "Shared basket state rehydrates in catalog",
+      "passed": true
+    },
+    {
+      "name": "Catalog connected filters, sorting, no results, reset and slide effects",
+      "passed": true
+    },
+    {
+      "name": "Cart add/increase/decrease, arithmetic, cancel/clear, empty checkout, quantity limit",
+      "passed": true
+    },
+    {
+      "name": "Order full field validation, conditional rules, escaped summary, reset, edit and fade dismiss",
+      "passed": true
+    },
+    {
+      "name": "Only cart identifiers and quantities are stored, not contact details",
+      "passed": true
+    },
+    {
+      "name": "Journal search and full comment add/edit/cancel/remove, counter and safe text",
+      "passed": true
+    },
+    {
+      "name": "Blocked-storage fallback still selects products and produces a transfer URL",
+      "passed": true
+    },
+    {
+      "name": "Malformed saved JSON recovers without script errors",
+      "passed": true
+    },
+    {
+      "name": "Unknown products removed and stored quantity clamped",
+      "passed": true
+    },
+    {
+      "name": "index.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "index.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "index.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "catalog.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "catalog.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "catalog.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "order.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "order.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "order.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "blog.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "blog.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "blog.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
+      "passed": true
+    },
+    {
+      "name": "No application JavaScript exceptions in tested interactions",
+      "passed": true
+    }
+  ],
+  "application_errors": [],
+  "console_errors": [],
+  "failed_resources": [],
+  "limitations": [
+    "Enterprise browser policy blocks top-level HTTP navigation in this build environment. Documents were mounted in memory with a base URL to the local source server.",
+    "Exact full jQuery 3.7.1 bytes (verified by the source integrity attribute) were served locally. Bootstrap 5.3.6 local assets substituted for the unchanged 5.3.3 CDN URLs only in the test harness.",
+    "A storage test double was used for persistence scenarios; actual localStorage and end-to-end page navigation/CDN delivery need a local Live Server check on the students' computer.",
+    "Source files and production CDN links were not rewritten for these environment adaptations."
+  ],
+  "jquery_version": "3.7.1",
+  "bootstrap_test_version": "5.3.6",
+  "passed": true
+}

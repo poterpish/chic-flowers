@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "baseline": "Uploaded chic-flowers.rar working tree; this does NOT certify equality with its historical midterm tag.",
+  "checks": [
+    "css/alua.css: byte-identical to uploaded archive",
+    "css/gauhar.css: byte-identical to uploaded archive",
+    "css/base.css: byte-identical to uploaded archive",
+    "blog.html: only jQuery script and version comment added",
+    "catalog.html: only jQuery script and version comment added",
+    "order.html: only jQuery script and version comment added",
+    "index.html: only jQuery script and version comment added",
+    "js/main.js: ready, strict, no mixed native DOM/events or custom CSS generation",
+    "js/home.js: ready, strict, no mixed native DOM/events or custom CSS generation",
+    "js/catalog.js: ready, strict, no mixed native DOM/events or custom CSS generation",
+    "js/order.js: ready, strict, no mixed native DOM/events or custom CSS generation",
+    "js/blog.js: ready, strict, no mixed native DOM/events or custom CSS generation",
+    "old-js-version.js contains original module sections and is not loaded"
+  ]
+}

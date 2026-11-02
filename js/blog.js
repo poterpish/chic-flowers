@@ -1,490 +1,213 @@
 'use strict';
 
-// Gauhar: find an article, read it, then leave or manage a local demo comment.
-(() => {
-    const posts = document.querySelector('#blog-posts');
-    if (!posts) return;
-
-    const { el, button, message, fieldError, clearFieldError, watchImage } = window.Chic;
-    const { validateName } = window.ChicLogic;
-    const categories = [
-        { id: 'all', label: 'All topics' },
-        { id: 'gifts', label: 'Gift ideas' },
-        { id: 'care', label: 'Flower care' }
-    ];
-    const articleDetails = {
-        'flowers-for-girlfriend': {
-            category: 'gifts', catalog: 'premium',
-            image: 'img/chic-bouquet.png', imageAlt: 'Flower bouquet for a romantic gift'
-        },
-        'flowers-for-mom': {
-            category: 'gifts', catalog: 'boxes',
-            image: 'img/5337175895774535335.jpg', imageAlt: 'Flower bouquet as a gift for mom'
-        },
-        'flower-care': {
-            category: 'care', catalog: 'mono',
-            image: 'img/5337175895774535334.jpg', imageAlt: 'Fresh flower arrangement'
-        }
-    };
-
-    // Read the midterm content once; the original complete articles remain intact.
-    const articles = Array.from(posts.querySelectorAll('article')).map((card) => {
-        const id = card.querySelector('a').hash.slice(1);
-        const image = card.querySelector('img');
-        const section = document.getElementById(id);
-        return {
-            id,
-            title: card.querySelector('h3').textContent.trim(),
-            description: card.querySelector('.card-text').textContent.trim().replace(/\s+/g, ' '),
-            // Shared main.js may already have replaced a missing original image.
-            image: image ? image.getAttribute('src') : articleDetails[id].image,
-            imageAlt: image ? image.alt : articleDetails[id].imageAlt,
-            searchText: section.textContent.toLocaleLowerCase(),
-            category: articleDetails[id].category,
-            catalog: articleDetails[id].catalog
-        };
+// jQuery 3.7.1: ready makes the existing article markup available before traversal.
+$(function () {
+    const $posts = $('#blog-posts');
+    if (!$posts.length) return;
+    const C = window.Chic;
+    const L = window.ChicLogic;
+    const topics = [{ id: 'all', label: 'All topics' }, { id: 'gifts', label: 'Gift ideas' }, { id: 'care', label: 'Flower care' }];
+    const links = { 'flowers-for-girlfriend': ['gifts', 'premium', 'img/chic-bouquet.png'],
+        'flowers-for-mom': ['gifts', 'boxes', 'img/5337175895774535335.jpg'],
+        'flower-care': ['care', 'mono', 'img/5337175895774535334.jpg'] };
+    const articles = [];
+    // Traversal replaces querySelector/Array.from; the full original articles are not rewritten.
+    $posts.find('article').each(function () {
+        const $card = $(this);
+        const id = $card.find('a').attr('href').slice(1);
+        articles.push({ id, title: $card.find('h3').text().trim(),
+            description: $card.find('.card-text').text().trim().replace(/\s+/g, ' '),
+            image: $card.find('img').attr('src') || links[id][2], imageAlt: $card.find('img').attr('alt') || 'Flower arrangement',
+            searchText: $(`#${id}`).text().toLowerCase(), category: links[id][0], catalog: links[id][1] });
     });
-
-    function addOption(select, value, label) {
-        const option = el('option', '', label);
-        option.value = value;
-        select.append(option);
-        return option;
-    }
-
-    function labelledControl(id, text, control, classes = 'col-12 col-md-6') {
-        const wrapper = el('div', classes);
-        const label = el('label', 'form-label', text);
-        label.htmlFor = id;
-        control.id = id;
-        wrapper.append(label, control);
-        return wrapper;
-    }
-
-    const controls = el('form', 'row g-3 align-items-end mb-4');
-    controls.id = 'article-search-form';
-    controls.setAttribute('role', 'search');
-    controls.setAttribute('aria-label', 'Find a flower journal article');
-    const search = el('input', 'form-control');
-    search.type = 'search';
-    search.maxLength = 100;
-    search.placeholder = 'Try roses, water or gift';
-    const category = el('select', 'form-select');
-    categories.forEach((item) => addOption(category, item.id, item.label));
-    const resetSearch = button('Reset article filters');
-    resetSearch.id = 'article-reset';
-    const resetWrapper = el('div', 'col-12');
-    resetWrapper.append(resetSearch);
-    controls.append(
-        labelledControl('article-search', 'Search articles', search),
-        labelledControl('article-category', 'Topic', category),
-        resetWrapper
-    );
-    const resultCount = el('p', 'text-secondary');
-    resultCount.id = 'article-count';
-    resultCount.setAttribute('role', 'status');
-    resultCount.setAttribute('aria-live', 'polite');
-    const articleList = posts.querySelector('.row');
-    articleList.id = 'article-results';
-    articleList.classList.add('row-cols-1', 'row-cols-md-2', 'row-cols-lg-3');
-    posts.insertBefore(controls, articleList);
-    posts.insertBefore(resultCount, articleList);
-
-    function filterArticles(items, query, selectedCategory) {
-        const term = query.trim().toLocaleLowerCase();
-        return items.filter((article) => {
-            const matchesTopic = selectedCategory === 'all' || article.category === selectedCategory;
-            const matchesText = `${article.title} ${article.description} ${article.searchText}`
-                .toLocaleLowerCase().includes(term);
-            return matchesTopic && matchesText;
-        });
-    }
-
+    const $search = C.el('input', 'form-control').attr({ type: 'search', maxlength: 100, placeholder: 'Try roses, water or gift' });
+    const $category = C.el('select', 'form-select');
+    topics.forEach((topic) => C.option($category, topic.id, topic.label));
+    const $reset = C.button('Reset article filters').attr('id', 'article-reset');
+    const $controls = C.el('form', 'row g-3 align-items-end mb-4').attr({ id: 'article-search-form', role: 'search', 'aria-label': 'Find a journal article' })
+        .append(C.field('article-search', 'Search articles', $search), C.field('article-category', 'Topic', $category), C.el('div', 'col-12').append($reset));
+    const $count = C.el('p', 'text-secondary').attr({ id: 'article-count', role: 'status', 'aria-live': 'polite' });
+    const $list = $posts.children('.row').first().attr('id', 'article-results').addClass('row-cols-1 row-cols-md-2 row-cols-lg-3');
+    $controls.insertBefore($list); $count.insertBefore($list);
     function renderArticle(article) {
-        const column = el('article', 'col');
-        const card = el('div', 'card h-100 shadow-sm product-card journal-card');
-        card.dataset.articleId = article.id;
-        const picture = el('img', 'card-img-top');
-        picture.alt = article.imageAlt;
-        picture.loading = 'lazy';
-        picture.src = article.image;
-        const body = el('div', 'card-body d-flex flex-column');
-        const topic = categories.find((item) => item.id === article.category);
-        const tag = el('p', 'small text-secondary', topic.label);
-        const title = el('h3', 'card-title h5', article.title);
-        const description = el('p', 'card-text', article.description);
-        const read = el('a', 'btn btn-dark mt-auto', 'Read article');
-        read.href = `#${article.id}`;
-        read.setAttribute('aria-label', `Read ${article.title}`);
-        body.append(tag, title, description, read);
-        card.append(picture, body);
-        column.append(card);
-        watchImage(picture);
-        return column;
+        const $picture = C.el('img', 'card-img-top').attr({ src: article.image, alt: article.imageAlt, loading: 'lazy' });
+        C.watchImage($picture);
+        return C.el('article', 'col').append(C.el('div', 'card h-100 shadow-sm product-card journal-card').attr('data-article-id', article.id)
+            .append($picture, C.el('div', 'card-body d-flex flex-column').append(
+                C.el('p', 'small text-secondary', topics.find((t) => t.id === article.category).label),
+                C.el('h3', 'card-title h5', article.title), C.el('p', 'card-text', article.description),
+                C.el('a', 'btn btn-dark mt-auto', 'Read article').attr({ href: `#${article.id}`, 'aria-label': `Read ${article.title}` }))));
     }
-
+    function markCurrentArticle() {
+        const id = window.location.hash.slice(1);
+        $list.find('[data-article-id]').each(function () { $(this).toggleClass('selected', $(this).attr('data-article-id') === id); });
+    }
     function renderArticles() {
-        const matches = filterArticles(articles, search.value, category.value);
-        articleList.replaceChildren();
-        matches.forEach((article) => articleList.append(renderArticle(article)));
-        if (matches.length === 0) {
-            const empty = el('p', 'col-12 state-message', 'No articles match. Try another word or reset the filters.');
-            empty.id = 'article-empty';
-            articleList.append(empty);
-        }
-        resultCount.textContent = `${matches.length} of ${articles.length} articles match.`;
-        resetSearch.classList.toggle('active', search.value.trim() !== '' || category.value !== 'all');
+        const term = $search.val().trim().toLowerCase();
+        const matches = articles.filter((article) => ($category.val() === 'all' || article.category === $category.val()) &&
+            `${article.title} ${article.description} ${article.searchText}`.toLowerCase().includes(term));
+        $list.empty();
+        matches.forEach((article) => $list.append(renderArticle(article)));
+        if (!matches.length) $list.append(C.el('p', 'col-12 state-message', 'No articles match. Try another word or reset the filters.').attr('id', 'article-empty'));
+        $count.text(`${matches.length} of ${articles.length} articles match.`);
+        $reset.toggleClass('active', term !== '' || $category.val() !== 'all');
         markCurrentArticle();
     }
+    $controls.on('submit', function (event) { event.preventDefault(); renderArticles(); }); // Prevent page reload during a local search.
+    $search.on('input', renderArticles); $category.on('change', renderArticles);
+    $reset.on('click', function () { $search.val(''); $category.val('all'); renderArticles(); C.focus($search); });
+    $(window).on('hashchange', markCurrentArticle);
 
-    function markCurrentArticle() {
-        const currentId = window.location.hash.slice(1);
-        articleList.querySelectorAll('[data-article-id]').forEach((card) => {
-            card.classList.toggle('selected', card.dataset.articleId === currentId);
-        });
-    }
-
-    controls.addEventListener('submit', (event) => {
-        event.preventDefault();
-        renderArticles();
-    });
-    search.addEventListener('input', renderArticles);
-    category.addEventListener('change', renderArticles);
-    resetSearch.addEventListener('click', () => {
-        search.value = '';
-        category.value = 'all';
-        renderArticles();
-        search.focus();
-    });
-    window.addEventListener('hashchange', markCurrentArticle);
-
-    // Comments are held only in this array. No names or text enter browser storage.
+    // Local comments are neither saved to storage nor published as real customer reviews.
     const comments = [];
-    let nextCommentId = 1;
+    let nextId = 1;
     let editingId = null;
-    let pendingDeleteId = null;
-    let attemptedSubmit = false;
-
-    const commentsSection = el('section', 'container py-5');
-    commentsSection.id = 'journal-comments';
-    const heading = el('h2', 'h2', 'Discuss the articles');
-    const privacyNote = el('p', 'text-secondary',
-        'Practice writing an article comment. Comments stay on this open page only and disappear on reload. Nothing is sent to a server or published as a real customer review.');
-    const commentForm = el('form', 'card card-body shadow-sm mb-4');
-    commentForm.id = 'comment-form';
-    commentForm.noValidate = true;
-    const formHeading = el('h3', 'h5', 'Add a demo comment');
-    formHeading.id = 'comment-form-heading';
-    commentForm.setAttribute('aria-labelledby', formHeading.id);
-    const fieldGrid = el('div', 'row g-3');
-    const name = el('input', 'form-control');
-    name.type = 'text';
-    name.required = true;
-    name.maxLength = 60;
-    name.autoComplete = 'nickname';
-    const articleChoice = el('select', 'form-select');
-    articleChoice.required = true;
-    addOption(articleChoice, '', 'Choose an article');
-    articles.forEach((article) => addOption(articleChoice, article.id, article.title));
-    const rating = el('select', 'form-select');
-    rating.required = true;
-    addOption(rating, '', 'Choose a rating');
-    for (let score = 1; score <= 5; score += 1) {
-        addOption(rating, String(score), `${score} / 5`);
-    }
-    const commentText = el('textarea', 'form-control');
-    commentText.required = true;
-    commentText.rows = 4;
-    commentText.maxLength = 600;
-    commentText.placeholder = 'Share what you found useful or ask a question about this article.';
-    const textWrapper = labelledControl('comment-text', 'Your comment (20–600 characters)', commentText, 'col-12');
-    const counter = el('p', 'form-text mb-0');
-    counter.id = 'comment-counter';
-    commentText.setAttribute('aria-describedby', counter.id);
-    textWrapper.append(counter);
-    fieldGrid.append(
-        labelledControl('comment-name', 'Display name (2–60 characters)', name),
-        labelledControl('comment-article', 'Article', articleChoice),
-        labelledControl('comment-rating', 'How helpful was the article?', rating),
-        textWrapper
-    );
-    const actions = el('div', 'd-flex flex-wrap gap-2 mt-3');
-    const submitComment = button('Add demo comment', 'btn btn-dark', 'submit');
-    submitComment.id = 'comment-submit';
-    const resetComment = button('Clear comment form');
-    resetComment.id = 'comment-reset';
-    actions.append(submitComment, resetComment);
-    const formStatus = el('p', 'state-message hidden');
-    formStatus.id = 'comment-status';
-    formStatus.setAttribute('role', 'status');
-    formStatus.setAttribute('aria-live', 'polite');
-    commentForm.append(formHeading, fieldGrid, actions, formStatus);
-
-    const listControls = el('div', 'row g-3 align-items-end mb-3');
-    const commentFilter = el('select', 'form-select');
-    addOption(commentFilter, 'all', 'All articles');
-    articles.forEach((article) => addOption(commentFilter, article.id, article.title));
-    const showAll = button('Show all comments');
-    showAll.id = 'comment-show-all';
-    const showAllWrapper = el('div', 'col-12 col-md-6');
-    showAllWrapper.append(showAll);
-    listControls.append(labelledControl('comment-filter', 'View comments for', commentFilter), showAllWrapper);
-    const commentCount = el('p', 'text-secondary');
-    commentCount.id = 'comment-count';
-    commentCount.setAttribute('aria-live', 'polite');
-    const commentList = el('div', 'row g-3');
-    commentList.id = 'comment-list';
-    commentList.tabIndex = -1;
-    commentList.setAttribute('aria-label', 'Local demo comments');
-    commentsSection.append(heading, privacyNote, commentForm, listControls, commentCount, commentList);
-    document.querySelector('main').insertBefore(commentsSection, document.getElementById('journal-next'));
-
-    function commentError(input) {
-        if (input === name) return validateName(name.value);
-        if (input === articleChoice) {
-            return articles.some((article) => article.id === articleChoice.value)
-                ? '' : 'Choose the article you are commenting on.';
-        }
-        if (input === rating) {
-            const value = Number(rating.value);
-            return Number.isInteger(value) && value >= 1 && value <= 5
-                ? '' : 'Rate this article from 1 to 5.';
-        }
-        const length = commentText.value.trim().length;
-        if (length < 20) return 'Write at least 20 characters, excluding spaces at the beginning and end.';
-        if (length > 600) return 'Keep your comment within 600 characters.';
-        return '';
-    }
-
+    let pendingDelete = null;
+    let attempted = false;
+    const $section = C.el('section', 'container py-5').attr('id', 'journal-comments');
+    const $form = C.el('form', 'card card-body shadow-sm mb-4').attr({ id: 'comment-form', 'aria-labelledby': 'comment-form-heading' }).prop('noValidate', true);
+    const $heading = C.el('h3', 'h5', 'Add a demo comment').attr('id', 'comment-form-heading');
+    const $name = C.el('input', 'form-control').attr({ type: 'text', required: true, maxlength: 60, autocomplete: 'nickname' });
+    const $article = C.el('select', 'form-select').prop('required', true);
+    C.option($article, '', 'Choose an article'); articles.forEach((a) => C.option($article, a.id, a.title));
+    const $rating = C.el('select', 'form-select').prop('required', true);
+    C.option($rating, '', 'Choose a rating');
+    for (let n = 1; n <= 5; n += 1) C.option($rating, String(n), `${n} / 5`);
+    const $text = C.el('textarea', 'form-control').attr({ rows: 4, required: true, maxlength: 600, placeholder: 'Share what you found useful about this article.' });
+    const $counter = C.el('p', 'form-text mb-0').attr('id', 'comment-counter');
+    $text.attr('aria-describedby', 'comment-counter');
+    const $submit = C.button('Add demo comment', 'btn btn-dark', 'submit').attr('id', 'comment-submit');
+    const $clear = C.button('Clear comment form').attr('id', 'comment-reset');
+    const $status = C.el('p', 'hidden').attr({ id: 'comment-status', role: 'status' });
+    $form.append($heading, C.el('div', 'row g-3').append(C.field('comment-name', 'Display name (2–60 characters)', $name),
+        C.field('comment-article', 'Article', $article), C.field('comment-rating', 'How helpful was this article?', $rating),
+        C.field('comment-text', 'Your comment (20–600 characters)', $text, 'col-12').append($counter)),
+        C.el('div', 'd-flex flex-wrap gap-2 mt-3').append($submit, $clear), $status);
+    const $filter = C.el('select', 'form-select');
+    C.option($filter, 'all', 'All articles'); articles.forEach((a) => C.option($filter, a.id, a.title));
+    const $all = C.button('Show all comments').attr('id', 'comment-show-all');
+    const $commentCount = C.el('p', 'text-secondary').attr({ id: 'comment-count', 'aria-live': 'polite' });
+    const $commentList = C.el('div', 'row g-3').attr({ id: 'comment-list', tabindex: -1, 'aria-label': 'Local demo comments' });
+    $section.append(C.el('h2', 'h2', 'Discuss the articles'), C.el('p', 'text-secondary',
+        'Comments stay on this open page and disappear on reload. Nothing is sent to a server or published as a real customer review.'), $form,
+        C.el('div', 'row g-3 align-items-end mb-3').append(C.field('comment-filter', 'View comments for', $filter), C.el('div', 'col-12 col-md-6').append($all)),
+        $commentCount, $commentList).insertBefore('#journal-next');
     function updateCounter() {
-        const count = commentText.value.trim().length;
-        counter.textContent = `${count} / 600 characters after trimming. Minimum: 20.`;
-        counter.classList.toggle('error', count > 600);
+        const count = $text.val().trim().length;
+        $counter.text(`${count} / 600 characters after trimming. Minimum: 20.`).toggleClass('error', count > 600);
     }
-
-    function validateCommentForm() {
-        const fields = [name, articleChoice, rating, commentText];
-        let firstInvalid = null;
-        fields.forEach((input) => {
-            const error = commentError(input);
-            fieldError(input, error);
-            if (error !== '' && firstInvalid === null) firstInvalid = input;
-        });
-        if (firstInvalid !== null) {
-            firstInvalid.focus();
-            return false;
-        }
-        return true;
+    function getError(id) {
+        if (id === 'comment-name') return L.validateName($name.val());
+        if (id === 'comment-article') return articles.some((a) => a.id === $article.val()) ? '' : 'Choose the article you are commenting on.';
+        if (id === 'comment-rating') return /^[1-5]$/.test($rating.val()) ? '' : 'Choose a rating from 1 to 5.';
+        const length = $text.val().trim().length;
+        return length < 20 ? 'Write at least 20 characters, excluding outer spaces.' : length > 600 ? 'Keep your comment within 600 characters.' : '';
     }
-
-    function resetCommentForm(keepName = false) {
-        if (!keepName) name.value = '';
-        articleChoice.value = '';
-        rating.value = '';
-        commentText.value = '';
-        editingId = null;
-        attemptedSubmit = false;
-        formHeading.textContent = 'Add a demo comment';
-        submitComment.textContent = 'Add demo comment';
-        resetComment.textContent = 'Clear comment form';
-        [name, articleChoice, rating, commentText].forEach(clearFieldError);
+    function clearForm() {
+        $name.add($text).val(''); $article.add($rating).val('');
+        editingId = null; attempted = false;
+        $heading.text('Add a demo comment'); $submit.text('Add demo comment'); $clear.text('Clear comment form');
+        $form.find('input, select, textarea').each(function () { C.clearFieldError($(this)); });
         updateCounter();
     }
-
-    function beginEdit(comment) {
-        editingId = comment.id;
-        pendingDeleteId = null;
-        attemptedSubmit = false;
-        name.value = comment.name;
-        articleChoice.value = comment.articleId;
-        rating.value = String(comment.rating);
-        commentText.value = comment.text;
-        [name, articleChoice, rating, commentText].forEach(clearFieldError);
-        formHeading.textContent = 'Edit your demo comment';
-        submitComment.textContent = 'Save comment changes';
-        resetComment.textContent = 'Cancel editing';
-        message(formStatus, 'Editing your local comment. Save changes or cancel to keep the original.');
-        updateCounter();
-        renderComments();
-        commentForm.scrollIntoView({ block: 'start' });
-        commentText.focus();
+    function formatDate(iso) {
+        return new Intl.DateTimeFormat('en-GB', { timeZone: window.ChicData.settings.timeZone, dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso));
     }
-
-    function formatCommentDate(isoDate) {
-        return new Intl.DateTimeFormat('en-GB', {
-            timeZone: window.ChicData.settings.timeZone,
-            dateStyle: 'medium',
-            timeStyle: 'short'
-        }).format(new Date(isoDate));
-    }
-
-    // The same renderer handles every new, existing and edited comment object.
+    // Rewritten list: .appendTo()/.text() replace createElement/textContent; one renderer
+    // handles new and edited comments. User text never passes through .html().
     function renderComment(comment) {
-        const column = el('div', 'col-12');
-        const card = el('article', 'card shadow-sm');
-        card.id = `journal-comment-${comment.id}`;
-        card.classList.toggle('selected', comment.id === editingId);
-        const body = el('div', 'card-body');
-        const article = articles.find((item) => item.id === comment.articleId);
-        const title = el('h3', 'h5 text-break', comment.name);
-        const details = el('p', 'small text-secondary', `${article.title} · Helpfulness: ${comment.rating}/5`);
-        const dateLine = el('p', 'small text-secondary');
-        const time = el('time', '', `${formatCommentDate(comment.createdAt)} (Astana time)`);
-        time.dateTime = comment.createdAt;
-        dateLine.append(time);
-        if (comment.updatedAt !== null) {
-            dateLine.append(document.createTextNode(` · Edited ${formatCommentDate(comment.updatedAt)}`));
-        }
-        const text = el('p', 'text-break', comment.text);
-        const state = el('p', 'small text-secondary', 'Local demo comment — not publicly submitted.');
-        const buttons = el('div', 'd-flex flex-wrap gap-2');
-        const edit = button('Edit', 'btn btn-outline-dark btn-sm');
-        edit.setAttribute('aria-label', `Edit comment by ${comment.name}`);
-        edit.addEventListener('click', () => beginEdit(comment));
-        const remove = button('Remove', 'btn btn-outline-secondary btn-sm');
-        remove.setAttribute('aria-label', `Remove comment by ${comment.name}`);
-        remove.addEventListener('click', () => {
-            pendingDeleteId = comment.id;
-            renderComments();
-            document.getElementById(`confirm-delete-${comment.id}`).focus();
-        });
-        buttons.append(edit, remove);
-        body.append(title, details, dateLine, text, state, buttons);
-        if (pendingDeleteId === comment.id) {
-            const confirmation = el('div', 'border rounded p-3 mt-3');
-            const prompt = el('p', '', 'Remove this demo comment from the open page?');
-            const confirm = button('Yes, remove', 'btn btn-dark btn-sm');
-            confirm.id = `confirm-delete-${comment.id}`;
-            const cancel = button('Cancel', 'btn btn-outline-secondary btn-sm');
-            const confirmationButtons = el('div', 'd-flex flex-wrap gap-2');
-            confirm.addEventListener('click', () => {
-                const index = comments.findIndex((item) => item.id === comment.id);
-                if (index !== -1) comments.splice(index, 1);
-                if (editingId === comment.id) resetCommentForm(true);
-                pendingDeleteId = null;
-                renderComments();
-                message(formStatus, 'Demo comment removed. Nothing was sent to a server.');
-                commentList.focus();
-            });
-            cancel.addEventListener('click', () => {
-                pendingDeleteId = null;
-                renderComments();
-                message(formStatus, 'Removal cancelled. Your demo comment is unchanged.');
-                document.getElementById(`journal-comment-${comment.id}`).querySelector('button').focus();
-            });
-            confirmationButtons.append(confirm, cancel);
-            confirmation.append(prompt, confirmationButtons);
-            body.append(confirmation);
-        }
-        card.append(body);
-        column.append(card);
-        return column;
+        const article = articles.find((a) => a.id === comment.articleId);
+        const $card = C.el('article', 'card shadow-sm').attr({ id: `journal-comment-${comment.id}`, 'data-comment-id': comment.id }).toggleClass('selected', comment.id === editingId);
+        const $body = C.el('div', 'card-body').append(C.el('h3', 'h5 text-break', comment.name),
+            C.el('p', 'small text-secondary', `${article.title} · Helpfulness: ${comment.rating}/5`),
+            C.el('p', 'small text-secondary').append(C.el('time', '', `${formatDate(comment.createdAt)} (Astana)`).attr('datetime', comment.createdAt)),
+            C.el('p', 'text-break', comment.text), C.el('p', 'small text-secondary', 'Local demo comment — not publicly submitted.'));
+        if (comment.updatedAt) $body.append(C.el('p', 'small text-secondary', `Edited ${formatDate(comment.updatedAt)}`));
+        $body.append(C.el('div', 'd-flex flex-wrap gap-2').append(
+            C.button('Edit', 'btn btn-outline-dark btn-sm').attr('data-comment-action', 'edit'),
+            C.button('Remove', 'btn btn-outline-secondary btn-sm').attr('data-comment-action', 'remove')));
+        if (pendingDelete === comment.id) $body.append(C.el('div', 'border rounded p-3 mt-3').append(
+            C.el('p', '', 'Remove this local demo comment?'), C.el('div', 'd-flex flex-wrap gap-2').append(
+                C.button('Yes, remove', 'btn btn-dark btn-sm').attr({ id: `confirm-delete-${comment.id}`, 'data-comment-action': 'confirm' }),
+                C.button('Cancel', 'btn btn-outline-secondary btn-sm').attr('data-comment-action', 'cancel'))));
+        return C.el('div', 'col-12').append($card.append($body));
     }
-
     function renderComments() {
-        const visible = comments.filter((comment) => commentFilter.value === 'all' || comment.articleId === commentFilter.value);
-        commentList.replaceChildren();
-        visible.forEach((comment) => commentList.append(renderComment(comment)));
-        if (visible.length === 0) {
-            const empty = el('p', 'col-12', comments.length === 0
-                ? 'No comments yet. Add the first local demo comment using the form above.'
-                : 'No comments for this article yet. Add one above or choose Show all comments.');
-            empty.id = 'comment-empty';
-            commentList.append(empty);
-        }
-        commentCount.textContent = `${visible.length} of ${comments.length} local demo comments shown.`;
-        showAll.classList.toggle('active', commentFilter.value !== 'all');
+        const visible = comments.filter((c) => $filter.val() === 'all' || c.articleId === $filter.val());
+        $commentList.empty();
+        visible.forEach((comment) => $commentList.append(renderComment(comment)));
+        if (!visible.length) $commentList.append(C.el('p', 'col-12', comments.length ? 'No comments for this article. Choose Show all comments or add one.' : 'No comments yet. Add the first local demo comment above.').attr('id', 'comment-empty'));
+        $commentCount.text(`${visible.length} of ${comments.length} local demo comments shown.`);
+        $all.toggleClass('active', $filter.val() !== 'all');
     }
-
-    commentForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        attemptedSubmit = true;
-        if (!validateCommentForm()) {
-            message(formStatus, 'Please correct the marked fields before adding your demo comment.', 'error');
-            return;
-        }
-        const values = {
-            name: name.value.trim(),
-            articleId: articleChoice.value,
-            rating: Number(rating.value),
-            text: commentText.value.trim()
-        };
-        const duplicate = comments.find((comment) => comment.id !== editingId
-            && comment.name === values.name && comment.articleId === values.articleId
-            && comment.rating === values.rating && comment.text === values.text);
-        if (duplicate) {
-            commentFilter.value = values.articleId;
-            renderComments();
-            message(formStatus, 'This exact demo comment already appears below. Edit that comment or write a different one.', 'error');
-            commentText.focus();
-            return;
-        }
-        const wasEditing = editingId !== null;
-        if (wasEditing) {
-            const existing = comments.find((comment) => comment.id === editingId);
-            Object.assign(existing, values, { updatedAt: new Date().toISOString() });
+    // Delegated because renderComments replaces the children after edits and filtering.
+    $commentList.on('click', 'button[data-comment-action]', function () {
+        const id = Number($(this).closest('[data-comment-id]').attr('data-comment-id'));
+        const comment = comments.find((c) => c.id === id);
+        if (!comment) return;
+        const action = $(this).attr('data-comment-action');
+        if (action === 'edit') {
+            editingId = id; pendingDelete = null; attempted = false;
+            $name.val(comment.name); $article.val(comment.articleId); $rating.val(String(comment.rating)); $text.val(comment.text);
+            $form.find('input, select, textarea').each(function () { C.clearFieldError($(this)); });
+            $heading.text('Edit your demo comment'); $submit.text('Save comment changes'); $clear.text('Cancel editing');
+            renderComments(); updateCounter(); C.focus($text);
+            C.message($status, 'Editing your local comment. Save it or cancel to keep the original.');
+        } else if (action === 'remove') {
+            pendingDelete = id; renderComments(); C.focus($(`#confirm-delete-${id}`));
+        } else if (action === 'confirm') {
+            comments.splice(comments.findIndex((c) => c.id === id), 1);
+            if (editingId === id) clearForm();
+            pendingDelete = null; renderComments(); C.focus($commentList);
+            C.message($status, 'Demo comment removed. Nothing was sent to a server.');
         } else {
-            comments.push({ id: nextCommentId, ...values, createdAt: new Date().toISOString(), updatedAt: null });
-            nextCommentId += 1;
+            pendingDelete = null; renderComments();
+            C.focus($(`#journal-comment-${id}`).find('button').first());
+            C.message($status, 'Removal cancelled. Your comment is unchanged.');
         }
-        pendingDeleteId = null;
-        commentFilter.value = values.articleId;
-        resetCommentForm(true);
-        renderComments();
-        message(formStatus, wasEditing
-            ? 'Demo comment updated on this page only. No data was sent or published.'
-            : 'Demo comment added on this page only. No data was sent or published; reloading will remove it.');
     });
-
-    [name, articleChoice, rating, commentText].forEach((input) => {
-        const eventType = input.tagName === 'SELECT' ? 'change' : 'input';
-        input.addEventListener(eventType, () => {
-            updateCounter();
-            if (attemptedSubmit) fieldError(input, commentError(input));
-            else clearFieldError(input);
-            message(formStatus, '');
+    $form.on('submit', function (event) {
+        event.preventDefault(); // Otherwise the browser navigates away and loses local comments.
+        attempted = true;
+        let $first = $();
+        $form.find('input, select, textarea').each(function () {
+            const error = getError($(this).attr('id'));
+            C.fieldError($(this), error);
+            if (error && !$first.length) $first = $(this);
         });
+        if ($first.length) { C.message($status, 'Correct the marked fields before adding the comment.', 'error'); C.focus($first); return; }
+        const v = { name: $name.val().trim(), articleId: $article.val(), rating: Number($rating.val()), text: $text.val().trim() };
+        if (comments.some((c) => c.id !== editingId && c.name === v.name && c.articleId === v.articleId && c.rating === v.rating && c.text === v.text)) {
+            C.message($status, 'This exact comment already exists. Edit it or write a different one.', 'error'); C.focus($text); return;
+        }
+        const edited = editingId !== null;
+        if (edited) Object.assign(comments.find((c) => c.id === editingId), v, { updatedAt: new Date().toISOString() });
+        else { comments.push({ id: nextId, ...v, createdAt: new Date().toISOString(), updatedAt: null }); nextId += 1; }
+        pendingDelete = null; $filter.val(v.articleId); clearForm(); renderComments();
+        C.message($status, edited ? 'Demo comment updated on this page only. No data published.' : 'Demo comment added on this page only. Reloading will remove it.');
     });
-    resetComment.addEventListener('click', () => {
-        const wasEditing = editingId !== null;
-        resetCommentForm();
-        renderComments();
-        message(formStatus, wasEditing ? 'Editing cancelled. The original demo comment is unchanged.' : 'Comment form cleared. Existing demo comments are unchanged.');
-        name.focus();
+    $form.on('input change', 'input, select, textarea', function () {
+        updateCounter();
+        if (attempted || $(this).hasClass('error')) C.fieldError($(this), getError($(this).attr('id')));
+        else C.clearFieldError($(this));
+        C.message($status, '');
     });
-    commentFilter.addEventListener('change', () => {
-        pendingDeleteId = null;
-        renderComments();
-    });
-    showAll.addEventListener('click', () => {
-        commentFilter.value = 'all';
-        pendingDeleteId = null;
-        renderComments();
-        commentFilter.focus();
-    });
-
+    $clear.on('click', function () { clearForm(); pendingDelete = null; renderComments(); C.message($status, 'Form cleared; existing comments kept.'); C.focus($name); });
+    $filter.on('change', function () { pendingDelete = null; renderComments(); });
+    $all.on('click', function () { $filter.val('all'); pendingDelete = null; renderComments(); C.focus($filter); });
     articles.forEach((article) => {
-        const section = document.getElementById(article.id);
-        const catalogLink = section.querySelector('a[href="catalog.html"]');
-        if (catalogLink) catalogLink.href = `catalog.html#${article.catalog}`;
-        const discuss = button('Discuss this article', 'btn btn-outline-dark mt-3');
-        discuss.addEventListener('click', () => {
-            if (editingId !== null) {
-                message(formStatus, 'Save or cancel your current comment edit before choosing another article.', 'error');
-            } else {
-                articleChoice.value = article.id;
-                clearFieldError(articleChoice);
-                commentFilter.value = article.id;
-                renderComments();
-                message(formStatus, `Commenting on “${article.title}”. Your comment stays on this page only.`);
-            }
-            commentForm.scrollIntoView({ block: 'start' });
-            name.focus();
-        });
-        section.firstElementChild.append(discuss);
+        const $section = $(`#${article.id}`);
+        $section.find('a[href="catalog.html"]').attr('href', `catalog.html#${article.catalog}`);
+        C.button('Discuss this article', 'btn btn-outline-dark mt-3').attr('data-discuss-id', article.id).appendTo($section.children().first());
     });
-
-    renderArticles();
-    updateCounter();
-    renderComments();
-})();
+    $('main').on('click', 'button[data-discuss-id]', function () {
+        const id = $(this).attr('data-discuss-id');
+        if (editingId !== null) C.message($status, 'Save or cancel your current edit before choosing another article.', 'error');
+        else {
+            $article.val(id); $filter.val(id); C.clearFieldError($article); renderComments();
+            C.message($status, 'Write a local demo comment about this article. It is not sent or published.');
+        }
+        C.focus($name);
+    });
+    renderArticles(); updateCounter(); renderComments();
+});

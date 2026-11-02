@@ -1,472 +1,288 @@
 'use strict';
 
-/* Gauhar's page: basket editing, order validation and a local demo preview.
-   Nothing in this file sends a request or stores contact details. */
-(() => {
-    const form = document.querySelector('#order-form');
-    if (!form) return;
-
+// jQuery 3.7.1: ready waits for the existing order form; no HTML/CSS is added by hand.
+$(function () {
+    const $form = $('#order-form');
+    if (!$form.length) return;
     const C = window.Chic;
     const L = window.ChicLogic;
     const settings = window.ChicData.settings;
-    const fields = {
-        name: document.querySelector('#full-name'),
-        phone: document.querySelector('#phone'),
-        email: document.querySelector('#email'),
-        items: document.querySelector('#order-items'),
-        quantity: document.querySelector('#quantity'),
-        date: document.querySelector('#order-date'),
-        message: document.querySelector('#order-message'),
-        pickup: document.querySelector('#pickup'),
-        delivery: document.querySelector('#delivery'),
-        address: document.querySelector('#delivery-address'),
-        storePayment: document.querySelector('#pay-store'),
-        remotePayment: document.querySelector('#pay-direct'),
-        consent: document.querySelector('#order-consent')
+    const f = {
+        name: $('#full-name'), phone: $('#phone'), email: $('#email'), items: $('#order-items'),
+        quantity: $('#quantity'), date: $('#order-date'), message: $('#order-message'),
+        pickup: $('#pickup'), delivery: $('#delivery'), address: $('#delivery-address'),
+        store: $('#pay-store'), remote: $('#pay-direct'), consent: $('#order-consent')
     };
-    const submitButton = document.querySelector('#order-preview');
-    const errorBox = document.querySelector('#order-error');
-    const confirmation = document.querySelector('#order-confirmation');
-    const aside = document.querySelector('#order-summary');
+    const $submit = $('#order-preview').text('Create demonstration preview');
+    const $error = $('#order-error').attr('role', 'alert').addClass('hidden');
+    const $confirmation = $('#order-confirmation').addClass('hidden');
+    const $aside = $('#order-summary');
     const touched = new Set();
     let submitted = false;
-    let lastSubmission = null;
+    let lastPreview = null;
     let pendingFocus = null;
 
-    // Existing HTML is frozen; all new controls are created here.
-    form.noValidate = true;
-    fields.items.readOnly = true;
-    fields.quantity.readOnly = true;
-    fields.quantity.step = '1';
-    fields.quantity.max = String(settings.maxItems);
-    fields.name.maxLength = 60;
-    fields.phone.maxLength = 30;
-    fields.email.maxLength = 254;
-    fields.address.maxLength = 180;
-    fields.message.maxLength = 500;
-    fields.storePayment.value = 'store';
-    fields.remotePayment.value = 'remote';
-    submitButton.textContent = 'Create demonstration preview';
-    document.querySelector('#order-reset').textContent = 'Clear contact details';
-    document.querySelector('#order-form-title + p').textContent =
-        'Your basket is transferred automatically. Check the selection, choose your preferences and create a demonstration preview. No information is sent to Chic Flowers.';
-    document.querySelectorAll('#order-steps .card-text, #order-steps .text-secondary')[1].textContent =
-        'Review your basket and enter your contact details, preferred date, time and pickup or delivery choices.';
-    fields.items.nextElementSibling.textContent =
-        'This list and quantity come from your basket. Use the buttons in Your basket summary to change them.';
+    // required/type/min/max stay active as the native first line of defence.
+    // Native invalid events receive jQuery field messages instead of one browser popup.
+    // Client checks can be bypassed: a real server MUST validate again before any order/payment.
+    $form.prop('noValidate', false);
+    f.items.add(f.quantity).prop('readOnly', true);
+    f.quantity.attr({ step: 1, max: settings.maxItems });
+    f.name.attr('maxlength', 60); f.phone.attr('maxlength', 30); f.email.attr('maxlength', 254);
+    f.address.attr('maxlength', 180); f.message.attr('maxlength', 500);
+    f.store.val('store'); f.remote.val('remote');
+    $('#order-reset').text('Clear contact details');
+    $('#order-form-title + p').text('Your basket is transferred automatically. Review your details and create a local demonstration preview. No information is sent to Chic Flowers.');
+    $('#order-steps .text-secondary').eq(1).text('Review your basket and choose contact details, date, time and pickup or delivery preferences.');
+    f.items.siblings('.form-text').text('These items and quantities come from your basket. Change them using the summary buttons.');
 
-    const timeGroup = C.el('div', 'col-12 col-md-6');
-    const timeLabel = C.el('label', 'form-label', 'Preferred time (Astana)');
-    const timeInput = C.el('input', 'form-control');
-    timeInput.id = 'order-time';
-    timeInput.type = 'time';
-    timeInput.step = '60';
-    timeInput.required = true;
-    timeLabel.htmlFor = timeInput.id;
-    const timeHelp = C.el('div', 'form-text', 'A time preference only; the florist must confirm it. Astana time is used.');
-    timeHelp.id = 'order-time-help';
-    timeInput.setAttribute('aria-describedby', timeHelp.id);
-    timeGroup.append(timeLabel, timeInput, timeHelp);
-    fields.date.parentElement.after(timeGroup);
-    fields.time = timeInput;
+    f.time = C.el('input', 'form-control').attr({ type: 'time', step: 60, required: true });
+    const $timeGroup = C.field('order-time', 'Preferred time (Astana)', f.time);
+    $timeGroup.append(C.el('div', 'form-text', 'A time preference only, not a reserved slot.').attr('id', 'order-time-help'));
+    f.time.attr('aria-describedby', 'order-time-help');
+    $timeGroup.insertAfter(f.date.parent());
+    C.el('div', 'form-text', `Demo planning window: today through the next ${settings.maxDaysAhead} days. Past dates/times are rejected.`)
+        .attr('id', 'order-date-help').insertAfter(f.date);
+    f.date.attr('aria-describedby', 'order-date-help');
+    f.location = C.el('select', 'form-select').prop('required', true);
+    C.option(f.location, '', 'Choose a location');
+    settings.locations.forEach((location) => C.option(f.location, location, location));
+    const $locationGroup = C.field('pickup-location', 'Pickup location', f.location, 'mb-3').attr('id', 'pickup-location-group');
+    $locationGroup.insertAfter(f.pickup.closest('fieldset').find('.d-flex').first());
+    const $addressGroup = C.el('div', 'mb-2 hidden').attr('id', 'delivery-address-group');
+    const $addressLabel = $('label[for="delivery-address"]');
+    const $addressHelp = f.address.next('.form-text');
+    $addressGroup.insertBefore($addressLabel).append($addressLabel, f.address, $addressHelp);
+    $addressLabel.text('Delivery address in Astana');
+    f.address.attr('placeholder', 'Astana, street, building number, apartment');
+    $addressHelp.text('Include Astana, street and building. Confirm service coverage and delivery charges with the shop.');
+    const $counter = C.el('div', 'form-text').attr('id', 'order-message-count').insertAfter(f.message);
+    f.message.attr('aria-describedby', 'order-message-count');
+    const $summaryItems = C.el('ul', 'list-group mb-3').attr({ id: 'order-summary-items', 'aria-label': 'Your basket summary' });
+    const $summaryTotals = C.el('div', 'border-top pt-3 mb-3').attr({ id: 'order-live-totals', 'aria-live': 'polite', 'aria-atomic': 'true' });
+    const $preferences = C.el('div', 'mb-3 text-break').attr('id', 'order-live-preferences');
+    const $basketNotice = C.el('p', 'hidden').attr({ id: 'order-basket-feedback', role: 'status' });
+    $aside.find('h2').first().text('Contact the florist');
+    $aside.prepend(C.el('h2', 'h4 mb-3', 'Your basket summary').attr('id', 'live-summary-title'),
+        C.el('p', 'small text-secondary', `Demo limits: ${settings.maxPerItem} per option, ${settings.maxItems} arrangements. Decreasing 1 removes that item.`),
+        $summaryItems, $summaryTotals, $preferences, $basketNotice);
 
-    const dateHelp = C.el('div', 'form-text', 'Demo planning window: today through the next 30 days. Past dates and times are not accepted.');
-    dateHelp.id = 'order-date-help';
-    fields.date.setAttribute('aria-describedby', dateHelp.id);
-    fields.date.after(dateHelp);
-
-    const locationGroup = C.el('div', 'mb-3');
-    locationGroup.id = 'pickup-location-group';
-    const locationLabel = C.el('label', 'form-label', 'Pickup location');
-    const locationInput = C.el('select', 'form-select');
-    locationInput.id = 'pickup-location';
-    locationInput.required = true;
-    locationLabel.htmlFor = locationInput.id;
-    const locationPrompt = C.el('option', '', 'Choose a location');
-    locationPrompt.value = '';
-    locationInput.append(locationPrompt);
-    settings.locations.forEach((location) => {
-        const option = C.el('option', '', location);
-        option.value = location;
-        locationInput.append(option);
-    });
-    locationGroup.append(locationLabel, locationInput);
-    fields.pickup.closest('fieldset').querySelector('.d-flex').after(locationGroup);
-    fields.location = locationInput;
-
-    // Group the existing address nodes without adding markup to the HTML file.
-    const addressGroup = C.el('div', 'mb-2');
-    addressGroup.id = 'delivery-address-group';
-    const addressLabel = document.querySelector('label[for="delivery-address"]');
-    const addressHelp = fields.address.nextElementSibling;
-    addressLabel.before(addressGroup);
-    addressGroup.append(addressLabel, fields.address, addressHelp);
-    addressLabel.textContent = 'Delivery address in Astana';
-    fields.address.placeholder = 'Astana, street, building number, apartment';
-    addressHelp.textContent = 'Include Astana, the street and building number. Service coverage and delivery charges must be confirmed by the shop.';
-
-    const messageCounter = C.el('div', 'form-text', '0 / 500 characters');
-    messageCounter.id = 'order-message-count';
-    fields.message.setAttribute('aria-describedby', messageCounter.id);
-    fields.message.after(messageCounter);
-
-    const summaryTitle = C.el('h2', 'h4 mb-3', 'Your basket summary');
-    summaryTitle.id = 'live-summary-title';
-    const summaryItems = C.el('ul', 'list-group mb-3');
-    summaryItems.id = 'order-summary-items';
-    summaryItems.setAttribute('aria-labelledby', summaryTitle.id);
-    const basketLimits = C.el('p', 'small text-secondary', `Demo basket limit: ${settings.maxPerItem} of each option and ${settings.maxItems} arrangements in total. Decreasing quantity 1 removes the item.`);
-    const summaryTotals = C.el('div', 'border-top pt-3 mb-3');
-    summaryTotals.id = 'order-live-totals';
-    summaryTotals.setAttribute('aria-live', 'polite');
-    summaryTotals.setAttribute('aria-atomic', 'true');
-    const summaryPreferences = C.el('div', 'mb-3 text-break');
-    summaryPreferences.id = 'order-live-preferences';
-    const basketNotice = C.el('div', 'state-message hidden mb-3');
-    basketNotice.id = 'order-basket-feedback';
-    basketNotice.setAttribute('role', 'status');
-    basketNotice.setAttribute('aria-live', 'polite');
-    aside.prepend(summaryTitle, basketLimits, summaryItems, summaryTotals, summaryPreferences, basketNotice);
-    aside.querySelector('h2:not(#live-summary-title)').textContent = 'Contact the florist';
-    confirmation.classList.add('hidden');
-    errorBox.classList.add('hidden');
-    errorBox.setAttribute('role', 'alert');
-
-    function productLabel(product) {
-        return product.size ? `${product.name} (${product.size})` : product.name;
+    function currentTime(now = new Date()) {
+        return new Intl.DateTimeFormat('en-GB', { timeZone: settings.timeZone, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
     }
-
-    function currentAstanaTime(date = new Date()) {
-        return new Intl.DateTimeFormat('en-GB', {
-            timeZone: settings.timeZone,
-            hour: '2-digit',
-            minute: '2-digit',
-            hourCycle: 'h23'
-        }).format(date);
-    }
-
     function readValues() {
-        return {
-            name: fields.name.value.trim(),
-            phone: fields.phone.value.trim(),
-            email: fields.email.value.trim(),
-            date: fields.date.value,
-            time: fields.time.value,
-            quantity: Number(fields.quantity.value),
-            receive: fields.pickup.checked ? 'pickup' : fields.delivery.checked ? 'delivery' : '',
-            location: fields.location.value,
-            address: fields.address.value.trim(),
-            message: fields.message.value.trim(),
-            payment: fields.storePayment.checked ? 'store' : fields.remotePayment.checked ? 'remote' : '',
-            consent: fields.consent.checked
-        };
+        return { name: f.name.val().trim(), phone: f.phone.val().trim(), email: f.email.val().trim(),
+            date: f.date.val(), time: f.time.val(), quantity: Number(f.quantity.val()),
+            receive: $form.find('input[name="receive"]:checked').val() || '',
+            location: f.location.val(), address: f.address.val().trim(), message: f.message.val().trim(),
+            payment: $form.find('input[name="payment"]:checked').val() || '', consent: f.consent.prop('checked') };
+        // .prop('checked') reads the LIVE boolean; .attr('checked') describes initial markup.
     }
 
-    function validateTime(value, dateValue, now = new Date()) {
-        if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) {
-            return 'Choose a valid preferred time.';
-        }
-        if (dateValue === L.todayInAstana(now) && value <= currentAstanaTime(now)) {
-            return 'For today, choose a time later than the current time in Astana.';
-        }
-        return '';
-    }
-
-    function collectErrors(values, totals) {
+    // REWRITE 3: .val(), .prop(), .on() and jQuery field feedback replace native
+    // value/checked, addEventListener and DOM updates. Validation rules are not shorter, only UI access is.
+    function collectErrors(v, totals) {
         const now = new Date();
-        const errors = new Map();
-        errors.set(fields.name, L.validateName(values.name));
-        errors.set(fields.phone, L.validatePhone(values.phone));
-        errors.set(fields.email, L.validateEmail(values.email));
-        errors.set(fields.items, totals.quantity === 0 ? 'Your basket is empty. Add at least one bouquet in the catalog.' : '');
-        errors.set(fields.quantity,
-            !Number.isInteger(values.quantity) || values.quantity < 1 || values.quantity > settings.maxItems || values.quantity !== totals.quantity
-                ? `The quantity must match your basket and be between 1 and ${settings.maxItems}. Change it with the basket buttons.`
-                : '');
-        errors.set(fields.date, L.validateDate(values.date, now));
-        errors.set(fields.time, validateTime(values.time, values.date, now));
-        errors.set(fields.message, values.message.length > 500 ? 'Keep your card message and requests within 500 characters.' : '');
-        errors.set(fields.pickup, values.receive === '' ? 'Choose pickup or delivery.' : '');
-        errors.set(fields.location,
-            values.receive === 'pickup' && !settings.locations.includes(values.location)
-                ? 'Choose one of the two pickup locations.' : '');
+        let timeError = '';
+        if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(v.time)) timeError = 'Choose a valid preferred time.';
+        else if (v.date === L.todayInAstana(now) && v.time <= currentTime(now)) timeError = 'For today, choose a later time in Astana.';
         let addressError = '';
-        if (values.receive === 'delivery') {
-            if (values.address.length < 10 || values.address.length > 180) {
-                addressError = 'Enter a complete delivery address of 10 to 180 characters.';
-            } else if (!/(astana|астана)/iu.test(values.address) || !/\d/.test(values.address)) {
-                addressError = 'Include Astana, the street and a building number in the address.';
-            }
+        if (v.receive === 'delivery') {
+            if (v.address.length < 10 || v.address.length > 180) addressError = 'Enter a complete address of 10–180 characters.';
+            else if (!/(astana|астана)/iu.test(v.address) || !/\d/.test(v.address)) addressError = 'Include Astana, the street and building number.';
         }
-        errors.set(fields.address, addressError);
         let paymentError = '';
-        if (values.payment === '') {
-            paymentError = 'Choose a payment preference.';
-        } else if (values.receive === 'delivery' && values.payment !== 'remote') {
-            paymentError = 'For a delivery request, choose “Ask the shop about remote payment”. No payment is processed here.';
-        }
-        errors.set(fields.storePayment, paymentError);
-        errors.set(fields.consent, values.consent ? '' : 'Confirm that you understand this is a demonstration, not a sent order.');
-        return errors;
+        if (!['store', 'remote'].includes(v.payment)) paymentError = 'Choose a payment preference.';
+        else if (v.receive === 'delivery' && v.payment !== 'remote') paymentError = 'For this delivery demo, select “Ask the shop about remote payment”. No payment occurs.';
+        return [
+            [f.name, L.validateName(v.name)], [f.phone, L.validatePhone(v.phone)],
+            [f.email, L.validateEmail(v.email) || (f.email.prop('validity').typeMismatch ? 'Enter a valid email address.' : '')],
+            [f.items, totals.quantity === 0 ? 'Your basket is empty. Add a bouquet in the catalog.' : ''],
+            [f.quantity, !Number.isInteger(v.quantity) || v.quantity < 1 || v.quantity > settings.maxItems || v.quantity !== totals.quantity ? 'Quantity must match your basket. Use its quantity buttons.' : ''],
+            [f.date, L.validateDate(v.date, now)], [f.time, timeError],
+            [f.message, v.message.length > 500 ? 'Keep your requests within 500 characters.' : ''],
+            [f.pickup, !['pickup', 'delivery'].includes(v.receive) ? 'Choose pickup or delivery.' : ''],
+            [f.location, v.receive === 'pickup' && !settings.locations.includes(v.location) ? 'Choose one of the two pickup locations.' : ''],
+            [f.address, addressError], [f.store, paymentError],
+            [f.consent, !v.consent ? 'Confirm that this is a demonstration, not a sent order.' : '']
+        ];
     }
-
-    function updateConditionalFields() {
-        const deliverySelected = fields.delivery.checked;
-        locationGroup.classList.toggle('hidden', deliverySelected);
-        fields.location.disabled = deliverySelected;
-        fields.location.required = !deliverySelected;
-        addressGroup.classList.toggle('hidden', !deliverySelected);
-        fields.address.disabled = !deliverySelected;
-        fields.address.required = deliverySelected;
-        C.clearFieldError(deliverySelected ? fields.location : fields.address);
-        fields.date.min = L.todayInAstana();
-        fields.date.max = L.dateAfter(settings.maxDaysAhead);
-        if (fields.date.value === L.todayInAstana()) {
-            fields.time.min = currentAstanaTime();
-        } else {
-            fields.time.removeAttribute('min');
+    function updateConditionalFields(animate = false) {
+        const delivery = f.delivery.prop('checked');
+        function setPanel($panel, visible) {
+            if (animate && visible === $panel.hasClass('hidden')) {
+                if (visible) C.reveal($panel); else C.conceal($panel);
+            } else if (!animate) $panel.stop(true, true).toggleClass('hidden', !visible).removeAttr('style');
         }
+        setPanel($locationGroup, !delivery); setPanel($addressGroup, delivery);
+        f.location.prop({ disabled: delivery, required: !delivery });
+        f.address.prop({ disabled: !delivery, required: delivery });
+        C.clearFieldError(delivery ? f.location : f.address);
+        f.date.attr({ min: L.todayInAstana(), max: L.dateAfter(settings.maxDaysAhead) });
+        if (f.date.val() === L.todayInAstana()) f.time.attr('min', currentTime());
+        else f.time.removeAttr('min');
     }
-
     function updateLiveSummary() {
         const totals = C.getTotals();
-        const values = readValues();
-        summaryTotals.replaceChildren(
-            C.el('p', 'mb-1', `Total quantity: ${totals.quantity}`),
+        const v = readValues();
+        $summaryTotals.empty().append(C.el('p', 'mb-1', `Total quantity: ${totals.quantity}`),
             C.el('p', 'fw-bold mb-1', `Bouquet subtotal: ${L.formatMoney(totals.total)}`),
-            C.el('p', 'small text-secondary mb-0', values.receive === 'delivery'
-                ? 'Delivery cost: to be confirmed. The subtotal excludes delivery; a final total is not available on this website.'
-                : 'Pickup selected. Bouquet prices and availability still require confirmation from the florist.')
-        );
-        const receiveText = values.receive === 'delivery'
-            ? `Delivery: ${values.address || 'enter an Astana address'}`
-            : `Pickup: ${values.location || 'choose a location'}`;
-        summaryPreferences.replaceChildren(
-            C.el('p', 'small mb-1', receiveText),
-            C.el('p', 'small mb-1', `Preferred date: ${values.date || 'not selected'}`),
-            C.el('p', 'small mb-0', `Preferred time: ${values.time || 'not selected'} (Astana)`)
-        );
-        messageCounter.textContent = `${fields.message.value.length} / 500 characters`;
-        submitButton.disabled = totals.quantity === 0;
+            C.el('p', 'small text-secondary mb-0', v.receive === 'delivery' ? 'Delivery charges are not included. Confirm the final total with the florist.' : 'Confirm bouquet prices and availability with the florist.'));
+        $preferences.empty().append(C.el('p', 'small mb-1', v.receive === 'delivery' ? `Delivery: ${v.address || 'enter an Astana address'}` : `Pickup: ${v.location || 'choose a location'}`),
+            C.el('p', 'small mb-1', `Preferred date: ${v.date || 'not selected'}`), C.el('p', 'small mb-0', `Preferred time: ${v.time || 'not selected'} (Astana)`));
+        $counter.text(`${f.message.val().length} / 500 characters`);
+        $submit.prop('disabled', totals.quantity === 0);
     }
-
     function renderBasket() {
         const totals = C.getTotals();
-        summaryItems.replaceChildren();
-        if (totals.lines.length === 0) {
-            const empty = C.el('li', 'list-group-item', 'Your basket is empty. ');
-            const catalogLink = C.el('a', '', 'Choose bouquets in the catalog');
-            catalogLink.href = 'catalog.html';
-            catalogLink.id = 'order-empty-catalog';
-            empty.append(catalogLink);
-            summaryItems.append(empty);
-        } else {
-            totals.lines.forEach((line) => {
-                const item = C.el('li', 'list-group-item text-break');
-                const name = productLabel(line.product);
-                const controls = C.el('div', 'd-flex flex-wrap gap-2 align-items-center mt-2');
-                const minus = C.button('−', 'btn btn-outline-dark btn-sm');
-                const plus = C.button('+', 'btn btn-outline-dark btn-sm');
-                const remove = C.button('Remove', 'btn btn-outline-secondary btn-sm');
-                const quantityText = C.el('span', 'small', `Quantity: ${line.quantity}`);
-                minus.setAttribute('aria-label', `Decrease ${name} quantity`);
-                plus.setAttribute('aria-label', `Increase ${name} quantity`);
-                remove.setAttribute('aria-label', `Remove ${name} from basket`);
-                plus.disabled = line.quantity >= settings.maxPerItem || totals.quantity >= settings.maxItems;
-                plus.title = `Maximum ${settings.maxPerItem} per option and ${settings.maxItems} arrangements in total`;
-                [minus, plus, remove].forEach((button, index) => {
-                    button.dataset.orderAction = ['decrease', 'increase', 'remove'][index];
-                    button.dataset.id = line.id;
-                });
-                controls.append(minus, quantityText, plus, remove);
-                item.append(
-                    C.el('h3', 'h6 mb-1', name),
-                    C.el('p', 'small mb-1', `${L.formatMoney(line.product.price)} each × ${line.quantity}`),
-                    C.el('p', 'fw-bold small mb-0', `Line subtotal: ${L.formatMoney(line.subtotal)}`),
-                    controls
-                );
-                summaryItems.append(item);
+        $summaryItems.empty();
+        if (!totals.lines.length) $summaryItems.append(C.el('li', 'list-group-item', 'Your basket is empty. ').append(
+            C.el('a', '', 'Choose bouquets in the catalog').attr({ id: 'order-empty-catalog', href: 'catalog.html' })));
+        totals.lines.forEach((line) => {
+            const name = C.productLabel(line.product);
+            const $controls = C.el('div', 'd-flex flex-wrap gap-2 align-items-center mt-2');
+            [['−', 'decrease'], ['+', 'increase'], ['Remove', 'remove']].forEach(([text, action]) => {
+                C.button(text, 'btn btn-outline-dark btn-sm').attr({ 'data-order-action': action, 'data-id': line.id, 'aria-label': `${action} ${name}` })
+                    .prop('disabled', action === 'increase' && (line.quantity >= settings.maxPerItem || totals.quantity >= settings.maxItems)).appendTo($controls);
             });
-        }
-        fields.items.value = totals.lines.map((line) => `${productLabel(line.product)} — ${line.quantity}`).join('\n');
-        fields.quantity.value = String(totals.quantity);
+            $controls.prepend(C.el('span', 'small', `Quantity: ${line.quantity}`));
+            C.el('li', 'list-group-item text-break').attr('data-id', line.id).append(C.el('h3', 'h6 mb-1', name),
+                C.el('p', 'small mb-1', `${L.formatMoney(line.product.price)} each × ${line.quantity}`),
+                C.el('p', 'fw-bold small mb-0', `Line subtotal: ${L.formatMoney(line.subtotal)}`), $controls).appendTo($summaryItems);
+        });
+        f.items.val(totals.lines.map((line) => `${C.productLabel(line.product)} — ${line.quantity}`).join('\n'));
+        f.quantity.val(String(totals.quantity));
         updateLiveSummary();
         if (pendingFocus) {
-            const candidate = Array.from(summaryItems.querySelectorAll('button')).find((button) =>
-                button.dataset.id === pendingFocus.id && button.dataset.orderAction === pendingFocus.action && !button.disabled);
-            const fallback = summaryItems.querySelector('button:not(:disabled), a');
-            (candidate || fallback)?.focus();
-            pendingFocus = null;
+            let $next = $summaryItems.find('button:not(:disabled)').filter(function () {
+                return $(this).attr('data-id') === pendingFocus.id && $(this).attr('data-order-action') === pendingFocus.action;
+            }).first();
+            if (!$next.length) $next = $summaryItems.find('button:not(:disabled), a').first();
+            C.focus($next); pendingFocus = null;
         }
     }
-
-    function hideOutdatedConfirmation() {
-        if (lastSubmission) {
-            C.message(errorBox, 'Your choices changed. Create a new demonstration preview to review the updated summary.', 'success');
-        }
-        lastSubmission = null;
-        confirmation.replaceChildren();
-        confirmation.classList.add('hidden');
-        confirmation.classList.remove('success');
-        submitButton.textContent = 'Create demonstration preview';
-    }
-
-    function validateVisibleFields(allFields = false) {
+    function validateFields(all = false) {
         const errors = collectErrors(readValues(), C.getTotals());
-        errors.forEach((error, field) => {
-            if (allFields || submitted || touched.has(field)) {
-                if (field.disabled) C.clearFieldError(field);
-                else C.fieldError(field, error);
-            }
+        errors.forEach(([$input, text]) => {
+            if ($input.prop('disabled')) C.clearFieldError($input);
+            else if (all || submitted || touched.has($input.attr('id'))) C.fieldError($input, text);
         });
-        return errors;
+        return errors.filter(([$input, text]) => !$input.prop('disabled') && text !== '');
     }
-
-    function updateValidationFeedback(errors) {
-        if (!submitted) return;
-        const count = Array.from(errors).filter(([field, text]) => !field.disabled && text !== '').length;
-        C.message(errorBox, count > 0
-            ? `Please correct ${count} ${count === 1 ? 'field' : 'fields'} marked below. No data was sent.`
-            : 'Your current details are valid. Create a demonstration preview to review the complete summary.',
-        count > 0 ? 'error' : 'success');
+    function clearDetails() {
+        // Reset all editable values after success; derived basket values are repopulated.
+        [f.name, f.phone, f.email, f.date, f.time, f.location, f.address, f.message].forEach(($input) => $input.val(''));
+        f.pickup.add(f.store).prop('checked', true);
+        f.delivery.add(f.remote).add(f.consent).prop('checked', false);
+        $form.find('input, select, textarea').each(function () { C.clearFieldError($(this)); });
+        touched.clear(); submitted = false;
+        updateConditionalFields(); renderBasket();
     }
-
-    function addSummaryRow(list, label, value) {
-        const item = C.el('li', 'list-group-item text-break');
-        item.append(C.el('strong', '', `${label}: `), document.createTextNode(value));
-        list.append(item);
-        return item;
-    }
-
-    function showConfirmation(values, totals) {
-        // Only the in-memory form values are compared; no contact data is persisted.
-        const signature = JSON.stringify({values, cart: C.getCart()});
-        if (!lastSubmission || lastSubmission.signature !== signature) {
-            lastSubmission = {signature, reference: L.createReference()};
+    function invalidateConfirmation() {
+        if (lastPreview) {
+            C.conceal($confirmation, 'fade');
+            C.message($error, 'Details changed. Create a new demonstration preview to review them.');
+            lastPreview = null;
         }
-        const heading = C.el('h2', 'h4', 'Demonstration preview ready');
-        heading.tabIndex = -1;
-        heading.id = 'demo-confirmation-title';
-        const reference = C.el('p', 'fw-bold text-break', `Demo reference: ${lastSubmission.reference}`);
-        reference.id = 'demo-reference';
-        const notice = C.el('p', '', 'No data has been sent to a server. No real order, booking, reservation or payment has been created. This reference identifies this page preview only; it is not a shop order number.');
-        const details = C.el('ul', 'list-group mb-3');
-        addSummaryRow(details, 'Name', values.name);
-        addSummaryRow(details, 'Phone', values.phone);
-        if (values.email !== '') addSummaryRow(details, 'Email', values.email);
-        totals.lines.forEach((line) => {
-            addSummaryRow(details, productLabel(line.product), `${line.quantity} × ${L.formatMoney(line.product.price)} = ${L.formatMoney(line.subtotal)}`);
-        });
-        addSummaryRow(details, 'Total arrangements', String(totals.quantity));
-        addSummaryRow(details, 'Estimated bouquet subtotal', L.formatMoney(totals.total));
-        addSummaryRow(details, 'Preferred date and time', `${values.date}, ${values.time} (Astana time)`);
-        addSummaryRow(details, values.receive === 'delivery' ? 'Delivery address' : 'Pickup location',
-            values.receive === 'delivery' ? values.address : values.location);
-        addSummaryRow(details, 'Payment preference', values.payment === 'remote' ? 'Ask the florist about remote payment' : 'Arrange payment at the shop');
-        if (values.message !== '') addSummaryRow(details, 'Card message / requests', values.message);
-        const priceNote = C.el('p', 'small', values.receive === 'delivery'
-            ? 'Delivery charges are not included. Confirm delivery coverage, the final total and availability directly with Chic Flowers.'
-            : 'Confirm bouquet availability, the final price and pickup time directly with Chic Flowers.');
-        const actions = C.el('div', 'd-flex flex-wrap gap-2');
-        const edit = C.button('Edit details', 'btn btn-outline-dark');
-        edit.id = 'edit-order-details';
-        edit.addEventListener('click', () => {
-            fields.name.focus();
-            C.message(errorBox, 'You can edit your details above. Submit again to update the demonstration preview.', 'success');
-        });
-        const again = C.button('Start another preview', 'btn btn-outline-dark');
-        again.id = 'new-order-preview';
-        again.addEventListener('click', resetDetails);
-        const call = C.el('a', 'btn btn-dark', 'Call the florist to confirm');
-        call.href = 'tel:+77058885622';
-        actions.append(edit, again, call);
-        confirmation.replaceChildren(heading, reference, notice, details, priceNote, actions);
-        confirmation.classList.remove('hidden', 'error');
-        confirmation.classList.add('state-message', 'success');
-        C.message(errorBox, 'Validation passed. Your demonstration summary is ready below.', 'success');
-        submitButton.textContent = 'Review the same demonstration';
-        heading.focus();
     }
-
-    function resetDetails() {
-        [fields.name, fields.phone, fields.email, fields.date, fields.time, fields.location,
-            fields.address, fields.message].forEach((field) => { field.value = ''; });
-        fields.pickup.checked = true;
-        fields.delivery.checked = false;
-        fields.storePayment.checked = true;
-        fields.remotePayment.checked = false;
-        fields.consent.checked = false;
-        Object.values(fields).forEach((field) => C.clearFieldError(field));
-        touched.clear();
-        submitted = false;
-        lastSubmission = null;
-        confirmation.replaceChildren();
-        confirmation.classList.add('hidden');
-        confirmation.classList.remove('success');
-        submitButton.textContent = 'Create demonstration preview';
-        updateConditionalFields();
-        renderBasket();
-        C.message(basketNotice, '');
-        C.message(errorBox, 'Contact details and preferences cleared. Your basket is kept so you can prepare another preview.', 'success');
-        fields.name.focus();
+    function addSummaryRow($list, label, value) {
+        return C.el('li', 'list-group-item text-break').append(C.el('strong', '', `${label}: `), C.el('span', '', value)).appendTo($list);
     }
-
-    summaryItems.addEventListener('click', (event) => {
-        const button = event.target.closest('button[data-order-action]');
-        if (!button) return;
-        const line = C.getCart().find((entry) => entry.id === button.dataset.id);
+    function showConfirmation(v, totals) {
+        const reference = L.createReference();
+        lastPreview = { values: v, reference };
+        const $heading = C.el('h2', 'h4', 'Demonstration preview ready').attr({ id: 'demo-confirmation-title', tabindex: -1 });
+        const $details = C.el('ul', 'list-group mb-3');
+        addSummaryRow($details, 'Name', v.name); addSummaryRow($details, 'Phone', v.phone);
+        if (v.email) addSummaryRow($details, 'Email', v.email);
+        totals.lines.forEach((line) => addSummaryRow($details, C.productLabel(line.product), `${line.quantity} × ${L.formatMoney(line.product.price)} = ${L.formatMoney(line.subtotal)}`));
+        addSummaryRow($details, 'Total arrangements', String(totals.quantity));
+        addSummaryRow($details, 'Estimated bouquet subtotal', L.formatMoney(totals.total));
+        addSummaryRow($details, 'Preferred date and time', `${v.date}, ${v.time} (Astana)`);
+        addSummaryRow($details, v.receive === 'delivery' ? 'Delivery address' : 'Pickup location', v.receive === 'delivery' ? v.address : v.location);
+        addSummaryRow($details, 'Payment preference', v.payment === 'remote' ? 'Ask the shop about remote payment' : 'Arrange payment at the shop');
+        if (v.message) addSummaryRow($details, 'Card message / requests', v.message);
+        // .html() is appropriate ONLY for this fixed trusted markup, never user input.
+        // Names, messages and all values above use .text() through C.el().
+        const $notice = C.el('p').html('<strong>Demonstration only.</strong> No data has been sent to a server. No real order, reservation or payment has been created.');
+        $confirmation.stop(true, true).empty().addClass('state-message success hidden').removeClass('error').removeAttr('style').append(
+            $heading, C.el('p', 'fw-bold text-break', `Demo reference: ${reference}`).attr('id', 'demo-reference'), $notice, $details,
+            C.el('p', 'small', 'Delivery is not included. The florist confirms final prices and availability. Contact fields were reset; your basket was kept.'),
+            C.el('div', 'd-flex flex-wrap gap-2').append(
+                C.button('Edit these details').attr('id', 'edit-order-details'), C.button('Dismiss preview').attr('id', 'dismiss-order-preview'),
+                C.el('a', 'btn btn-dark', 'Call the florist').attr('href', 'tel:+77058885622')));
+        C.message($error, 'All checks passed. Contact fields reset; your demonstration summary is below.');
+        C.reveal($confirmation, 'fade', function () { C.focus($heading); });
+    }
+    $summaryItems.on('click', 'button[data-order-action]', function () {
+        const $button = $(this);
+        const id = $button.closest('li').attr('data-id');
+        const line = C.getCart().find((entry) => entry.id === id);
         if (!line) return;
-        const action = button.dataset.orderAction;
-        pendingFocus = {id: line.id, action};
-        let result;
-        if (action === 'remove') result = C.removeFromCart(line.id);
-        else result = C.setQuantity(line.id, line.quantity + (action === 'increase' ? 1 : -1));
-        C.message(basketNotice, result.message, result.ok ? 'success' : 'error');
+        const action = $button.attr('data-order-action');
+        pendingFocus = { id, action };
+        const result = action === 'remove' ? C.removeFromCart(id) : C.setQuantity(id, line.quantity + (action === 'increase' ? 1 : -1));
+        C.message($basketNotice, result.message, result.ok ? 'success' : 'error');
         if (!result.ok) pendingFocus = null;
     });
-
-    document.addEventListener('chic:cartchange', () => {
-        hideOutdatedConfirmation();
-        renderBasket();
-        if (submitted) updateValidationFeedback(validateVisibleFields());
+    $(document).on('chic:cartchange', function () {
+        invalidateConfirmation(); renderBasket();
+        if (submitted) validateFields();
     });
-
-    function handleFieldChange(event) {
-        if (!Object.values(fields).includes(event.target)) return;
-        touched.add(event.target);
-        hideOutdatedConfirmation();
-        updateConditionalFields();
+    $form.on('input change', 'input, select, textarea', function (event) {
+        touched.add($(this).attr('id'));
+        invalidateConfirmation();
+        updateConditionalFields(event.type === 'change' && $(this).is('[name="receive"]'));
         updateLiveSummary();
-        updateValidationFeedback(validateVisibleFields());
-    }
-    form.addEventListener('input', handleFieldChange);
-    form.addEventListener('change', handleFieldChange);
-    form.addEventListener('reset', (event) => {
-        event.preventDefault();
-        resetDetails();
+        const invalid = validateFields();
+        if (submitted) C.message($error, invalid.length ? `Correct ${invalid.length} marked field(s). No data sent.` : 'Details now pass. Submit to generate your demonstration summary.', invalid.length ? 'error' : 'success');
     });
-    form.addEventListener('submit', (event) => {
+    $form.on('reset', function (event) {
+        event.preventDefault(); // Keep basket-derived fields; reset only contact preferences ourselves.
+        lastPreview = null; C.conceal($confirmation, 'fade'); clearDetails();
+        C.message($error, 'Contact details cleared. Your basket was kept.'); C.focus(f.name);
+    });
+    // invalid does not bubble, so bind directly to the controls after creating them.
+    // Preventing the popup does NOT submit an invalid form; native submission is still blocked.
+    $form.find('input, select, textarea').on('invalid', function (event) {
         event.preventDefault();
         submitted = true;
+        const invalid = validateFields(true);
+        C.conceal($confirmation, 'fade');
+        C.message($error, `Please correct ${invalid.length} field(s). No data was sent.`, 'error');
+        if (invalid.length) C.focus(invalid[0][0]);
+    });
+    $form.on('submit', function (event) {
+        event.preventDefault(); // Without this, the form navigates to its GET action and loses the preview.
+        submitted = true;
         updateConditionalFields();
-        const errors = validateVisibleFields(true);
-        const invalid = Array.from(errors).filter(([field, text]) => !field.disabled && text !== '');
-        if (invalid.length > 0) {
-            confirmation.classList.add('hidden');
-            C.message(errorBox, `Please correct ${invalid.length} ${invalid.length === 1 ? 'field' : 'fields'} below. No data was sent.`, 'error');
-            invalid[0][0].focus();
-            return;
+        const invalid = validateFields(true);
+        if (invalid.length) {
+            C.conceal($confirmation, 'fade');
+            C.message($error, `Please correct ${invalid.length} field(s). No data was sent.`, 'error');
+            C.focus(invalid[0][0]); return;
         }
         const values = readValues();
-        fields.name.value = values.name;
-        fields.phone.value = values.phone;
-        fields.email.value = values.email;
-        fields.address.value = values.address;
-        fields.message.value = values.message;
-        updateLiveSummary();
-        showConfirmation(values, C.getTotals());
+        const totals = C.getTotals();
+        showConfirmation(values, totals);
+        clearDetails(); // Reset AFTER showing success, and only after EVERY check passed.
     });
-
-    updateConditionalFields();
-    renderBasket();
-})();
+    $confirmation.on('click', '#dismiss-order-preview', function () {
+        // Fade-out dismisses a result the visitor finished reading; callback returns keyboard focus.
+        C.conceal($confirmation, 'fade', function () { C.focus($submit); });
+        lastPreview = null;
+    });
+    $confirmation.on('click', '#edit-order-details', function () {
+        if (!lastPreview) return;
+        const v = lastPreview.values;
+        ['name', 'phone', 'email', 'date', 'time', 'location', 'address', 'message'].forEach((key) => f[key].val(v[key]));
+        f.pickup.prop('checked', v.receive === 'pickup'); f.delivery.prop('checked', v.receive === 'delivery');
+        f.store.prop('checked', v.payment === 'store'); f.remote.prop('checked', v.payment === 'remote');
+        f.consent.prop('checked', false); // Explicitly agree again when preparing another preview.
+        lastPreview = null;
+        updateConditionalFields(); updateLiveSummary();
+        C.conceal($confirmation, 'fade', function () { C.focus(f.name); });
+        C.message($error, 'Edit the restored details, confirm the demonstration checkbox, and submit again.');
+    });
+    updateConditionalFields(); renderBasket();
+});

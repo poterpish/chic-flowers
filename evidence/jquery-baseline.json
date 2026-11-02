@@ -1,0 +1,36 @@
+{
+  "description": "Uploaded chic-flowers.rar working tree; this does NOT certify equality with its historical midterm tag.",
+  "css": {
+    "css/alua.css": "30da76e00d3e205db2d2bc4d603c68dc079b87d89027a0332ca7ec1cd5d53d8a",
+    "css/gauhar.css": "2f825ec1af17cb9a5efb7a2ac0061cf24c26b56e5a26d145be80428adcbec1b2",
+    "css/base.css": "2e16a2df30a2d3045e5a04765f1f1ac1326f1c73f8cc2dfe979c680e66c8736f"
+  },
+  "html": {
+    "blog.html": "57890a5e57f72681f7db238d085103172a766d5e6c4a9a0e7311123a1a056fdd",
+    "catalog.html": "ebb9575ebf51269dfaa8e7e7af4b05bf8abf36a8e170b9f66aea8c8f75b8390c",
+    "order.html": "3018ba48dfb79be0a777fef82f9a0d209566375f1eff0474247d7afdbc7a0212",
+    "index.html": "e5f039641d04474988d3ef57bcc6b451bab8542c67d6274cefe614a240adec55"
+  },
+  "original_js": [
+    {
+      "path": "js/main.js",
+      "sha256": "479649aecfc47bb71216cfb3b549219b1ebc452d3874205f159e8537edfa4df0"
+    },
+    {
+      "path": "js/home.js",
+      "sha256": "0c2060bdc902ab2d116b9a76c74b3c386220743d6653076b8d9e3de3b94e2381"
+    },
+    {
+      "path": "js/catalog.js",
+      "sha256": "5ade419c3089f040d86ced9ca0bb4638a7dd069eb9eb7ea38f1ff1acfffb3ef6"
+    },
+    {
+      "path": "js/order.js",
+      "sha256": "0c6e0cd1bd4d8e150bc2580faafbacf4a376b5d7386debbb634abfe229199258"
+    },
+    {
+      "path": "js/blog.js",
+      "sha256": "6465f99a9e7cb6a30ec109612b0dc9f5e84d43c03ea226d57e031e05f2bf22b3"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+TAP version 13
+# Subtest: canonical catalog contains 38 unique options belonging to 36 arrangements
+ok 1 - canonical catalog contains 38 unique options belonging to 36 arrangements
+  ---
+  duration_ms: 2.658067
+  type: 'test'
+  ...
+# Subtest: prices use visible midterm cards and stale basket-only options are absent
+ok 2 - prices use visible midterm cards and stale basket-only options are absent
+  ---
+  duration_ms: 0.194815
+  type: 'test'
+  ...
+# Subtest: size options have separate IDs and correct prices without merging basket lines
+ok 3 - size options have separate IDs and correct prices without merging basket lines
+  ---
+  duration_ms: 0.35458
+  type: 'test'
+  ...
+# Subtest: search, category and maximum price work together with trimming and case folding
+ok 4 - search, category and maximum price work together with trimming and case folding
+  ---
+  duration_ms: 0.507644
+  type: 'test'
+  ...
+# Subtest: price and name sorting return new arrays without changing the catalog
+ok 5 - price and name sorting return new arrays without changing the catalog
+  ---
+  duration_ms: 7.614413
+  type: 'test'
+  ...
+# Subtest: budget boundary and no-results states return the correct arrays
+ok 6 - budget boundary and no-results states return the correct arrays
+  ---
+  duration_ms: 0.250667
+  type: 'test'
+  ...
+# Subtest: basket calculation uses catalog prices for line subtotals, quantity and total
+ok 7 - basket calculation uses catalog prices for line subtotals, quantity and total
+  ---
+  duration_ms: 6.62365
+  type: 'test'
+  ...
+# Subtest: normalization rejects invalid containers, unknown IDs and invalid quantities
+ok 8 - normalization rejects invalid containers, unknown IDs and invalid quantities
+  ---
+  duration_ms: 0.424161
+  type: 'test'
+  ...
+# Subtest: normalization merges duplicates, clamps a SKU and does not mutate input
+ok 9 - normalization merges duplicates, clamps a SKU and does not mutate input
+  ---
+  duration_ms: 0.492883
+  type: 'test'
+  ...
+# Subtest: normalization enforces the 30-item basket cap across different SKUs
+ok 10 - normalization enforces the 30-item basket cap across different SKUs
+  ---
+  duration_ms: 0.686036
+  type: 'test'
+  ...
+# Subtest: name validation trims whitespace, accepts letters and enforces length
+ok 11 - name validation trims whitespace, accepts letters and enforces length
+  ---
+  duration_ms: 0.537769
+  type: 'test'
+  ...
+# Subtest: Kazakhstan phone validation accepts supported formats and rejects malformed plus signs
+ok 12 - Kazakhstan phone validation accepts supported formats and rejects malformed plus signs
+  ---
+  duration_ms: 1.156455
+  type: 'test'
+  ...
+# Subtest: optional email accepts empty input but validates every entered address
+ok 13 - optional email accepts empty input but validates every entered address
+  ---
+  duration_ms: 0.303255
+  type: 'test'
+  ...
+# Subtest: Astana date changes exactly at UTC 19:00 and dateAfter uses that calendar
+ok 14 - Astana date changes exactly at UTC 19:00 and dateAfter uses that calendar
+  ---
+  duration_ms: 5.809808
+  type: 'test'
+  ...
+# Subtest: preferred dates include today and day 30, reject past, day 31 and impossible dates
+ok 15 - preferred dates include today and day 30, reject past, day 31 and impossible dates
+  ---
+  duration_ms: 1.155905
+  type: 'test'
+  ...
+# Subtest: random recommendation returns a real alternative without changing the pool
+ok 16 - random recommendation returns a real alternative without changing the pool
+  ---
+  duration_ms: 0.346838
+  type: 'test'
+  ...
+# Subtest: demo reference is explicitly marked and contains Astana date and a six-digit suffix
+ok 17 - demo reference is explicitly marked and contains Astana date and a six-digit suffix
+  ---
+  duration_ms: 0.543647
+  type: 'test'
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 43.004995

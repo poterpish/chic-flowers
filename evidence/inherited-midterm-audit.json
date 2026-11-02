@@ -1,0 +1,41 @@
+{
+  "tag": "acf86b2d7e61ac0eeeae7e73aa99a2531f8df2fb",
+  "files": [
+    {
+      "file": "index.html",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    },
+    {
+      "file": "catalog.html",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    },
+    {
+      "file": "order.html",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    },
+    {
+      "file": "blog.html",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    },
+    {
+      "file": "css/alua.css",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    },
+    {
+      "file": "css/gauhar.css",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    },
+    {
+      "file": "css/base.css",
+      "identical_to_midterm_tag": false,
+      "note": "Difference, if any, already existed in the uploaded working tree before this jQuery task."
+    }
+  ],
+  "tag_modified": false
+}

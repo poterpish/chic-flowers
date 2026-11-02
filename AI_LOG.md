@@ -1,3 +1,23 @@
+# AI Usage Log — final jQuery revision
+
+## 2026-11-02 — jQuery migration and verification
+
+AI assistance in this revision included code generation, not only explanations.
+
+- Request: adapt the uploaded full `chic-flowers.rar` for both Alua and Gauhar to the supplied final jQuery assignment, preserving the existing design and freeze boundaries.
+- AI inspected the actual scripts in the archive, not just the prior screenshots or HTML attachments.
+- AI rewrote the five DOM/interface modules with jQuery and preserved the original implementations in the unlinked `js/old-js-version.js` for comparison. Shared pure `data.js` and `logic.js` remain unchanged.
+- AI added the jQuery CDN link and version comment only to the four HTML files. The supplied CSS files were preserved byte-for-byte. New controls and messages are created in code.
+- AI revised field validation, safe feedback, effects, delegated handlers, basket and comment flows; generated updated documentation, the optional source map and verification scripts.
+- AI ran syntax/static checks, the inherited 17 pure-logic tests, and browser interaction/responsiveness checks. Exact results and environment limitations are recorded in the current `evidence/jquery-*` files; live CDN delivery and real cross-page storage still need checking on the students' machine.
+- AI found that the supplied working tree already differs from its included `midterm` tag; the discrepancy was documented, not hidden by modifying that tag.
+- No code was committed or pushed, no commit dates or authorship records were fabricated, no new Git tag was made, and no order, payment or personal message was sent.
+- The students must review and understand this assistance, comply with the teacher's AI rules, do their own testing/commits and defend the code themselves. Assigned page responsibility is not a claim of unaided authorship.
+
+## Earlier disclosure, retained verbatim
+
+---
+
 # AI Usage Log — current disclosure
 
 ## 2026-10-26 — Assignment 4–5 implementation assistance
