@@ -20,7 +20,7 @@ $(function () {
     const $sort = C.el('select', 'form-select');
     [['name', 'Name: A to Z'], ['price-asc', 'Price: low to high'], ['price-desc', 'Price: high to low']]
         .forEach(([value, text]) => C.option($sort, value, text));
-    const $maximum = C.el('input', 'form-control').attr({ type: 'number', min: 1, max: 2000000, step: 1, placeholder: 'Any price' });
+    const $maximum = C.el('input', 'form-control').attr({ type: 'number', min: 14500, max: 2000000, step: 1000, placeholder: 'Any price' });
     [['catalog-search', 'Search name or flowers', $search], ['catalog-category', 'Category', $category],
         ['catalog-sort', 'Sort within categories', $sort], ['catalog-max-price', 'Maximum price (KZT, optional)', $maximum]]
         .forEach(([id, text, $input]) => $row.append(C.field(id, text, $input, 'col-12 col-md-6 col-lg-3')));
