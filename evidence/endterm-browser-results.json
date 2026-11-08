@@ -1,0 +1,19 @@
+{
+  "time_utc": "2026-11-08T09:38:18.431198+00:00",
+  "checks": [
+    "Vanilla JS gift planner, total, delegation, cart handoff, invalid/reset, another suggestion",
+    "jQuery catalog search, empty state, basket changes, budget helper and clearing",
+    "jQuery form field validation, gift card preview, demo confirmation and restore",
+    "jQuery bookmarks and comments add/edit/filter, search and empty states",
+    "No sideways overflow at width 375 on any of four pages",
+    "No sideways overflow at width 768 on any of four pages",
+    "No sideways overflow at width 1440 on any of four pages"
+  ],
+  "page_errors": [],
+  "console_errors": [],
+  "limitations": [
+    "Isolated HTML loaded with base URL from local HTTP server; actual CDN requests replaced with locally installed assets.",
+    "Test jQuery local full build and Bootstrap test asset may differ from production CDN; use Live Server manually.",
+    "The browser uses an injected localStorage stub for page-to-page basket tests."
+  ]
+}

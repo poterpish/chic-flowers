@@ -1,101 +1,10 @@
 {
-  "run_at": "2026-11-02T10:33:24.020661+00:00",
+  "run_at": "2026-11-08T09:18:46.667334+00:00",
   "mode": "isolated in-memory DOM",
-  "checks": [
-    {
-      "name": "Home finder: invalid/empty/reset, random recommendation, delegated add",
-      "passed": true
-    },
-    {
-      "name": "Shared basket state rehydrates in catalog",
-      "passed": true
-    },
-    {
-      "name": "Catalog connected filters, sorting, no results, reset and slide effects",
-      "passed": true
-    },
-    {
-      "name": "Cart add/increase/decrease, arithmetic, cancel/clear, empty checkout, quantity limit",
-      "passed": true
-    },
-    {
-      "name": "Order full field validation, conditional rules, escaped summary, reset, edit and fade dismiss",
-      "passed": true
-    },
-    {
-      "name": "Only cart identifiers and quantities are stored, not contact details",
-      "passed": true
-    },
-    {
-      "name": "Journal search and full comment add/edit/cancel/remove, counter and safe text",
-      "passed": true
-    },
-    {
-      "name": "Blocked-storage fallback still selects products and produces a transfer URL",
-      "passed": true
-    },
-    {
-      "name": "Malformed saved JSON recovers without script errors",
-      "passed": true
-    },
-    {
-      "name": "Unknown products removed and stored quantity clamped",
-      "passed": true
-    },
-    {
-      "name": "index.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "index.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "index.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "catalog.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "catalog.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "catalog.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "order.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "order.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "order.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "blog.html: 375px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "blog.html: 768px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "blog.html: 1440px, unique IDs, no overflow/broken loaded images, mobile nav",
-      "passed": true
-    },
-    {
-      "name": "No application JavaScript exceptions in tested interactions",
-      "passed": true
-    }
+  "checks": [],
+  "application_errors": [
+    "Cannot read properties of undefined (reading 'lastChild')"
   ],
-  "application_errors": [],
   "console_errors": [],
   "failed_resources": [],
   "limitations": [
@@ -106,5 +15,6 @@
   ],
   "jquery_version": "3.7.1",
   "bootstrap_test_version": "5.3.6",
-  "passed": true
+  "passed": false,
+  "failure": "Locator expected to contain text 'matching options'\nActual value: None\nError: element(s) not found \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\"#finder-count\")\n"
 }

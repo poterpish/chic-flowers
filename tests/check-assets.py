@@ -21,7 +21,7 @@ for page in root.glob('*.html'):
     AssetParser().feed(page.read_text())
 missing = sorted(source for source in references if not (root / source).is_file())
 report = {'passed': not missing, 'checkedReferences': len(references), 'missing': missing,
-          'note': 'The package is intended to merge with the existing repository. The uploaded sources did not include img/. Do not replace real photographs with unrelated images.'}
+          'note': 'The Endterm package contains the supplied original img/ and images/ folders; verify new dynamic image paths separately if product data changes.'}
 (root / 'evidence/asset-results.json').write_text(json.dumps(report, indent=2) + '\n')
 if missing:
     print(f'MISSING: {len(missing)} local resources; retain/restore the original img folder:')

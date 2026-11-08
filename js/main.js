@@ -186,11 +186,13 @@ $(function () {
     $('main').on('click.chic', 'button[data-add-id], button[data-buy-id]', function () {
         const $control = $(this);
         const $card = $control.closest('article[data-product-id]');
-        const id = $card.attr('data-product-id');
+        const id = $card.attr('data-product-id') || $control.attr('data-add-id') || $control.attr('data-buy-id');
         const buy = $control.is('[data-buy-id]');
-        const result = buy && cart.some((line) => line.id === id) ? { ok: true } : addToCart(id);
+        const requestedQuantity = Number($control.attr('data-add-quantity') || 1);
+        const result = buy && cart.some((line) => line.id === id) ? { ok: true } : addToCart(id, requestedQuantity);
         if (buy && result.ok) window.location.assign(checkoutURL());
-        else message($card.find('[data-product-feedback]'), result.message, result.ok ? 'success' : 'error');
+        else if ($card.length) message($card.find('[data-product-feedback]'), result.message, result.ok ? 'success' : 'error');
+        // Shared add buttons outside a product card still get site-wide feedback via commitCart/fail.
     });
 
     const $basketLink = el('a', 'nav-link', 'Basket (0)').attr({ id: 'site-basket-link', href: 'catalog.html#basket' });

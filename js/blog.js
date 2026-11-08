@@ -20,6 +20,42 @@ $(function () {
             image: $card.find('img').attr('src') || links[id][2], imageAlt: $card.find('img').attr('alt') || 'Flower arrangement',
             searchText: $(`#${id}`).text().toLowerCase(), category: links[id][0], catalog: links[id][1] });
     });
+    // ENDTERM EXTENSION (jQuery): keep a local reading list of the journal's
+    // existing useful articles. Only article IDs are stored, never visitor data.
+    const SAVED_KEY = 'chic-flowers-reading-list-v1';
+    const storedIds = C.safeRead(SAVED_KEY, []);
+    const savedIds = new Set(Array.isArray(storedIds) ? storedIds.filter((id) => articles.some((a) => a.id === id)) : []);
+    let savedOnly = false;
+    const $savedToggle = C.button('Show saved articles only', 'btn btn-outline-dark').attr('id', 'article-saved-toggle');
+    const $savedStatus = C.el('p', 'small text-secondary').attr({ id: 'reading-list-status', role: 'status', 'aria-live': 'polite' });
+    const $savedItems = C.el('ul', 'list-group').attr('id', 'reading-list-items');
+    const $savedPanel = C.el('section', 'container py-4').attr('id', 'reading-list');
+    $savedPanel.append(C.el('h2', 'h4', 'Your saved reading list'),
+        C.el('p', 'text-secondary small', 'Save an article to read later on this browser. You can remove it anytime.'),
+        $savedStatus, $savedItems).insertAfter($posts);
+    function renderSaved() {
+        const chosen = articles.filter((article) => savedIds.has(article.id));
+        $savedItems.empty();
+        chosen.forEach((article) => {
+            C.el('li', 'list-group-item d-flex flex-wrap gap-2 justify-content-between align-items-center')
+                .append(C.el('a', 'text-break', article.title).attr('href', `#${article.id}`),
+                    C.button('Remove saved', 'btn btn-outline-secondary btn-sm')
+                        .attr({ 'data-unsave-id': article.id, 'aria-label': `Remove ${article.title} from reading list` }))
+                .appendTo($savedItems);
+        });
+        if (chosen.length === 0) $savedItems.append(C.el('li', 'list-group-item text-secondary', 'No articles saved yet. Save one from the cards above.'));
+        $savedStatus.text(`${chosen.length} saved article(s).`);
+        $savedToggle.toggleClass('active', savedOnly).text(savedOnly ? 'Show all matching articles' : 'Show saved articles only');
+    }
+    function toggleSaved(id) {
+        if (!articles.some((article) => article.id === id)) return;
+        if (savedIds.has(id)) savedIds.delete(id);
+        else savedIds.add(id);
+        const stored = C.safeWrite(SAVED_KEY, [...savedIds]);
+        renderArticles(); renderSaved();
+        C.message($savedNotice, `${savedIds.has(id) ? 'Saved' : 'Removed'} article. ${stored ? 'Your reading list was updated in this browser.' : 'Storage is unavailable; changes last only until reload.'}`);
+    }
+    const $savedNotice = C.el('p', 'hidden').attr({ id: 'reading-list-notice', role: 'status', 'aria-live': 'polite' }).appendTo($savedPanel);
     const $search = C.el('input', 'form-control').attr({ type: 'search', maxlength: 100, placeholder: 'Try roses, water or gift' });
     const $category = C.el('select', 'form-select');
     topics.forEach((topic) => C.option($category, topic.id, topic.label));
@@ -28,15 +64,20 @@ $(function () {
         .append(C.field('article-search', 'Search articles', $search), C.field('article-category', 'Topic', $category), C.el('div', 'col-12').append($reset));
     const $count = C.el('p', 'text-secondary').attr({ id: 'article-count', role: 'status', 'aria-live': 'polite' });
     const $list = $posts.children('.row').first().attr('id', 'article-results').addClass('row-cols-1 row-cols-md-2 row-cols-lg-3');
+    $controls.find('.col-12').last().append($savedToggle);
     $controls.insertBefore($list); $count.insertBefore($list);
     function renderArticle(article) {
         const $picture = C.el('img', 'card-img-top').attr({ src: article.image, alt: article.imageAlt, loading: 'lazy' });
         C.watchImage($picture);
-        return C.el('article', 'col').append(C.el('div', 'card h-100 shadow-sm product-card journal-card').attr('data-article-id', article.id)
-            .append($picture, C.el('div', 'card-body d-flex flex-column').append(
-                C.el('p', 'small text-secondary', topics.find((t) => t.id === article.category).label),
-                C.el('h3', 'card-title h5', article.title), C.el('p', 'card-text', article.description),
-                C.el('a', 'btn btn-dark mt-auto', 'Read article').attr({ href: `#${article.id}`, 'aria-label': `Read ${article.title}` }))));
+        const saved = savedIds.has(article.id);
+        const $body = C.el('div', 'card-body d-flex flex-column').append(
+            C.el('p', 'small text-secondary', topics.find((t) => t.id === article.category).label),
+            C.el('h3', 'card-title h5', article.title), C.el('p', 'card-text', article.description),
+            C.el('a', 'btn btn-dark mt-auto', 'Read article').attr({ href: `#${article.id}`, 'aria-label': `Read ${article.title}` }),
+            C.button(saved ? 'Remove from saved' : 'Save for later', 'btn btn-outline-dark btn-sm mt-2')
+                .attr({ 'data-save-article': article.id, 'aria-pressed': String(saved) }).toggleClass('selected', saved));
+        return C.el('article', 'col').append(C.el('div', 'card h-100 shadow-sm product-card journal-card')
+            .attr('data-article-id', article.id).append($picture, $body));
     }
     function markCurrentArticle() {
         const id = window.location.hash.slice(1);
@@ -45,14 +86,31 @@ $(function () {
     function renderArticles() {
         const term = $search.val().trim().toLowerCase();
         const matches = articles.filter((article) => ($category.val() === 'all' || article.category === $category.val()) &&
-            `${article.title} ${article.description} ${article.searchText}`.toLowerCase().includes(term));
+            `${article.title} ${article.description} ${article.searchText}`.toLowerCase().includes(term) &&
+            (!savedOnly || savedIds.has(article.id)));
         $list.empty();
         matches.forEach((article) => $list.append(renderArticle(article)));
-        if (!matches.length) $list.append(C.el('p', 'col-12 state-message', 'No articles match. Try another word or reset the filters.').attr('id', 'article-empty'));
+        if (!matches.length) $list.append(C.el('p', 'col-12 state-message', savedOnly ? 'No saved articles match. Save an article or show all matching articles.' : 'No articles match. Try another word or reset the filters.').attr('id', 'article-empty'));
         $count.text(`${matches.length} of ${articles.length} articles match.`);
         $reset.toggleClass('active', term !== '' || $category.val() !== 'all');
         markCurrentArticle();
     }
+    // Delegation: save buttons are recreated every time the article results change.
+    $list.on('click', 'button[data-save-article]', function () {
+        const id = $(this).closest('[data-article-id]').attr('data-article-id');
+        toggleSaved(id);
+        const $next = $list.find('button[data-save-article]').filter(function () { return $(this).attr('data-save-article') === id; });
+        C.focus($next.length ? $next : $savedToggle);
+    });
+    $savedItems.on('click', 'button[data-unsave-id]', function () {
+        toggleSaved($(this).attr('data-unsave-id'));
+        C.focus($savedToggle);
+    });
+    $savedToggle.on('click', function () {
+        savedOnly = !savedOnly;
+        renderArticles(); renderSaved();
+        C.focus($(this));
+    });
     $controls.on('submit', function (event) { event.preventDefault(); renderArticles(); }); // Prevent page reload during a local search.
     $search.on('input', renderArticles); $category.on('change', renderArticles);
     $reset.on('click', function () { $search.val(''); $category.val('all'); renderArticles(); C.focus($search); });
@@ -209,5 +267,5 @@ $(function () {
         }
         C.focus($name);
     });
-    renderArticles(); updateCounter(); renderComments();
+    renderArticles(); renderSaved(); updateCounter(); renderComments();
 });

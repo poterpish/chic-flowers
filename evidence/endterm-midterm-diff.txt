@@ -1,0 +1,11 @@
+Actual uploaded archive working tree versus historical midterm tag. Differences PRE-DATE this endterm revision.
+
+163	390	blog.html
+727	53	catalog.html
+49	0	css/alua.css
+356	356	css/base.css
+11	25	css/gauhar.css
+8	2	index.html
+179	572	order.html
+
+The original midterm tag has not been modified. Student should ask instructor about inherited corrections.

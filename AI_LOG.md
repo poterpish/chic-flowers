@@ -68,3 +68,10 @@ AI was used to explain concepts, identify possible problems, and help understand
 ## 2026-10-19 — Full-site review and revision
 - Asked AI to update Gauhar's Order and Blog pages to match Alua's Home and Catalog design, using Bootstrap and no custom JavaScript.
 - AI assisted with HTML/CSS changes, consistency checks, and documentation. Verify all changes and disclose assistance as required by the course.
+
+## 2026-11-08 — Endterm AI assistance (disclosure)
+- Asked AI to inspect the uploaded `chic-flowers(1).rar` and help complete the Endterm for both team areas.
+- AI helped identify and remove an accidental JavaScript runtime error in `js/main.js` (`get.elementById` and invalid DOM method casing).
+- AI-assisted updates: a plain-JavaScript occasion/quantity/total-budget gift planner on Home; a jQuery basket-budget assistant on Catalog; a jQuery optional greeting-card preview on Order; a jQuery saved-reading-list feature on Blog.
+- AI helped create/revise automated tests, this README and setup notes. The automated tests do not establish a real payment integration, teacher acceptance, manual teammate quality pass or a successful defense.
+- Students must inspect, test, understand and explain the final code, and follow the course's AI attribution rules; this entry does not claim independent student authorship for AI-generated portions.

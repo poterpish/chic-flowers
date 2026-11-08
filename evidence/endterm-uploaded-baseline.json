@@ -1,0 +1,12 @@
+{
+  "description": "Endterm output should keep these exact HTML/CSS bytes from user-supplied RAR, NOT from historical midterm",
+  "sha256": {
+    "index.html": "e761df84c4ea5ab822f41254429c2e90671c923abee66aa4d55f8da7bc16c6c2",
+    "catalog.html": "ae61c1c77d7657d3371de466d9ff633185f354476bf45ae6f9dc8584c140fc52",
+    "order.html": "6fe8921bacc7810db34ec98fdea95afa743b6b6cd9453777e56be958a283f220",
+    "blog.html": "88f4299f0b232a459da9ad3b4456707be007757117c599339112c8b6fd17285d",
+    "css/alua.css": "30da76e00d3e205db2d2bc4d603c68dc079b87d89027a0332ca7ec1cd5d53d8a",
+    "css/base.css": "2e16a2df30a2d3045e5a04765f1f1ac1326f1c73f8cc2dfe979c680e66c8736f",
+    "css/gauhar.css": "2f825ec1af17cb9a5efb7a2ac0061cf24c26b56e5a26d145be80428adcbec1b2"
+  }
+}

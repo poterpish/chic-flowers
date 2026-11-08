@@ -1,3 +1,7 @@
+# Earlier jQuery Assignment 4 checklist (historical)
+
+**The line references below describe the preceding jQuery submission and are not the updated Endterm source map.** For the current version, see `ENDTERM_CODE_MAP.md`. This earlier list is retained only to compare the course stages.
+
 # jQuery requirement map
 
 Optional source navigation for the final jQuery assignment; not a required written report. Regenerate after editing with `python tests/update-jquery-checklist.py`.

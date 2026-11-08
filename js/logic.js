@@ -1,7 +1,8 @@
 'use strict';
 
-// Assignment 4: pure project logic. These functions can run without a page.
-// Reused by both students; DOM and events belong to Assignment 5 files.
+// Plain JavaScript project logic shared by the Home planner and jQuery interfaces.
+// These reusable functions have no DOM dependencies and accept parameters/return results.
+
 (() => {
     const { products, settings } = globalThis.ChicData;
 

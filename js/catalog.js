@@ -151,6 +151,61 @@ $(function () {
     $prompt.append(C.el('p', '', 'Remove every bouquet from your basket?'), C.el('div', 'd-flex flex-wrap gap-2').append($confirm, $cancel));
     $list.parent().append($clear, $prompt);
     const $feedback = C.el('p', 'hidden').attr({ id: 'basket-feedback', role: 'status' }).appendTo($basket);
+    // ENDTERM EXTENSION (jQuery): compare the entire basket against a visitor's
+    // spending limit; suggest an additional bouquet only when it really fits.
+    // No invented delivery charge or commercial discount is included.
+    const $giftBudget = C.el('input', 'form-control').attr({
+        id: 'basket-budget', type: 'number', min: 1, max: 2000000, step: 1,
+        placeholder: 'For example: 100000', 'aria-describedby': 'basket-budget-help'
+    });
+    const $budgetMessage = C.el('p', 'hidden').attr({ id: 'basket-budget-status', role: 'status', 'aria-live': 'polite' });
+    const $budgetCandidates = C.el('div', 'd-flex flex-column gap-2 mt-3').attr('id', 'basket-budget-candidates');
+    const $budgetSection = C.el('section', 'border rounded p-3 mt-4').attr({ id: 'basket-budget-panel', 'aria-label': 'Plan a total bouquet budget' });
+    $budgetSection.append(C.el('h4', 'h5', 'Check your total gift budget'),
+        C.el('label', 'form-label', 'Maximum spend on bouquets (KZT)').attr('for', 'basket-budget'), $giftBudget,
+        C.el('p', 'form-text', 'Optional. Compares the complete basket against your budget; excludes delivery.').attr('id', 'basket-budget-help'),
+        $budgetMessage, $budgetCandidates);
+    $basket.find('.brand-note').append($budgetSection);
+    function renderBudgetPlan() {
+        const raw = $giftBudget.val().trim();
+        const limit = Number(raw);
+        const totals = C.getTotals();
+        $budgetCandidates.empty();
+        if (raw === '') {
+            C.clearFieldError($giftBudget);
+            C.message($budgetMessage, 'Enter a budget to see the remaining amount and suitable additions.');
+            return;
+        }
+        if (!Number.isInteger(limit) || limit < 1 || limit > 2000000 || $giftBudget.prop('validity').badInput) {
+            C.fieldError($giftBudget, 'Use a whole total budget from 1 to 2,000,000 KZT.');
+            C.message($budgetMessage, 'Correct your budget before comparing bouquet costs.', 'error');
+            return;
+        }
+        C.clearFieldError($giftBudget);
+        const difference = limit - totals.total;
+        if (difference < 0) {
+            C.message($budgetMessage, `Your bouquet subtotal exceeds the budget by ${L.formatMoney(-difference)}. Reduce quantities or choose lower-priced arrangements.`, 'error');
+            return;
+        }
+        C.message($budgetMessage, `Basket: ${L.formatMoney(totals.total)} of ${L.formatMoney(limit)}. Remaining: ${L.formatMoney(difference)}. Delivery is not included.`);
+        if (totals.quantity >= settings.maxItems) {
+            $budgetCandidates.append(C.el('p', 'small mb-0', 'The demo basket has reached its quantity limit.')); return;
+        }
+        const inCart = new Set(totals.lines.map((line) => line.id));
+        const eligible = products.filter((item) => !inCart.has(item.id) && item.price <= difference)
+            .sort((a, b) => b.price - a.price || a.name.localeCompare(b.name)).slice(0, 3);
+        $budgetCandidates.append(C.el('h5', 'h6 mb-0', 'Optional additions that fit the remaining budget'));
+        if (eligible.length === 0) {
+            $budgetCandidates.append(C.el('p', 'small text-secondary mb-0', 'No other bouquet fits the remaining amount. Your current selection is still available.')); return;
+        }
+        eligible.forEach((item) => {
+            const $button = C.button(`Add ${C.productLabel(item)}`, 'btn btn-outline-dark btn-sm')
+                .attr({ 'data-add-id': item.id, 'aria-label': `Add ${C.productLabel(item)} to basket` });
+            $budgetCandidates.append(C.el('div', 'd-flex flex-wrap justify-content-between gap-2 align-items-center')
+                .append(C.el('span', 'small text-break', `${C.productLabel(item)} — ${L.formatMoney(item.price)}`), $button));
+        });
+    }
+    $giftBudget.on('input', renderBudgetPlan);
     function renderBasket() {
         const $focused = $(':focus');
         const previousId = $focused.attr('data-product-id');
@@ -172,6 +227,7 @@ $(function () {
         $total.text(L.formatMoney(totals.total));
         $quantity.text(`${totals.quantity} arrangements · ${totals.lines.length} different options. Delivery is quoted by the shop.`);
         $checkout.add($clear).prop('disabled', totals.quantity === 0);
+        renderBudgetPlan();
         $prompt.stop(true, true).addClass('hidden').removeAttr('style');
         if (previousId && previousAction) {
             let $next = $list.find('button:not(:disabled)').filter(function () {

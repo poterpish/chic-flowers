@@ -2,5 +2,5 @@
   "passed": true,
   "checkedReferences": 49,
   "missing": [],
-  "note": "The package is intended to merge with the existing repository. The uploaded sources did not include img/. Do not replace real photographs with unrelated images."
+  "note": "The Endterm package contains the supplied original img/ and images/ folders; verify new dynamic image paths separately if product data changes."
 }

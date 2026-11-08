@@ -58,6 +58,21 @@ $(function () {
     $addressHelp.text('Include Astana, street and building. Confirm service coverage and delivery charges with the shop.');
     const $counter = C.el('div', 'form-text').attr('id', 'order-message-count').insertAfter(f.message);
     f.message.attr('aria-describedby', 'order-message-count');
+    // ENDTERM EXTENSION (jQuery): optional greeting-card message with a live
+    // preview. A visitor can opt in, edit it, or opt out before demo checkout.
+    f.giftCard = C.el('input', 'form-check-input').attr({ id: 'include-gift-card', type: 'checkbox' });
+    f.giftText = C.el('textarea', 'form-control').attr({
+        id: 'gift-card-text', rows: 3, maxlength: 160, placeholder: 'Write a personal greeting for the recipient'
+    });
+    const $giftCheckbox = C.el('div', 'col-12 form-check ms-2').append(f.giftCard,
+        C.el('label', 'form-check-label', 'Include a greeting-card message').attr('for', 'include-gift-card'));
+    const $giftFields = C.field('gift-card-text', 'Greeting card message (required when selected)', f.giftText, 'col-12 hidden')
+        .attr('id', 'gift-card-fields');
+    const $giftCounter = C.el('p', 'form-text').attr('id', 'gift-card-count');
+    const $giftPreview = C.el('div', 'border rounded p-3 text-break').attr({ id: 'gift-card-preview', role: 'status', 'aria-live': 'polite' });
+    $giftFields.append($giftCounter, $giftPreview);
+    $giftCheckbox.insertAfter(f.message.parent());
+    $giftFields.insertAfter($giftCheckbox);
     const $summaryItems = C.el('ul', 'list-group mb-3').attr({ id: 'order-summary-items', 'aria-label': 'Your basket summary' });
     const $summaryTotals = C.el('div', 'border-top pt-3 mb-3').attr({ id: 'order-live-totals', 'aria-live': 'polite', 'aria-atomic': 'true' });
     const $preferences = C.el('div', 'mb-3 text-break').attr('id', 'order-live-preferences');
@@ -75,6 +90,7 @@ $(function () {
             date: f.date.val(), time: f.time.val(), quantity: Number(f.quantity.val()),
             receive: $form.find('input[name="receive"]:checked').val() || '',
             location: f.location.val(), address: f.address.val().trim(), message: f.message.val().trim(),
+            giftCard: f.giftCard.prop('checked'), giftText: f.giftText.val().trim(),
             payment: $form.find('input[name="payment"]:checked').val() || '', consent: f.consent.prop('checked') };
         // .prop('checked') reads the LIVE boolean; .attr('checked') describes initial markup.
     }
@@ -101,6 +117,7 @@ $(function () {
             [f.quantity, !Number.isInteger(v.quantity) || v.quantity < 1 || v.quantity > settings.maxItems || v.quantity !== totals.quantity ? 'Quantity must match your basket. Use its quantity buttons.' : ''],
             [f.date, L.validateDate(v.date, now)], [f.time, timeError],
             [f.message, v.message.length > 500 ? 'Keep your requests within 500 characters.' : ''],
+            [f.giftText, v.giftCard && (v.giftText.length < 2 || v.giftText.length > 160) ? 'Write 2–160 characters for the greeting card.' : ''],
             [f.pickup, !['pickup', 'delivery'].includes(v.receive) ? 'Choose pickup or delivery.' : ''],
             [f.location, v.receive === 'pickup' && !settings.locations.includes(v.location) ? 'Choose one of the two pickup locations.' : ''],
             [f.address, addressError], [f.store, paymentError],
@@ -118,6 +135,10 @@ $(function () {
         f.location.prop({ disabled: delivery, required: !delivery });
         f.address.prop({ disabled: !delivery, required: delivery });
         C.clearFieldError(delivery ? f.location : f.address);
+        const includeCard = f.giftCard.prop('checked');
+        $giftFields.toggleClass('hidden', !includeCard);
+        f.giftText.prop({ disabled: !includeCard, required: includeCard });
+        if (!includeCard) C.clearFieldError(f.giftText);
         f.date.attr({ min: L.todayInAstana(), max: L.dateAfter(settings.maxDaysAhead) });
         if (f.date.val() === L.todayInAstana()) f.time.attr('min', currentTime());
         else f.time.removeAttr('min');
@@ -131,6 +152,8 @@ $(function () {
         $preferences.empty().append(C.el('p', 'small mb-1', v.receive === 'delivery' ? `Delivery: ${v.address || 'enter an Astana address'}` : `Pickup: ${v.location || 'choose a location'}`),
             C.el('p', 'small mb-1', `Preferred date: ${v.date || 'not selected'}`), C.el('p', 'small mb-0', `Preferred time: ${v.time || 'not selected'} (Astana)`));
         $counter.text(`${f.message.val().length} / 500 characters`);
+        $giftCounter.text(`${f.giftText.val().trim().length} / 160 characters`);
+        $giftPreview.text(v.giftCard ? (v.giftText || 'Enter your greeting above to preview it here.') : 'No greeting card selected.');
         $submit.prop('disabled', totals.quantity === 0);
     }
     function renderBasket() {
@@ -171,7 +194,8 @@ $(function () {
     }
     function clearDetails() {
         // Reset all editable values after success; derived basket values are repopulated.
-        [f.name, f.phone, f.email, f.date, f.time, f.location, f.address, f.message].forEach(($input) => $input.val(''));
+        [f.name, f.phone, f.email, f.date, f.time, f.location, f.address, f.message, f.giftText].forEach(($input) => $input.val(''));
+        f.giftCard.prop('checked', false);
         f.pickup.add(f.store).prop('checked', true);
         f.delivery.add(f.remote).add(f.consent).prop('checked', false);
         $form.find('input, select, textarea').each(function () { C.clearFieldError($(this)); });
@@ -201,8 +225,8 @@ $(function () {
         addSummaryRow($details, 'Preferred date and time', `${v.date}, ${v.time} (Astana)`);
         addSummaryRow($details, v.receive === 'delivery' ? 'Delivery address' : 'Pickup location', v.receive === 'delivery' ? v.address : v.location);
         addSummaryRow($details, 'Payment preference', v.payment === 'remote' ? 'Ask the shop about remote payment' : 'Arrange payment at the shop');
-        if (v.message) addSummaryRow($details, 'Card message / requests', v.message);
-        // .html() is appropriate ONLY for this fixed trusted markup, never user input.
+        if (v.message) addSummaryRow($details, 'Special requests', v.message);
+        if (v.giftCard) addSummaryRow($details, 'Greeting card (subject to florist confirmation)', v.giftText);        // .html() is appropriate ONLY for this fixed trusted markup, never user input.
         // Names, messages and all values above use .text() through C.el().
         const $notice = C.el('p').html('<strong>Demonstration only.</strong> No data has been sent to a server. No real order, reservation or payment has been created.');
         $confirmation.stop(true, true).empty().addClass('state-message success hidden').removeClass('error').removeAttr('style').append(
@@ -276,6 +300,7 @@ $(function () {
         if (!lastPreview) return;
         const v = lastPreview.values;
         ['name', 'phone', 'email', 'date', 'time', 'location', 'address', 'message'].forEach((key) => f[key].val(v[key]));
+        f.giftCard.prop('checked', v.giftCard); f.giftText.val(v.giftText);
         f.pickup.prop('checked', v.receive === 'pickup'); f.delivery.prop('checked', v.receive === 'delivery');
         f.store.prop('checked', v.payment === 'store'); f.remote.prop('checked', v.payment === 'remote');
         f.consent.prop('checked', false); // Explicitly agree again when preparing another preview.
