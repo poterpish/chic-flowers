@@ -61,7 +61,7 @@ $(function () {
     topics.forEach((topic) => C.option($category, topic.id, topic.label));
     const $reset = C.button('Reset article filters').attr('id', 'article-reset');
     const $controls = C.el('form', 'row g-3 align-items-end mb-4').attr({ id: 'article-search-form', role: 'search', 'aria-label': 'Find a journal article' })
-        .append(C.field('article-search', 'Search articles', $search), C.field('article-category', 'Topic', $category), C.el('div', 'col-12').append($reset));
+        .append(C.field('article-search', 'Search articles', $search), C.field('article-category', 'Topic', $category), C.el('div', 'col-12 d-flex flex-wrap gap-2').append($reset));
     const $count = C.el('p', 'text-secondary').attr({ id: 'article-count', role: 'status', 'aria-live': 'polite' });
     const $list = $posts.children('.row').first().attr('id', 'article-results').addClass('row-cols-1 row-cols-md-2 row-cols-lg-3');
     $controls.find('.col-12').last().append($savedToggle);
