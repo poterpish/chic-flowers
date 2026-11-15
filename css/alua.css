@@ -140,3 +140,6 @@ body:has(#pick-boxes-grand-romance:checked) #basket-pick-boxes-grand-romance { d
 body:has(#pick-boxes-blue-serenity:checked) #basket-pick-boxes-blue-serenity { display: flex; counter-increment: basket-total 39900; }
 body:has(#pick-boxes-blushing-clouds:checked) #basket-pick-boxes-blushing-clouds { display: flex; counter-increment: basket-total 22900; }
 body:has(#pick-boxes-royal-bloom-alt:checked) #basket-pick-boxes-royal-bloom-alt { display: flex; counter-increment: basket-total 180000; }
+.navbar .nav-link.active {
+    font-weight: 700;
+}

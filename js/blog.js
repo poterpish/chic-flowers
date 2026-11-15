@@ -33,20 +33,44 @@ $(function () {
     $savedPanel.append(C.el('h2', 'h4', 'Your saved reading list'),
         C.el('p', 'text-secondary small', 'Save an article to read later on this browser. You can remove it anytime.'),
         $savedStatus, $savedItems).insertAfter($posts);
-    function renderSaved() {
-        const chosen = articles.filter((article) => savedIds.has(article.id));
-        $savedItems.empty();
-        chosen.forEach((article) => {
-            C.el('li', 'list-group-item d-flex flex-wrap gap-2 justify-content-between align-items-center')
-                .append(C.el('a', 'text-break', article.title).attr('href', `#${article.id}`),
-                    C.button('Remove saved', 'btn btn-outline-secondary btn-sm')
-                        .attr({ 'data-unsave-id': article.id, 'aria-label': `Remove ${article.title} from reading list` }))
-                .appendTo($savedItems);
-        });
-        if (chosen.length === 0) $savedItems.append(C.el('li', 'list-group-item text-secondary', 'No articles saved yet. Save one from the cards above.'));
-        $savedStatus.text(`${chosen.length} saved article(s).`);
-        $savedToggle.toggleClass('active', savedOnly).text(savedOnly ? 'Show all matching articles' : 'Show saved articles only');
+
+function renderSaved() {
+    const chosen = articles.filter((article) => savedIds.has(article.id));
+
+    $savedItems.empty();
+
+    chosen.forEach((article) => {
+        C.el('li', 'list-group-item d-flex flex-wrap gap-2 justify-content-between align-items-center')
+            .append(
+                C.el('a', 'text-break', article.title)
+                    .attr('href', `#${article.id}`),
+
+                C.button('Remove saved', 'btn btn-outline-secondary btn-sm')
+                    .attr({
+                        'data-unsave-id': article.id,
+                        'aria-label': `Remove ${article.title} from reading list`
+                    })
+            )
+            .appendTo($savedItems);
+    });
+
+    if (chosen.length === 0) {
+        const message = savedOnly
+            ? 'Your reading list is empty.'
+            : 'No articles saved yet. Use "Save for later" to add articles.';
+
+        $savedItems.append(
+            C.el('li', 'list-group-item text-secondary', message)
+        );
     }
+
+    const word = chosen.length === 1 ? 'article' : 'articles';
+    $savedStatus.text(`${chosen.length} saved ${word}.`);
+
+    $savedToggle
+        .toggleClass('active', savedOnly)
+        .text(savedOnly ? 'Show all matching articles' : 'Show saved articles only');
+}
     function toggleSaved(id) {
         if (!articles.some((article) => article.id === id)) return;
         if (savedIds.has(id)) savedIds.delete(id);
@@ -61,7 +85,7 @@ $(function () {
     topics.forEach((topic) => C.option($category, topic.id, topic.label));
     const $reset = C.button('Reset article filters').attr('id', 'article-reset');
     const $controls = C.el('form', 'row g-3 align-items-end mb-4').attr({ id: 'article-search-form', role: 'search', 'aria-label': 'Find a journal article' })
-        .append(C.field('article-search', 'Search articles', $search), C.field('article-category', 'Topic', $category), C.el('div', 'col-12').append($reset));
+        .append(C.field('article-search', 'Search articles', $search), C.field('article-category', 'Topic', $category), C.el('div', 'col-12 d-flex flex-wrap gap-2').append($reset));
     const $count = C.el('p', 'text-secondary').attr({ id: 'article-count', role: 'status', 'aria-live': 'polite' });
     const $list = $posts.children('.row').first().attr('id', 'article-results').addClass('row-cols-1 row-cols-md-2 row-cols-lg-3');
     $controls.find('.col-12').last().append($savedToggle);
@@ -83,18 +107,55 @@ $(function () {
         const id = window.location.hash.slice(1);
         $list.find('[data-article-id]').each(function () { $(this).toggleClass('selected', $(this).attr('data-article-id') === id); });
     }
-    function renderArticles() {
-        const term = $search.val().trim().toLowerCase();
-        const matches = articles.filter((article) => ($category.val() === 'all' || article.category === $category.val()) &&
-            `${article.title} ${article.description} ${article.searchText}`.toLowerCase().includes(term) &&
-            (!savedOnly || savedIds.has(article.id)));
-        $list.empty();
-        matches.forEach((article) => $list.append(renderArticle(article)));
-        if (!matches.length) $list.append(C.el('p', 'col-12 state-message', savedOnly ? 'No saved articles match. Save an article or show all matching articles.' : 'No articles match. Try another word or reset the filters.').attr('id', 'article-empty'));
-        $count.text(`${matches.length} of ${articles.length} articles match.`);
-        $reset.toggleClass('active', term !== '' || $category.val() !== 'all');
-        markCurrentArticle();
-    }
+
+function renderArticles() {
+    const term = $search.val().trim().toLowerCase();
+    const category = $category.val();
+
+    const matches = articles.filter((article) =>
+        (category === 'all' || article.category === category) &&
+        `${article.title} ${article.description} ${article.searchText}`
+            .toLowerCase().includes(term) &&
+        (!savedOnly || savedIds.has(article.id))
+    );
+
+    $list.empty();
+
+    matches.forEach((article) => {
+        $list.append(renderArticle(article));
+    });
+
+    if (matches.length === 0) {
+        let message;
+
+        if (savedOnly && savedIds.size === 0) {
+            message = "You haven't saved any articles yet.";
+        } else if (savedOnly) {
+            message = "No saved articles match your search or selected topic.";
+        } else {
+            message = "No articles found. Try another keyword or reset the filters.";
+        }
+
+
+$list.append(
+    C.el('div', 'col-12 w-100').append(
+        C.el('p', 'state-message w-100', message)
+            .attr('id', 'article-empty')
+    )
+);    }
+
+
+if (savedOnly) {
+    const word = matches.length === 1 ? 'article matches' : 'articles match';
+    $count.text(`${matches.length} saved ${word}.`);
+} else {
+    $count.text(`${matches.length} of ${articles.length} articles match.`);
+}
+    $reset.toggleClass('active', term !== '' || category !== 'all');
+
+    markCurrentArticle();
+}
+    
     // Delegation: save buttons are recreated every time the article results change.
     $list.on('click', 'button[data-save-article]', function () {
         const id = $(this).closest('[data-article-id]').attr('data-article-id');
@@ -115,6 +176,123 @@ $(function () {
     $search.on('input', renderArticles); $category.on('change', renderArticles);
     $reset.on('click', function () { $search.val(''); $category.val('all'); renderArticles(); C.focus($search); });
     $(window).on('hashchange', markCurrentArticle);
+    // Article slideshow
+const $articleSlides = $('.journal-article');
+const slideIds = $articleSlides.map(function () {
+    return this.id;
+}).get();
+
+let currentSlide = 0;
+
+const $slideNavigation = $('<nav>', {
+    class: 'container d-flex flex-column align-items-center gap-3 pb-4',
+    'aria-label': 'Article slideshow navigation'
+});
+
+const $slideButtons = $('<div>', {
+    class: 'd-flex align-items-center gap-3 flex-wrap justify-content-center'
+});
+
+const $previous = $('<button>', {
+    type: 'button',
+    class: 'btn btn-outline-dark',
+    text: '← Previous'
+});
+
+const $next = $('<button>', {
+    type: 'button',
+    class: 'btn btn-outline-dark',
+    text: 'Next →'
+});
+
+const $slideCounter = $('<span>', {
+    class: 'small text-secondary',
+    'aria-live': 'polite'
+});
+
+const $dots = $('<div>', {
+    class: 'd-flex justify-content-center gap-2',
+    'aria-label': 'Choose article'
+});
+
+function showSlide(index, updateHash = false) {
+    if (index < 0 || index >= slideIds.length) return;
+
+    currentSlide = index;
+
+    $articleSlides.each(function (i) {
+        $(this).toggleClass('d-none', i !== currentSlide);
+    });
+
+    $slideCounter.text(`${currentSlide + 1} of ${slideIds.length}`);
+
+    $previous.prop('disabled', currentSlide === 0);
+    $next.prop('disabled', currentSlide === slideIds.length - 1);
+
+    $dots.find('button').each(function (i) {
+        const selected = i === currentSlide;
+
+        $(this)
+            .toggleClass('btn-dark', selected)
+            .toggleClass('btn-outline-dark', !selected)
+            .attr('aria-pressed', String(selected));
+    });
+
+    if (updateHash) {
+        window.location.hash = slideIds[currentSlide];
+    }
+
+    markCurrentArticle();
+}
+
+slideIds.forEach((id, index) => {
+    const title = $(`#${id}`).find('h2').first().text();
+
+    const $dot = $('<button>', {
+        type: 'button',
+        class: 'btn btn-outline-dark rounded-circle p-0',
+        'aria-label': `Show article: ${title}`,
+        'aria-pressed': 'false',
+        title: title
+    }).css({
+        width: '16px',
+        height: '16px'
+    });
+
+    $dot.on('click', function () {
+        showSlide(index, true);
+    });
+
+    $dots.append($dot);
+});
+
+$previous.on('click', function () {
+    showSlide(currentSlide - 1, true);
+});
+
+$next.on('click', function () {
+    showSlide(currentSlide + 1, true);
+});
+
+$slideButtons.append($previous, $slideCounter, $next);
+$slideNavigation.append($slideButtons, $dots);
+$articleSlides.last().after($slideNavigation);
+
+function syncSlideWithHash() {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    const index = slideIds.indexOf(id);
+
+    if (index !== -1) {
+        showSlide(index);
+    }
+}
+
+$(window).on('hashchange', syncSlideWithHash);
+
+const initialId = decodeURIComponent(window.location.hash.slice(1));
+const initialIndex = slideIds.indexOf(initialId);
+
+showSlide(initialIndex === -1 ? 0 : initialIndex);
 
     // Local comments are neither saved to storage nor published as real customer reviews.
     const comments = [];
