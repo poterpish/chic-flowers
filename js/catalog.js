@@ -8,8 +8,8 @@ $(function () {
     const L = window.ChicLogic;
     const { products, categories, settings } = window.ChicData;
     const arrangementCount = new Set(products.map((p) => p.groupId)).size;
-    $intro.find('.lead').text(`Explore ${arrangementCount} arrangements in ${products.length} size options. Search, compare estimates and prepare a demonstration order.`);
-    $intro.find('p.small.mb-0').text('Add bouquets, adjust quantities and continue to the order form. Confirm availability and final prices with Chic Flowers.');
+    $intro.find('.lead').text('Discover bouquets that speak from the heart. Every arrangement is chosen with care.');
+    $intro.find('p.small.mb-0').addClass('d-none');
 
     const $form = C.el('form', 'container pb-4').attr({ id: 'catalog-controls', 'aria-label': 'Filter the flower catalog' }).prop('noValidate', true);
     const $row = C.el('div', 'row g-3 align-items-end').attr('id', 'catalog-filter-panel');
@@ -30,7 +30,24 @@ $(function () {
     const $count = C.el('p', 'fw-semibold mt-3 mb-0').attr({ id: 'catalog-count', role: 'status', 'aria-live': 'polite' });
     const $empty = C.el('p', 'hidden').attr({ id: 'catalog-empty', role: 'status' });
     const $linkFeedback = C.el('p', 'hidden').attr('id', 'catalog-link-feedback');
-    $form.append($toggle, $row, C.el('div', 'd-flex flex-wrap gap-2 mt-3').append(C.button('Apply filters', 'btn btn-dark', 'submit'), $reset), $count, $empty, $linkFeedback).insertAfter($intro);
+    // A light, two-field search with optional advanced filters (no form overload).
+    const $advanced = C.el('details', 'chic-advanced-filters');
+    const $advancedRow = C.el('div', 'row g-3 mt-1');
+    $row.children().slice(2).appendTo($advancedRow);
+    $row.children().removeClass('col-lg-3').addClass('col-lg-6');
+    $advanced.append(C.el('summary', '', 'More filters'), $advancedRow,
+        C.el('div', 'mt-3').append($reset));
+    $toggle.addClass('d-none');
+    $form.append($row, $advanced, $count, $empty, $linkFeedback).insertAfter($intro);
+    const $collection = C.el('section', 'container chic-curated-collection').attr('id', 'curated-catalog');
+    const $collectionHead = C.el('div', 'chic-collection-head').append(
+        C.el('div').append(C.el('p', 'chic-eyebrow', 'CHIC FLOWERS · ASTANA'), C.el('h2', '', 'Find something beautiful'))
+    );
+    const $curatedGrid = C.el('div', 'row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4').attr('id', 'curated-products');
+    const $loadMore = C.button('Discover more bouquets', 'btn chic-load-more').attr('id', 'chic-load-more');
+    $collection.append($collectionHead, $curatedGrid, C.el('div', 'text-center mt-5').append($loadMore)).insertAfter($form);
+    let shownCount = 9;
+    $loadMore.on('click', function () { shownCount += 9; renderCatalog(false, false); });
     const sections = categories.map((item) => {
         const $section = $(`#${item.id}`);
         return { ...item, $section, $grid: $section.find('.row').first().attr('id', `catalog-${item.id}-results`), $badge: $section.find('.badge') };
@@ -60,7 +77,7 @@ $(function () {
         const filters = readFilters();
         if (!filters.valid) {
             C.fieldError($maximum, 'Use a whole price from 1 to 2,000,000 KZT, or leave the filter blank.');
-            sections.forEach((s) => s.$section.addClass('hidden'));
+            $curatedGrid.empty(); $loadMore.addClass('d-none');
             $count.text('Enter a valid maximum price.');
             C.message($empty, 'Correct the price filter or reset the filters.', 'error');
             if (focusInvalid) { C.reveal($row); C.focus($maximum); }
@@ -68,13 +85,11 @@ $(function () {
         }
         C.clearFieldError($maximum);
         const matches = L.filterProducts(products, filters);
-        sections.forEach((s) => {
-            const subset = matches.filter((product) => product.category === s.id);
-            C.renderProducts(subset, s.$grid);
-            s.$section.toggleClass('hidden', !subset.length);
-            s.$badge.text(`${subset.length} options`);
+        C.renderProducts(matches.slice(0, shownCount), $curatedGrid, {
+            emptyText: 'No bouquets found. Try another category or search.'
         });
-        $count.text(`${matches.length} of ${products.length} catalog options match your choices.`);
+        $loadMore.toggleClass('d-none', matches.length <= shownCount);
+        $count.text(`${matches.length} bouquets · Showing ${Math.min(matches.length, shownCount)}`);
         C.message($empty, !matches.length ? 'No bouquets match these filters. Try another word, increase your maximum price or Reset filters.' : '', 'error');
         $intro.find('a[href^="#"]').each(function () {
             const id = $(this).attr('href').slice(1);
@@ -99,10 +114,10 @@ $(function () {
         event.preventDefault(); // Without this, GET navigation would replace the filtered page.
         renderCatalog(true);
     });
-    $form.on('input', 'input', function () { renderCatalog(); });
-    $form.on('change', 'select', function () { renderCatalog(); });
+    $form.on('input', 'input', function () { shownCount = 9; renderCatalog(); });
+    $form.on('change', 'select', function () { shownCount = 9; renderCatalog(); });
     $reset.on('click', function () {
-        $search.val(''); $category.val('all'); $sort.val('name'); $maximum.val('');
+        $search.val(''); $category.val('all'); $sort.val('name'); $maximum.val(''); shownCount = 9;
         renderCatalog(); C.reveal($row, 'slide', function () { C.focus($search); });
         $toggle.text('Hide filters').attr('aria-expanded', 'true');
         C.announce('Filters reset. Your basket is unchanged.');
@@ -116,14 +131,14 @@ $(function () {
         const id = $(this).attr('href').slice(1);
         if (!categories.some((c) => c.id === id)) return;
         event.preventDefault(); // Update the linked filter rather than scrolling to a hidden section.
-        $category.val(id); renderCatalog();
-        const $target = $(`#${id}`);
-        C.focus(($target.hasClass('hidden') ? $form : $target).attr('tabindex', '-1'));
+        $category.val(id); shownCount = 9; renderCatalog();
+        $form[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     $(window).on('hashchange', function () {
         const id = window.location.hash.slice(1);
-        if (categories.some((c) => c.id === id)) { $category.val(id); renderCatalog(); }
+        if (categories.some((c) => c.id === id)) { $category.val(id); shownCount = 9; renderCatalog(); }
     });
+    sections.forEach((s) => s.$section.addClass('d-none').attr('aria-hidden', 'true'));
     renderCatalog(false, false);
     if (invalid.length) C.message($linkFeedback, `Invalid ${invalid.join(', ')} in the link was reset.`, 'error');
 

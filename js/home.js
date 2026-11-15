@@ -5,6 +5,7 @@
 // Unlike the previous budget-only finder, this planner considers the occasion,
 // number of arrangements, and TOTAL spending limit; each suggestion has a calculated cost.
 (() => {
+    
     const products = window.ChicData.products;
     const categories = window.ChicData.categories;
     const logic = window.ChicLogic;
@@ -14,6 +15,13 @@
         { id: 'birthday', label: 'Birthday or celebration', words: /celebrat|colour|color|bright|garden|box|mix|pink/i },
         { id: 'thanks', label: 'Thank you / appreciation', words: /ivory|white|cream|soft|pastel|elegan|hydrangea|orchid/i }
     ];
+    // const flower = {
+    //     name: "Rose",
+    //     color: "Red",
+    //     price: 25
+    //     };
+
+    // console.log(flower.name); // "Rose"
 
     // Reused for cards, form elements, labels, messages and sections.
     function create(tag, classNames = '', text = '') {
@@ -52,6 +60,39 @@
         group.append(label, input);
         return group;
     }
+
+    // document.addEventListener("DOMContentLoaded", function () {
+
+    //     const container = document.querySelector(
+    //         ".container-fluid .row.g-4.text-center"
+    //     );
+
+    //     if (!container) return;
+
+    //     const column = document.createElement("div");
+    //     column.className = "col-12 col-sm-3";
+
+    //     const card = document.createElement("div");
+    //     card.className = "p-3 border rounded h-100";
+
+    //     const title = document.createElement("strong");
+    //     title.textContent = "Delivery";
+
+    //     const description = document.createElement("small");
+    //     description.className = "text-secondary";
+    //     description.textContent = "Fast flower delivery";
+
+    //     card.append(title, document.createElement("br"), description);
+    //     column.append(card);
+
+    //     container.append(column);
+
+    //     for (const item of container.children) {
+    //         item.classList.remove("col-sm-4");
+    //         item.classList.add("col-sm-3");
+    //     }
+
+    // });
 
     function fillOptions(select, items) {
         for (const item of items) {
@@ -107,10 +148,10 @@
         if (!anchor || !shopInfo) return;
         const section = create('section', 'container py-5');
         section.id = 'bouquet-finder';
-        const title = create('h2', 'display-6', 'Plan a flower gift within your budget');
+        const title = create('h2', 'display-6', 'Not sure what to choose?');
         title.id = 'finder-heading';
         section.setAttribute('aria-labelledby', title.id);
-        const intro = create('p', 'text-secondary', 'Choose the occasion, style, number of bouquets and total budget. Suggestions are based on catalog descriptions, not current stock.');
+        const intro = create('p', 'text-secondary', 'Let us help you find the perfect flowers for your occasion.');
         const form = create('form', 'row g-3 align-items-end mb-4');
         form.id = 'finder-form';
         form.noValidate = true;
@@ -134,7 +175,9 @@
         const results = create('div', 'row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4'); results.id = 'finder-results';
         const estimate = create('div', 'hidden state-message'); estimate.id = 'gift-estimate'; estimate.setAttribute('aria-live', 'polite');
         const viewAll = create('a', 'btn btn-outline-dark mt-4', 'View matching catalog options'); viewAll.id = 'finder-view-all';
-        section.append(title, intro, form, count, error, results, estimate, viewAll);
+        const finderDetails = create('details', 'chic-gift-details');
+        finderDetails.append(create('summary', '', 'Open the gift finder'), form, count, error, results, estimate, viewAll);
+        section.append(title, intro, finderDetails);
         anchor.insertAdjacentElement('afterend', section);
 
         const inspiration = create('section', 'container py-5'); inspiration.id = 'featured-bouquet';
@@ -147,7 +190,7 @@
         left.append(inspirationTitle, create('p', 'text-secondary', 'Pick another catalog option that fits the plan. This is a suggestion, not a reservation.'), next, status);
         const right = create('div', 'col-12 col-md-6'); right.append(featuredResults);
         row.append(left, right); inspiration.append(row);
-        shopInfo.insertAdjacentElement('beforebegin', inspiration);
+        finderDetails.append(inspiration);
 
         let matches = [];
         let featuredId = '';

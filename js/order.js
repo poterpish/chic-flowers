@@ -36,6 +36,23 @@ $(function () {
     $('#order-steps .text-secondary').eq(1).text('Review your basket and choose contact details, date, time and pickup or delivery preferences.');
     f.items.siblings('.form-text').text('These items and quantities come from your basket. Change them using the summary buttons.');
 
+    // Checkout first: only name, phone, date and delivery choice are prominent.
+    // Keep the derived basket fields for validation, but do not ask visitors to retype them.
+    const $fieldset = $form.find('fieldset');
+    f.date.parent().appendTo($fieldset.eq(0).find('.row').first());
+    const $extras = C.el('details', 'chic-order-extras').append(C.el('summary', '', 'Add a note or optional details'));
+    f.email.parent().appendTo($extras);
+    f.message.parent().appendTo($extras);
+    $extras.insertBefore($fieldset.eq(3));
+    $fieldset.eq(1).addClass('d-none').attr('aria-hidden', 'true');
+    $fieldset.eq(3).addClass('chic-payment-fieldset');
+    $('#order-form-title').text('Your details');
+    $('#order-form-title + p').text('A simple checkout preview. No payment or real order is sent from this student website.');
+    $('#order-preview').text('Review order details');
+    $('#checkout > .row > .col-lg-8').removeClass('col-lg-8').addClass('col-lg-7');
+    $('#checkout > .row > .col-lg-4').removeClass('col-lg-4').addClass('col-lg-5');
+    $('#order-review').addClass('d-none');
+
     f.time = C.el('input', 'form-control').attr({ type: 'time', step: 60, required: true });
     const $timeGroup = C.field('order-time', 'Preferred time (Astana)', f.time);
     $timeGroup.append(C.el('div', 'form-text', 'A time preference only, not a reserved slot.').attr('id', 'order-time-help'));
@@ -77,9 +94,10 @@ $(function () {
     const $summaryTotals = C.el('div', 'border-top pt-3 mb-3').attr({ id: 'order-live-totals', 'aria-live': 'polite', 'aria-atomic': 'true' });
     const $preferences = C.el('div', 'mb-3 text-break').attr('id', 'order-live-preferences');
     const $basketNotice = C.el('p', 'hidden').attr({ id: 'order-basket-feedback', role: 'status' });
-    $aside.find('h2').first().text('Contact the florist');
+    $aside.find('h2').first().addClass('d-none');
+    $aside.children('p, h3, a').addClass('d-none');
     $aside.prepend(C.el('h2', 'h4 mb-3', 'Your basket summary').attr('id', 'live-summary-title'),
-        C.el('p', 'small text-secondary', `Demo limits: ${settings.maxPerItem} per option, ${settings.maxItems} arrangements. Decreasing 1 removes that item.`),
+        C.el('p', 'small text-secondary', 'Your selected flowers are ready. Adjust quantities here or in your bag.'),
         $summaryItems, $summaryTotals, $preferences, $basketNotice);
 
     function currentTime(now = new Date()) {
@@ -169,7 +187,9 @@ $(function () {
                     .prop('disabled', action === 'increase' && (line.quantity >= settings.maxPerItem || totals.quantity >= settings.maxItems)).appendTo($controls);
             });
             $controls.prepend(C.el('span', 'small', `Quantity: ${line.quantity}`));
-            C.el('li', 'list-group-item text-break').attr('data-id', line.id).append(C.el('h3', 'h6 mb-1', name),
+            C.el('li', 'list-group-item text-break chic-checkout-line').attr('data-id', line.id).append(
+                C.el('img', 'chic-checkout-photo').attr({ src: line.product.image, alt: name, loading: 'lazy' }),
+                C.el('h3', 'h6 mb-1', name),
                 C.el('p', 'small mb-1', `${L.formatMoney(line.product.price)} each × ${line.quantity}`),
                 C.el('p', 'fw-bold small mb-0', `Line subtotal: ${L.formatMoney(line.subtotal)}`), $controls).appendTo($summaryItems);
         });
